@@ -24,7 +24,7 @@ public class User {
     private String username;
     private String password;
     private String phone;
-    private LocalDateTime registeredSince = LocalDateTime.now();
+    private LocalDateTime registeredSince;
     private String firstname;
     private String secondname;
     private String email;

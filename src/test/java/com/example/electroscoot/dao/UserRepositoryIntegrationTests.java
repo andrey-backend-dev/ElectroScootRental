@@ -1,4 +1,4 @@
-package com.example.electroscoot;
+package com.example.electroscoot.dao;
 
 import com.example.electroscoot.dao.UserRepository;
 import com.example.electroscoot.entities.User;

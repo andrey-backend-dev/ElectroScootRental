@@ -6,19 +6,15 @@ import com.example.electroscoot.dao.ScooterRepository;
 import com.example.electroscoot.dto.CreateScooterDTO;
 import com.example.electroscoot.dto.ScooterDTO;
 import com.example.electroscoot.dto.UpdateScooterDTO;
-import com.example.electroscoot.dto.UpdateUserDTO;
 import com.example.electroscoot.entities.RentalPlace;
 import com.example.electroscoot.entities.Scooter;
 import com.example.electroscoot.entities.ScooterModel;
-import com.example.electroscoot.services.interfaces.IRentalPlaceService;
-import com.example.electroscoot.services.interfaces.IScooterModelService;
 import com.example.electroscoot.services.interfaces.IScooterService;
 import com.example.electroscoot.utils.enums.StateEnum;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -50,7 +46,10 @@ public class ScooterService implements IScooterService {
 
 //        указывать модель обязательно, поэтому не проверяем
         scooter.setModel(scooterModelRepository.findByName(createData.getModel()));
-        scooter.setState(createData.getState());
+
+        if (createData.getState() != null) {
+            scooter.setState(createData.getState());
+        }
 
 //        указывать точку проката необязательно, поэтому проверяем
 

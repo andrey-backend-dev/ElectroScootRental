@@ -3,19 +3,15 @@ package com.example.electroscoot.services;
 import com.example.electroscoot.dao.RentalPlaceRepository;
 import com.example.electroscoot.dao.ScooterRepository;
 import com.example.electroscoot.dto.CreateRentalPlaceDTO;
+import com.example.electroscoot.dto.RentalPlaceDTO;
+import com.example.electroscoot.dto.ScooterDTO;
 import com.example.electroscoot.dto.UpdateRentalPlaceDTO;
 import com.example.electroscoot.entities.RentalPlace;
-import com.example.electroscoot.entities.Role;
-import com.example.electroscoot.entities.Scooter;
-import com.example.electroscoot.entities.ScooterModel;
 import com.example.electroscoot.services.interfaces.IRentalPlaceService;
-import com.example.electroscoot.services.interfaces.IRoleService;
-import com.example.electroscoot.services.interfaces.IScooterService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -27,25 +23,25 @@ public class RentalPlaceService implements IRentalPlaceService {
 
     @Override
     @Transactional(readOnly = true)
-    public RentalPlace findById(int id) {
-        return rentalPlaceRepository.findById(id).orElse(null);
+    public RentalPlaceDTO findById(int id) {
+        return new RentalPlaceDTO(rentalPlaceRepository.findById(id).orElse(null));
     }
 
     @Override
     @Transactional(readOnly = true)
-    public RentalPlace findByName(String name) {
-        return rentalPlaceRepository.findByName(name);
+    public RentalPlaceDTO findByName(String name) {
+        return new RentalPlaceDTO(rentalPlaceRepository.findByName(name));
     }
 
     @Override
     @Transactional(readOnly = true)
-    public List<RentalPlace> getList() {
-        return (List<RentalPlace>) rentalPlaceRepository.findAll();
+    public List<RentalPlaceDTO> getList() {
+        return ((List<RentalPlace>) rentalPlaceRepository.findAll()).stream().map(RentalPlaceDTO::new).toList();
     }
 
     @Override
     @Transactional
-    public RentalPlace create(CreateRentalPlaceDTO createData) {
+    public RentalPlaceDTO create(CreateRentalPlaceDTO createData) {
 
         String city = createData.getCity();
         String street = createData.getStreet();
@@ -56,7 +52,7 @@ public class RentalPlaceService implements IRentalPlaceService {
             rentalPlace.setName(createData.getName());
             rentalPlace.setAddress(String.join(",", city, street, house.toString()));
 
-            return rentalPlaceRepository.save(rentalPlace);
+            return new RentalPlaceDTO(rentalPlaceRepository.save(rentalPlace));
         }
 
 //        вызвать ошибку
@@ -66,9 +62,9 @@ public class RentalPlaceService implements IRentalPlaceService {
 
     @Override
     @Transactional
-    public RentalPlace updateByName(String name, UpdateRentalPlaceDTO updateData) {
+    public RentalPlaceDTO updateByName(String name, UpdateRentalPlaceDTO updateData) {
 
-        RentalPlace rentalPlace = findByName(name);
+        RentalPlace rentalPlace = rentalPlaceRepository.findByName(name);
         String[] newAddress = new String[3];
         String[] oldAddress = rentalPlace.getAddress().split(",");
 
@@ -105,55 +101,26 @@ public class RentalPlaceService implements IRentalPlaceService {
 
         rentalPlace.setAddress(String.join(",", newAddress));
 
-        return rentalPlaceRepository.save(rentalPlace);
+        return new RentalPlaceDTO(rentalPlaceRepository.save(rentalPlace));
     }
 
     @Override
     @Transactional
     public boolean deleteByName(String name) {
-        return rentalPlaceRepository.deleteByName(name);
+        rentalPlaceRepository.deleteByName(name);
+        return true;
     }
 
     @Override
     @Transactional(readOnly = true)
-    public List<RentalPlace> getListSortedByAddresses() {
+    public List<RentalPlaceDTO> getListSortedByAddresses() {
         return null;
     }
 
     @Override
     @Transactional(readOnly = true)
-    public List<Scooter> getScootersByName(String name) {
-        return findByName(name).getScooters();
-    }
-
-    @Override
-    @Transactional
-    public boolean addScooterByName(String name, int scooterId) {
-
-        RentalPlace rentalPlace = findByName(name);
-        Scooter scooter = scooterRepository.findById(scooterId).orElse(null);
-        List<Scooter> scooters = rentalPlace.getScooters();
-
-        if (!scooters.contains(scooter)) {
-            return scooters.add(scooter);
-        }
-
-        return false;
-    }
-
-    @Override
-    @Transactional
-    public boolean removeScooterByName(String name, int scooterId) {
-
-        RentalPlace rentalPlace = findByName(name);
-        Scooter scooter = scooterRepository.findById(scooterId).orElse(null);
-        List<Scooter> scooters = rentalPlace.getScooters();
-
-        if (scooters.contains(scooter)) {
-            return scooters.remove(scooter);
-        }
-
-        return false;
+    public List<ScooterDTO> getScootersByName(String name) {
+        return rentalPlaceRepository.findByName(name).getScooters().stream().map(ScooterDTO::new).toList();
     }
 
 }

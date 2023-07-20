@@ -8,5 +8,5 @@ import org.springframework.stereotype.Repository;
 public interface RentalPlaceRepository extends CrudRepository<RentalPlace, Integer> {
     RentalPlace findByName(String name);
 
-    boolean deleteByName(String name);
+    void deleteByName(String name);
 }

@@ -7,14 +7,14 @@ import com.example.electroscoot.dto.UpdateUserDTO;
 import com.example.electroscoot.dto.UserDTO;
 import com.example.electroscoot.entities.Role;
 import com.example.electroscoot.entities.User;
-import com.example.electroscoot.services.interfaces.IRoleService;
 import com.example.electroscoot.services.interfaces.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
+import java.time.Clock;
+import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -25,6 +25,8 @@ public class UserService implements IUserService {
     private UserRepository userRepository;
     @Autowired
     private RoleRepository roleRepository;
+    @Autowired
+    private Clock clock;
     @Value("${business.defaultRole}")
     private String defaultRole;
 
@@ -39,6 +41,7 @@ public class UserService implements IUserService {
         user.setPhone(registrationData.getPhone());
         user.setUsername(registrationData.getUsername());
         user.setRoles(new HashSet<>(Set.of(role)));
+        user.setRegisteredSince(LocalDateTime.now(clock));
 
         return new UserDTO(userRepository.save(user));
     }

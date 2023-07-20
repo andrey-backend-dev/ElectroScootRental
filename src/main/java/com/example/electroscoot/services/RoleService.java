@@ -1,13 +1,13 @@
 package com.example.electroscoot.services;
 
 import com.example.electroscoot.dao.RoleRepository;
+import com.example.electroscoot.dto.RoleDTO;
 import com.example.electroscoot.entities.Role;
 import com.example.electroscoot.services.interfaces.IRoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -17,23 +17,23 @@ public class RoleService implements IRoleService {
 
     @Override
     @Transactional
-    public Role create(String name) {
+    public RoleDTO create(String name) {
         Role role = new Role();
 
         role.setName(name);
 
-        return roleRepository.save(role);
+        return new RoleDTO(roleRepository.save(role));
     }
 
     @Override
     @Transactional(readOnly = true)
-    public List<Role> getList() {
-        return (List<Role>) roleRepository.findAll();
+    public List<RoleDTO> getList() {
+        return ((List<Role>) roleRepository.findAll()).stream().map(RoleDTO::new).toList();
     }
 
     @Override
     @Transactional(readOnly = true)
-    public Role findByName(String name) {
-        return roleRepository.findByName(name);
+    public boolean doesExistByName(String name) {
+        return roleRepository.findByName(name) != null;
     }
 }

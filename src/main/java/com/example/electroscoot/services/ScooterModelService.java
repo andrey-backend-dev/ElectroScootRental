@@ -3,18 +3,16 @@ package com.example.electroscoot.services;
 import com.example.electroscoot.dao.ScooterModelRepository;
 import com.example.electroscoot.dao.ScooterRepository;
 import com.example.electroscoot.dto.CreateScooterModelDTO;
+import com.example.electroscoot.dto.ScooterDTO;
+import com.example.electroscoot.dto.ScooterModelDTO;
 import com.example.electroscoot.dto.UpdateScooterModelDTO;
-import com.example.electroscoot.entities.RentalPlace;
 import com.example.electroscoot.entities.Scooter;
 import com.example.electroscoot.entities.ScooterModel;
-import com.example.electroscoot.services.interfaces.IRentalPlaceService;
 import com.example.electroscoot.services.interfaces.IScooterModelService;
-import com.example.electroscoot.services.interfaces.IScooterService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -26,37 +24,37 @@ public class ScooterModelService implements IScooterModelService {
 
     @Override
     @Transactional(readOnly = true)
-    public ScooterModel findById(int id) {
-        return scooterModelRepository.findById(id).orElse(null);
+    public ScooterModelDTO findById(int id) {
+        return new ScooterModelDTO(scooterModelRepository.findById(id).orElse(null));
     }
 
     @Override
     @Transactional(readOnly = true)
-    public ScooterModel findByName(String name) {
-        return scooterModelRepository.findByName(name);
+    public ScooterModelDTO findByName(String name) {
+        return new ScooterModelDTO(scooterModelRepository.findByName(name));
     }
 
     @Override
     @Transactional(readOnly = true)
-    public List<ScooterModel> getList() {
-        return (List<ScooterModel>) scooterModelRepository.findAll();
+    public List<ScooterModelDTO> getList() {
+        return ((List<ScooterModel>) scooterModelRepository.findAll()).stream().map(ScooterModelDTO::new).toList();
     }
 
     @Override
     @Transactional
-    public ScooterModel create(CreateScooterModelDTO createData) {
+    public ScooterModelDTO create(CreateScooterModelDTO createData) {
 
         ScooterModel scooterModel = new ScooterModel();
         scooterModel.setName(createData.getName());
         scooterModel.setPricePerHour(createData.getPricePerHour());
         scooterModel.setStartPrice(createData.getStartPrice());
 
-        return scooterModelRepository.save(scooterModel);
+        return new ScooterModelDTO(scooterModelRepository.save(scooterModel));
     }
 
     @Override
     @Transactional
-    public ScooterModel updateByName(String name, UpdateScooterModelDTO updateData) {
+    public ScooterModelDTO updateByName(String name, UpdateScooterModelDTO updateData) {
 
         ScooterModel scooterModel = scooterModelRepository.findByName(name);
 
@@ -80,7 +78,7 @@ public class ScooterModelService implements IScooterModelService {
             scooterModel.setDiscount(discount);
         }
 
-        return scooterModel;
+        return new ScooterModelDTO(scooterModel);
     }
 
     @Override
@@ -91,36 +89,7 @@ public class ScooterModelService implements IScooterModelService {
 
     @Override
     @Transactional(readOnly = true)
-    public List<Scooter> getScootersByName(String name) {
-        return findByName(name).getScooters();
-    }
-
-    @Override
-    @Transactional
-    public boolean addScooterByName(String name, int scooterId) {
-
-        ScooterModel scooterModel = findByName(name);
-        Scooter scooter = scooterRepository.findById(scooterId).orElse(null);
-        List<Scooter> scooters = scooterModel.getScooters();
-
-        if (!scooters.contains(scooter)) {
-            return scooters.add(scooter);
-        }
-
-        return false;
-    }
-
-    @Override
-    @Transactional
-    public boolean removeScooterByName(String name, int scooterId) {
-        ScooterModel scooterModel = findByName(name);
-        Scooter scooter = scooterRepository.findById(scooterId).orElse(null);
-        List<Scooter> scooters = scooterModel.getScooters();
-
-        if (scooters.contains(scooter)) {
-            return scooters.remove(scooter);
-        }
-
-        return false;
+    public List<ScooterDTO> getScootersByName(String name) {
+        return scooterModelRepository.findByName(name).getScooters().stream().map(ScooterDTO::new).toList();
     }
 }

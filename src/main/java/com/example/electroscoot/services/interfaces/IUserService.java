@@ -4,8 +4,6 @@ import com.example.electroscoot.dto.RegistrationDTO;
 import com.example.electroscoot.dto.UpdateUserDTO;
 import com.example.electroscoot.dto.UserDTO;
 import com.example.electroscoot.entities.Role;
-import com.example.electroscoot.entities.ScooterModel;
-import com.example.electroscoot.entities.User;
 
 import java.util.List;
 

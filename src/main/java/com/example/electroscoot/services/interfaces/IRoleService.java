@@ -1,11 +1,11 @@
 package com.example.electroscoot.services.interfaces;
 
-import com.example.electroscoot.entities.Role;
+import com.example.electroscoot.dto.RoleDTO;
 
 import java.util.List;
 
 public interface IRoleService {
-    Role create(String name);
-    List<Role> getList();
-    Role findByName(String name);
+    RoleDTO create(String name);
+    List<RoleDTO> getList();
+    boolean doesExistByName(String name);
 }
