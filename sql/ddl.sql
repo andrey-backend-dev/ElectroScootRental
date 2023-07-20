@@ -1,6 +1,6 @@
 DROP SCHEMA IF EXISTS `electroscootdb` ;
 
-CREATE SCHEMA `electroscootdb` DEFAULT CHARACTER SET utf8 ;
+CREATE SCHEMA IF NOT EXISTS `electroscootdb` DEFAULT CHARACTER SET utf8 ;
 
 USE `electroscootdb` ;
 
@@ -15,23 +15,22 @@ CREATE TABLE IF NOT EXISTS `electroscootdb`.`User` (
   `email` VARCHAR(45) NULL,
   `subscription_till` TIMESTAMP NULL,
   `money` FLOAT NULL DEFAULT 0,
-  PRIMARY KEY (`username`),
+  PRIMARY KEY (`id`),
   UNIQUE INDEX `username_UNIQUE` (`username` ASC) VISIBLE,
   UNIQUE INDEX `email_UNIQUE` (`email` ASC) VISIBLE,
   UNIQUE INDEX `id_UNIQUE` (`id` ASC) VISIBLE,
   UNIQUE INDEX `phone_UNIQUE` (`phone` ASC) VISIBLE)
 ENGINE = InnoDB;
 
-
 CREATE TABLE IF NOT EXISTS `electroscootdb`.`Role` (
-  `id` INT UNSIGNED NOT NULL,
+  `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(45) NOT NULL,
-  PRIMARY KEY (`name`),
+  PRIMARY KEY (`id`),
   UNIQUE INDEX `name_UNIQUE` (`name` ASC) VISIBLE)
 ENGINE = InnoDB;
 
 CREATE TABLE IF NOT EXISTS `electroscootdb`.`User2Role` (
-  `id` INT UNSIGNED NOT NULL,
+  `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
   `roleName` VARCHAR(45) NOT NULL,
   `userUsername` VARCHAR(20) NOT NULL,
   PRIMARY KEY (`id`),
@@ -51,28 +50,28 @@ CREATE TABLE IF NOT EXISTS `electroscootdb`.`User2Role` (
 ENGINE = InnoDB;
 
 CREATE TABLE IF NOT EXISTS `electroscootdb`.`RentalPlace` (
-  `id` INT UNSIGNED NOT NULL,
+  `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(45) NOT NULL,
   `rating` TINYINT(5) UNSIGNED NOT NULL DEFAULT 0,
   `address` VARCHAR(45) NOT NULL,
-  PRIMARY KEY (`name`),
+  PRIMARY KEY (`id`),
   UNIQUE INDEX `id_UNIQUE` (`id` ASC) VISIBLE,
   UNIQUE INDEX `name_UNIQUE` (`name` ASC) VISIBLE,
   UNIQUE INDEX `address_UNIQUE` (`address` ASC) VISIBLE)
 ENGINE = InnoDB;
 
 CREATE TABLE IF NOT EXISTS `electroscootdb`.`ScooterModel` (
-  `id` INT NOT NULL,
+  `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(45) NOT NULL,
   `price_per_hour` FLOAT NOT NULL,
   `start_price` FLOAT NOT NULL,
   `discount` INT NOT NULL DEFAULT 0,
-  PRIMARY KEY (`name`),
-  UNIQUE INDEX `name_UNIQUE` (`name` ASC) VISIBLE)
+  UNIQUE INDEX `name_UNIQUE` (`name` ASC) VISIBLE,
+  PRIMARY KEY (`id`))
 ENGINE = InnoDB;
 
 CREATE TABLE IF NOT EXISTS `electroscootdb`.`Scooter` (
-  `id` INT UNSIGNED NOT NULL,
+  `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
   `rental_place_name` VARCHAR(45) NULL,
   `model` VARCHAR(45) NOT NULL,
   `state` ENUM("OK", "BROKEN") NOT NULL DEFAULT 'OK',
@@ -92,7 +91,7 @@ CREATE TABLE IF NOT EXISTS `electroscootdb`.`Scooter` (
 ENGINE = InnoDB;
 
 CREATE TABLE IF NOT EXISTS `electroscootdb`.`ScooterRental` (
-  `id` INT UNSIGNED NOT NULL,
+  `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
   `scooter_id` INT UNSIGNED NOT NULL,
   `scooter_taken_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `scooter_passed_at` TIMESTAMP NULL,
