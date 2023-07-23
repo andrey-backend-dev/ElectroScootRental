@@ -11,7 +11,10 @@ public class RentalPlaceDTO {
 
     public RentalPlaceDTO(RentalPlace rentalPlace) {
         this.name = rentalPlace.getName();
-        this.address = rentalPlace.getAddress();
+        if (rentalPlace.getHouse() != null)
+            this.address = String.join(",", rentalPlace.getCity(), rentalPlace.getStreet(), Integer.toString(rentalPlace.getHouse()));
+        else
+            this.address = String.join(",", rentalPlace.getCity(), rentalPlace.getStreet());
         this.rating = rentalPlace.getRating();
     }
 }

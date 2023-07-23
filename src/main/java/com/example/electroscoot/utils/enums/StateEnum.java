@@ -1,7 +1,7 @@
 package com.example.electroscoot.utils.enums;
 
 public enum StateEnum {
-    OK("OK"), BROKEN("BROKEN");
+    OK("OK"), BROKEN("BROKEN"), RENTED("RENTED");
     private final String enumName;
 
     StateEnum(String enumName) {

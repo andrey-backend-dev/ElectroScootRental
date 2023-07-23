@@ -5,8 +5,10 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -30,6 +32,9 @@ public class User {
     private String email;
     private LocalDateTime subscriptionTill;
     private float money;
+    @OneToOne
+    @JoinColumn(name = "scooter_id", referencedColumnName = "id")
+    private Scooter scooter;
     @ManyToMany(mappedBy = "users")
     private Set<Role> roles;
     @OneToMany(mappedBy = "user")

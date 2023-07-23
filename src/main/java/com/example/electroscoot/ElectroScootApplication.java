@@ -25,6 +25,7 @@ import com.example.electroscoot.services.interfaces.IScooterModelService;
 import com.example.electroscoot.services.interfaces.IScooterService;
 import com.example.electroscoot.services.interfaces.IUserService;
 import com.example.electroscoot.utils.enums.StateEnum;
+import com.example.electroscoot.utils.maps.SortMap;
 import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
@@ -47,24 +48,6 @@ public class ElectroScootApplication {
         scooterService = context.getBean(IScooterService.class);
         rentalPlaceService = context.getBean(IRentalPlaceService.class);
 
-//        roleService.create("USER");
-//
-//        RegistrationDTO registrationDTO = new RegistrationDTO("bladeattheneck", "12356", "8053535");
-//        userService.register(registrationDTO);
-//
-//        ScooterModelDTO scooterModelDTO = scooterModelService.create(new CreateScooterModelDTO("fx2301", 100.0F, 300.0F));
-//
-//        rentalPlaceService.create(new CreateRentalPlaceDTO("brthome", "Moscow", "brt", 10));
-
-        System.out.println(scooterModelService.getScootersByName("fx2301"));
-
-        ScooterDTO scooterDTO = scooterService.create(new CreateScooterDTO("brthome", "fx2301", StateEnum.OK));
-
-        System.out.println(scooterModelService.getScootersByName("fx2301"));
-
-        scooterService.deleteById(scooterDTO.getId());
-
-        System.out.println(scooterModelService.getScootersByName("fx2301"));
-
+        System.out.println(rentalPlaceService.getScootersByName("Метро Люблино"));
     }
 }

@@ -8,7 +8,9 @@ import com.example.electroscoot.dto.ScooterDTO;
 import com.example.electroscoot.dto.UpdateRentalPlaceDTO;
 import com.example.electroscoot.entities.RentalPlace;
 import com.example.electroscoot.services.interfaces.IRentalPlaceService;
+import com.example.electroscoot.utils.enums.SortMethod;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -35,8 +37,20 @@ public class RentalPlaceService implements IRentalPlaceService {
 
     @Override
     @Transactional(readOnly = true)
-    public List<RentalPlaceDTO> getList() {
-        return ((List<RentalPlace>) rentalPlaceRepository.findAll()).stream().map(RentalPlaceDTO::new).toList();
+    public List<RentalPlaceDTO> getList(SortMethod sortMethod) {
+        if (sortMethod.getName().equals("address")) {
+            return rentalPlaceRepository.findByOrderByCityAscStreetAscHouseAsc().stream().
+                    map(RentalPlaceDTO::new).toList();
+        } else if (sortMethod.getName().equals("null")) {
+            return ((List<RentalPlace>) rentalPlaceRepository.findAll()).stream().map(RentalPlaceDTO::new).toList();
+        }
+        throw new IllegalArgumentException("invalid sort method");
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<RentalPlaceDTO> getListByCity(String city) {
+        return rentalPlaceRepository.findByCity(city).stream().map(RentalPlaceDTO::new).toList();
     }
 
     @Override
@@ -47,17 +61,18 @@ public class RentalPlaceService implements IRentalPlaceService {
         String street = createData.getStreet();
         Integer house = createData.getHouse();
 
-        if (city != null && street != null && house != null) {
+        if (city != null && street != null) {
+
             RentalPlace rentalPlace = new RentalPlace();
             rentalPlace.setName(createData.getName());
-            rentalPlace.setAddress(String.join(",", city, street, house.toString()));
+            rentalPlace.setCity(createData.getCity());
+            rentalPlace.setStreet(createData.getStreet());
+            rentalPlace.setHouse(createData.getHouse());
 
             return new RentalPlaceDTO(rentalPlaceRepository.save(rentalPlace));
         }
 
-//        вызвать ошибку
-
-        return null;
+        throw new IllegalArgumentException("Address is invalid. City and street must be declared.");
     }
 
     @Override
@@ -65,8 +80,6 @@ public class RentalPlaceService implements IRentalPlaceService {
     public RentalPlaceDTO updateByName(String name, UpdateRentalPlaceDTO updateData) {
 
         RentalPlace rentalPlace = rentalPlaceRepository.findByName(name);
-        String[] newAddress = new String[3];
-        String[] oldAddress = rentalPlace.getAddress().split(",");
 
         String newName = updateData.getName();
         if (newName != null) {
@@ -80,26 +93,18 @@ public class RentalPlaceService implements IRentalPlaceService {
 
         String city = updateData.getCity();
         if (city != null) {
-            newAddress[0] = city;
-        } else {
-            newAddress[0] = oldAddress[0];
+            rentalPlace.setCity(city);
         }
 
         String street = updateData.getStreet();
         if (street != null) {
-            newAddress[1] = street;
-        } else {
-            newAddress[1] = oldAddress[1];
+            rentalPlace.setStreet(street);
         }
 
         Integer house = updateData.getHouse();
         if (house != null) {
-            newAddress[2] = house.toString();
-        } else {
-            newAddress[2] = oldAddress[2];
+            rentalPlace.setHouse(house);
         }
-
-        rentalPlace.setAddress(String.join(",", newAddress));
 
         return new RentalPlaceDTO(rentalPlaceRepository.save(rentalPlace));
     }
@@ -109,12 +114,6 @@ public class RentalPlaceService implements IRentalPlaceService {
     public boolean deleteByName(String name) {
         rentalPlaceRepository.deleteByName(name);
         return true;
-    }
-
-    @Override
-    @Transactional(readOnly = true)
-    public List<RentalPlaceDTO> getListSortedByAddresses() {
-        return null;
     }
 
     @Override

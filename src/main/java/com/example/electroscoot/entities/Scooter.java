@@ -11,6 +11,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -35,4 +36,6 @@ public class Scooter {
     private StateEnum state = StateEnum.OK;
     @OneToMany(mappedBy = "scooter")
     private List<ScooterRental> scooterRentals = new ArrayList<>();
+    @OneToOne(mappedBy = "scooter")
+    private User user;
 }

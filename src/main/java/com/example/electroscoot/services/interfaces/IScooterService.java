@@ -3,6 +3,7 @@ package com.example.electroscoot.services.interfaces;
 import com.example.electroscoot.dto.CreateScooterDTO;
 import com.example.electroscoot.dto.ScooterDTO;
 import com.example.electroscoot.dto.UpdateScooterDTO;
+import com.example.electroscoot.entities.RentalPlace;
 
 import java.util.List;
 

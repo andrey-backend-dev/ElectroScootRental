@@ -4,6 +4,7 @@ import com.example.electroscoot.config.ScooterServiceTestContextConfiguration;
 import com.example.electroscoot.dao.RentalPlaceRepository;
 import com.example.electroscoot.dao.ScooterModelRepository;
 import com.example.electroscoot.dao.ScooterRepository;
+import com.example.electroscoot.dao.UserRepository;
 import com.example.electroscoot.dto.CreateScooterDTO;
 import com.example.electroscoot.dto.ScooterDTO;
 import com.example.electroscoot.dto.UpdateScooterDTO;
@@ -39,6 +40,9 @@ public class ScooterServiceIntegrationTests {
 
     @MockBean
     private RentalPlaceRepository rentalPlaceRepository;
+
+    @MockBean
+    private UserRepository userRepository;
 
     @Before
     public void setUp() {
