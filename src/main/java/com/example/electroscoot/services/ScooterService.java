@@ -2,28 +2,19 @@ package com.example.electroscoot.services;
 
 import com.example.electroscoot.dao.RentalPlaceRepository;
 import com.example.electroscoot.dao.ScooterModelRepository;
-import com.example.electroscoot.dao.ScooterRentalRepository;
 import com.example.electroscoot.dao.ScooterRepository;
-import com.example.electroscoot.dao.UserRepository;
 import com.example.electroscoot.dto.CreateScooterDTO;
 import com.example.electroscoot.dto.ScooterDTO;
 import com.example.electroscoot.dto.UpdateScooterDTO;
 import com.example.electroscoot.entities.RentalPlace;
 import com.example.electroscoot.entities.Scooter;
 import com.example.electroscoot.entities.ScooterModel;
-import com.example.electroscoot.entities.ScooterRental;
-import com.example.electroscoot.entities.User;
 import com.example.electroscoot.services.interfaces.IScooterService;
-import com.example.electroscoot.utils.enums.StateEnum;
+import com.example.electroscoot.utils.enums.ScooterStateEnum;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.Clock;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.Period;
-import java.time.temporal.ChronoUnit;
 import java.util.List;
 
 @Service
@@ -93,7 +84,7 @@ public class ScooterService implements IScooterService {
             scooter.setModel(scooterModel);
         }
 
-        StateEnum state = updateData.getState();
+        ScooterStateEnum state = updateData.getState();
         if (state != null) {
             scooter.setState(state);
         }

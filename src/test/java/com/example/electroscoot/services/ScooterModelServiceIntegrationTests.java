@@ -38,7 +38,7 @@ public class ScooterModelServiceIntegrationTests {
 
         ScooterModel scooterModel = new ScooterModel();
         scooterModel.setName(testName);
-        scooterModel.setPricePerHour(testPricePerHour);
+        scooterModel.setPricePerTime(testPricePerHour);
         scooterModel.setStartPrice(testStartPrice);
 
         Mockito.when(scooterModelRepository.save(scooterModel)).thenReturn(scooterModel);
@@ -54,7 +54,7 @@ public class ScooterModelServiceIntegrationTests {
 
         ScooterModel scooterModel = new ScooterModel();
         scooterModel.setName(testName);
-        scooterModel.setPricePerHour(testPricePerHour);
+        scooterModel.setPricePerTime(testPricePerHour);
         scooterModel.setStartPrice(testStartPrice);
 
         ScooterModelDTO expectedScooterModelDTO = new ScooterModelDTO(scooterModel);
@@ -75,7 +75,7 @@ public class ScooterModelServiceIntegrationTests {
 
         ScooterModel scooterModel = new ScooterModel();
         scooterModel.setName(otherName);
-        scooterModel.setPricePerHour(otherPricePerHour);
+        scooterModel.setPricePerTime(otherPricePerHour);
         scooterModel.setStartPrice(testStartPrice);
         scooterModel.setDiscount(discount);
 

@@ -21,7 +21,7 @@ public class ScooterModel {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String name;
-    private float pricePerHour;
+    private float pricePerTime;
     private float startPrice;
     private int discount;
     @OneToMany(mappedBy = "model")

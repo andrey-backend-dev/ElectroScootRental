@@ -6,13 +6,13 @@ import lombok.Data;
 @Data
 public class ScooterModelDTO {
     private String name;
-    private float pricePerHour;
+    private float pricePerTime;
     private float startPrice;
     private int discount;
 
     public ScooterModelDTO(ScooterModel scooterModel) {
         this.name = scooterModel.getName();
-        this.pricePerHour = scooterModel.getPricePerHour();
+        this.pricePerTime = scooterModel.getPricePerTime();
         this.startPrice = scooterModel.getStartPrice();
         this.discount = scooterModel.getDiscount();
     }

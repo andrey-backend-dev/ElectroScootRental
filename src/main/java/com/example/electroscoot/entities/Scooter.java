@@ -1,7 +1,6 @@
 package com.example.electroscoot.entities;
 
-import com.example.electroscoot.utils.enums.StateEnum;
-import jakarta.persistence.Column;
+import com.example.electroscoot.utils.enums.ScooterStateEnum;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -13,7 +12,6 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import lombok.Data;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.util.ArrayList;
@@ -33,7 +31,7 @@ public class Scooter {
     @JoinColumn(name = "model", referencedColumnName = "name")
     private ScooterModel model;
     @Enumerated(EnumType.STRING)
-    private StateEnum state = StateEnum.OK;
+    private ScooterStateEnum state = ScooterStateEnum.OK;
     @OneToMany(mappedBy = "scooter")
     private List<ScooterRental> scooterRentals = new ArrayList<>();
     @OneToOne(mappedBy = "scooter")

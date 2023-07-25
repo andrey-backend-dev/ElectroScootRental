@@ -19,7 +19,8 @@ public class ScooterRentalDTO {
         this.id = scooterRental.getId();
         this.username = scooterRental.getUser().getUsername();
         this.scooterId = scooterRental.getScooter().getId();
-        this.initRentalPlaceName = scooterRental.getInitRentalPlace().getName();
+        if (scooterRental.getInitRentalPlace() != null)
+            this.initRentalPlaceName = scooterRental.getInitRentalPlace().getName();
         if (scooterRental.getFinalRentalPlace() != null)
             this.finalRentalPlaceName = scooterRental.getFinalRentalPlace().getName();
         this.scooterTakenAt = scooterRental.getScooterTakenAt();

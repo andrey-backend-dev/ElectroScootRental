@@ -46,7 +46,7 @@ public class ScooterModelService implements IScooterModelService {
 
         ScooterModel scooterModel = new ScooterModel();
         scooterModel.setName(createData.getName());
-        scooterModel.setPricePerHour(createData.getPricePerHour());
+        scooterModel.setPricePerTime(createData.getPricePerHour());
         scooterModel.setStartPrice(createData.getStartPrice());
 
         return new ScooterModelDTO(scooterModelRepository.save(scooterModel));
@@ -65,7 +65,7 @@ public class ScooterModelService implements IScooterModelService {
 
         Float pricePerHour = updateData.getPricePerHour();
         if (pricePerHour != null) {
-            scooterModel.setPricePerHour(pricePerHour);
+            scooterModel.setPricePerTime(pricePerHour);
         }
 
         Float startPrice = updateData.getStartPrice();

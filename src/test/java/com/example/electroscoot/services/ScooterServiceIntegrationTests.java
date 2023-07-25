@@ -12,7 +12,7 @@ import com.example.electroscoot.entities.RentalPlace;
 import com.example.electroscoot.entities.Scooter;
 import com.example.electroscoot.entities.ScooterModel;
 import com.example.electroscoot.services.interfaces.IScooterService;
-import com.example.electroscoot.utils.enums.StateEnum;
+import com.example.electroscoot.utils.enums.ScooterStateEnum;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -87,7 +87,7 @@ public class ScooterServiceIntegrationTests {
         scooter.setId(testId);
         scooter.setRentalPlace(rentalPlace);
         scooter.setModel(model);
-        scooter.setState(StateEnum.OK);
+        scooter.setState(ScooterStateEnum.OK);
 
         ScooterDTO expectedScooterDTO = new ScooterDTO(scooter);
 
@@ -114,11 +114,11 @@ public class ScooterServiceIntegrationTests {
         scooter.setId(testId);
         scooter.setRentalPlace(rentalPlace);
         scooter.setModel(model);
-        scooter.setState(StateEnum.BROKEN);
+        scooter.setState(ScooterStateEnum.BROKEN);
 
         ScooterDTO expectedScooterDTO = new ScooterDTO(scooter);
 
-        UpdateScooterDTO updateData = new UpdateScooterDTO(testId, rentalPlaceName, modelName, StateEnum.BROKEN);
+        UpdateScooterDTO updateData = new UpdateScooterDTO(testId, rentalPlaceName, modelName, ScooterStateEnum.BROKEN);
 
         ScooterDTO resultScooterDTO = scooterService.updateById(updateData);
 

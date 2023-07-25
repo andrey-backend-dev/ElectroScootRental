@@ -26,7 +26,7 @@ INSERT INTO rentalplace
 ('ТРЦ СПБ', 'Санкт-Петербург' , 'Какая-то' , 42, 0);
 
 INSERT INTO scootermodel
-(name, price_per_hour, start_price, discount) VALUES
+(name, price_per_time, start_price, discount) VALUES
 ('FX230', 100.0, 300.0, 10),
 ('ES4921', 50.0, 500.0, 0);
 
@@ -38,5 +38,5 @@ INSERT INTO scooter
 ('ТРЦ СПБ', 'ES4921', 'OK');
 
 insert INTO scooterrental
-(scooter_id, scooter_taken_at, scooter_passed_at, username, init_rental_place_name, final_rental_place_name) VALUES
-(2, date('2023-07-23 15:00:00'), current_time(), 'bladeattheneck', 'Братеевская', 'Метро Люблино');
+(scooter_id, scooter_taken_at, scooter_passed_at, username, init_rental_place_name, final_rental_place_name, init_price_per_time, init_discount) VALUES
+(2, date('2023-07-23 15:00:00'), current_time(), 'bladeattheneck', 'Братеевская', 'Метро Люблино', 100.0, 10);

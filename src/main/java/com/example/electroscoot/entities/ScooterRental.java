@@ -9,8 +9,11 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.scheduling.annotation.Scheduled;
 
 import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
+import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -34,4 +37,7 @@ public class ScooterRental {
     @ManyToOne
     @JoinColumn(name = "final_rental_place_name", referencedColumnName = "name")
     private RentalPlace finalRentalPlace;
+    private float initPricePerTime;
+    private int initDiscount;
+
 }
