@@ -164,10 +164,10 @@ public class ScooterRentalServiceIntegrationTests {
         Mockito.when(scooterRepository.findById(testScooterId)).thenReturn(Optional.of(scooter));
         Mockito.when(scooterRepository.findById(testScooterId2)).thenReturn(Optional.of(scooter2));
         Mockito.when(scooterRepository.findById(testScooterId3)).thenReturn(Optional.of(scooter3));
-        Mockito.when(rentalPlaceRepository.findByName(testRentalPlaceName)).thenReturn(rentalPlace);
-        Mockito.when(userRepository.findByUsername(testUsername)).thenReturn(user);
-        Mockito.when(userRepository.findByUsername(testUsername2)).thenReturn(user2);
-        Mockito.when(userRepository.findByUsername(testUsername3)).thenReturn(user3);
+        Mockito.when(rentalPlaceRepository.findByName(testRentalPlaceName)).thenReturn(Optional.of(rentalPlace));
+        Mockito.when(userRepository.findByUsername(testUsername)).thenReturn(Optional.of(user));
+        Mockito.when(userRepository.findByUsername(testUsername2)).thenReturn(Optional.of(user2));
+        Mockito.when(userRepository.findByUsername(testUsername3)).thenReturn(Optional.of(user3));
         Mockito.when(scooterRentalRepository.save(scooterRental)).thenReturn(scooterRental);
 
         Mockito.when(scooterRentalRepository.findById(testScooterRentalId)).thenReturn(Optional.of(scooterRental1));
@@ -214,13 +214,7 @@ public class ScooterRentalServiceIntegrationTests {
 
         ScooterRentalDTO expectedScooterRentalDTO = new ScooterRentalDTO(scooterRental);
 
-        ScooterRentalDTO resultScooterRentalDTO = null;
-
-        try {
-            resultScooterRentalDTO = scooterRentalService.create(createData);
-        } catch (AccessDeniedException e) {
-            e.printStackTrace();
-        }
+        ScooterRentalDTO resultScooterRentalDTO = scooterRentalService.create(createData);
 
         Assert.assertEquals(expectedScooterRentalDTO, resultScooterRentalDTO);
 
@@ -298,12 +292,7 @@ public class ScooterRentalServiceIntegrationTests {
 
         ScooterRentalDTO expectedScooterRentalDTO = new ScooterRentalDTO(scooterRental);
 
-        ScooterRentalDTO resultScooterRentalDTO = null;
-        try {
-            resultScooterRentalDTO = scooterRentalService.closeRentalById(testScooterRentalId, testRentalPlaceName);
-        } catch (AccessDeniedException e) {
-            e.printStackTrace();
-        }
+        ScooterRentalDTO resultScooterRentalDTO = scooterRentalService.closeRentalById(testScooterRentalId, testRentalPlaceName);
 
         Assert.assertEquals(expectedScooterRentalDTO, resultScooterRentalDTO);
 

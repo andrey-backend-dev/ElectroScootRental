@@ -19,6 +19,8 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Import;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.util.Optional;
+
 @RunWith(SpringRunner.class)
 @Import(RentalPlaceServiceTestContextConfiguration.class)
 public class RentalPlaceServiceIntegrationTests {
@@ -46,7 +48,7 @@ public class RentalPlaceServiceIntegrationTests {
         rentalPlace.setHouse(testHouse);
 
         Mockito.when(rentalPlaceRepository.save(rentalPlace)).thenReturn(rentalPlace);
-        Mockito.when(rentalPlaceRepository.findByName(testName)).thenReturn(rentalPlace);
+        Mockito.when(rentalPlaceRepository.findByName(testName)).thenReturn(Optional.of(rentalPlace));
     }
 
     @Test

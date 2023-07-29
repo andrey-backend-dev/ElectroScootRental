@@ -12,11 +12,11 @@ public interface IScooterRentalService {
 
     ScooterRentalDTO findById(int id);
 
-    ScooterRentalDTO create(CreateScooterRentalDTO createData) throws AccessDeniedException;
+    ScooterRentalDTO create(CreateScooterRentalDTO createData);
 
     RentalStateEnum takePaymentById(int id);
 
-    ScooterRentalDTO closeRentalById(int id, String finalRentalPlaceName) throws AccessDeniedException;
+    ScooterRentalDTO closeRentalById(int id, String finalRentalPlaceName);
 
     List<ScooterRentalDTO> getList();
 }

@@ -1,7 +1,8 @@
-package com.example.electroscoot.infra;
+package com.example.electroscoot.infra.schedule;
 
 import com.example.electroscoot.services.interfaces.IScooterRentalService;
 import com.example.electroscoot.utils.enums.RentalStateEnum;
+import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.scheduling.annotation.ScheduledAnnotationBeanPostProcessor;
@@ -16,6 +17,8 @@ public class TriggerRentalSchedulerClock {
     private Clock clock;
     @Autowired
     private ScheduledAnnotationBeanPostProcessor scheduledAnnotationBeanPostProcessor;
+    @Autowired
+    private Logger logger;
 
     private int scooterRentalId;
 
@@ -25,16 +28,16 @@ public class TriggerRentalSchedulerClock {
 
     @Scheduled(initialDelayString = "${business.initDelayBeforeFirstPayInSeconds}000",fixedDelayString = "${business.pricePerTimeInSeconds}000")
     public void scheduledTask() {
-        System.out.println("Scheduler for scooter rental with id " +
+        logger.debug("Scheduler for scooter rental with id " +
                 scooterRentalId + " is called at " + LocalDateTime.now(clock));
 
         RentalStateEnum rentalState = scooterRentalService.takePaymentById(scooterRentalId);
 
         if (rentalState == RentalStateEnum.BAD) {
-            System.out.println("Scheduler for scooter rental with id " + scooterRentalId + " is stopped, cause user does not have enough money to continue the rent.");
+            logger.info("Scheduler for scooter rental with id " + scooterRentalId + " is stopped, cause user does not have enough money to continue the rent.");
             scheduledAnnotationBeanPostProcessor.postProcessBeforeDestruction(this, "TriggerRentalSchedulerClock");
         } else if (rentalState == RentalStateEnum.CLOSED) {
-            System.out.println("Scheduler for scooter rental with id " + scooterRentalId + " is stopped, cause rent is already closed.");
+            logger.info("Scheduler for scooter rental with id " + scooterRentalId + " is stopped, cause rent is already closed.");
             scheduledAnnotationBeanPostProcessor.postProcessBeforeDestruction(this, "TriggerRentalSchedulerClock");
         }
     }

@@ -11,13 +11,18 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @Entity
 public class Scooter {
@@ -29,11 +34,12 @@ public class Scooter {
     private RentalPlace rentalPlace;
     @ManyToOne
     @JoinColumn(name = "model", referencedColumnName = "name")
+    @NotNull
     private ScooterModel model;
     @Enumerated(EnumType.STRING)
     private ScooterStateEnum state = ScooterStateEnum.OK;
     @OneToMany(mappedBy = "scooter")
-    private List<ScooterRental> scooterRentals = new ArrayList<>();
+    private Set<ScooterRental> scooterRentals;
     @OneToOne(mappedBy = "scooter")
     private User user;
 }

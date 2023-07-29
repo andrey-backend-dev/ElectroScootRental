@@ -12,10 +12,10 @@ INSERT INTO user
 ('usedreamless' , 'testPassword', '4219', null, null, 'example@mail.ru', 0);
 
 INSERT INTO user2role
-(roleName, userUsername) VALUES
-('USER', 'testUser'),
-('ADMIN', 'bladeattheneck'),
-('USER', 'usedreamless');
+(role_id, user_id) VALUES
+(2, 1),
+(1, 2),
+(2, 3);
 
 INSERT INTO rentalplace
 (name, city, street, house, rating) VALUES

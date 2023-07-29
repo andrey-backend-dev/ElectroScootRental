@@ -1,0 +1,728 @@
+2023-07-26 16:48:49,704 INFO [main] ElectroScootApplication: Starting ElectroScootApplication using Java 17.0.2 with PID 22952 (D:\programming\java\projects\ElectroScootRental\target\classes started by tocod in D:\programming\java\projects\ElectroScootRental)
+2023-07-26 16:48:49,708 DEBUG [main] ElectroScootApplication: Running with Spring Boot v3.1.1, Spring v6.0.10
+2023-07-26 16:48:49,708 INFO [main] ElectroScootApplication: No active profile set, falling back to 1 default profile: "default"
+2023-07-26 16:48:50,947 INFO [main] RepositoryConfigurationDelegate: Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-07-26 16:48:51,068 INFO [main] RepositoryConfigurationDelegate: Finished Spring Data repository scanning in 108 ms. Found 6 JPA repository interfaces.
+2023-07-26 16:48:52,040 INFO [main] TomcatWebServer: Tomcat initialized with port(s): 8080 (http)
+2023-07-26 16:48:52,047 INFO [main] Http11NioProtocol: Initializing ProtocolHandler ["http-nio-8080"]
+2023-07-26 16:48:52,058 INFO [main] StandardService: Starting service [Tomcat]
+2023-07-26 16:48:52,058 INFO [main] StandardEngine: Starting Servlet engine: [Apache Tomcat/10.1.10]
+2023-07-26 16:48:52,170 INFO [main] [/]: Initializing Spring embedded WebApplicationContext
+2023-07-26 16:48:52,178 INFO [main] ServletWebServerApplicationContext: Root WebApplicationContext: initialization completed in 2351 ms
+2023-07-26 16:48:52,408 INFO [main] HikariDataSource: HikariPool-1 - Starting...
+2023-07-26 16:48:52,858 INFO [main] HikariPool: HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@67328bcb
+2023-07-26 16:48:52,858 INFO [main] HikariDataSource: HikariPool-1 - Start completed.
+2023-07-26 16:48:52,908 INFO [main] LogHelper: HHH000204: Processing PersistenceUnitInfo [name: default]
+2023-07-26 16:48:52,971 INFO [main] Version: HHH000412: Hibernate ORM core version 6.2.5.Final
+2023-07-26 16:48:52,978 INFO [main] Environment: HHH000406: Using bytecode reflection optimizer
+2023-07-26 16:48:53,235 INFO [main] BytecodeProviderInitiator: HHH000021: Bytecode provider name : bytebuddy
+2023-07-26 16:48:53,464 INFO [main] SpringPersistenceUnitInfo: No LoadTimeWeaver setup: ignoring JPA class transformer
+2023-07-26 16:48:53,938 INFO [main] BytecodeProviderInitiator: HHH000021: Bytecode provider name : bytebuddy
+2023-07-26 16:48:54,757 INFO [main] JtaPlatformInitiator: HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2023-07-26 16:48:54,760 INFO [main] LocalContainerEntityManagerFactoryBean: Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-07-26 16:48:55,277 WARN [main] AnnotationConfigServletWebServerApplicationContext: Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'rentalPlaceController': Unsatisfied dependency expressed through field 'logger': No qualifying bean of type 'java.util.logging.Logger' available: expected at least 1 bean which qualifies as autowire candidate. Dependency annotations: {@org.springframework.beans.factory.annotation.Autowired(required=true)}
+2023-07-26 16:48:55,277 INFO [main] LocalContainerEntityManagerFactoryBean: Closing JPA EntityManagerFactory for persistence unit 'default'
+2023-07-26 16:48:55,282 INFO [main] HikariDataSource: HikariPool-1 - Shutdown initiated...
+2023-07-26 16:48:55,290 INFO [main] HikariDataSource: HikariPool-1 - Shutdown completed.
+2023-07-26 16:48:55,297 INFO [main] StandardService: Stopping service [Tomcat]
+2023-07-26 16:48:55,308 INFO [main] ConditionEvaluationReportLogger: 
+
+Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
+2023-07-26 16:48:55,332 ERROR [main] LoggingFailureAnalysisReporter: 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+Field logger in com.example.electroscoot.controllers.RentalPlaceController required a bean of type 'java.util.logging.Logger' that could not be found.
+
+The injection point has the following annotations:
+	- @org.springframework.beans.factory.annotation.Autowired(required=true)
+
+
+Action:
+
+Consider defining a bean of type 'java.util.logging.Logger' in your configuration.
+
+2023-07-26 16:50:33,900 INFO [main] ElectroScootApplication: Starting ElectroScootApplication using Java 17.0.2 with PID 20156 (D:\programming\java\projects\ElectroScootRental\target\classes started by tocod in D:\programming\java\projects\ElectroScootRental)
+2023-07-26 16:50:33,903 DEBUG [main] ElectroScootApplication: Running with Spring Boot v3.1.1, Spring v6.0.10
+2023-07-26 16:50:33,903 INFO [main] ElectroScootApplication: No active profile set, falling back to 1 default profile: "default"
+2023-07-26 16:50:35,228 INFO [main] RepositoryConfigurationDelegate: Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-07-26 16:50:35,378 INFO [main] RepositoryConfigurationDelegate: Finished Spring Data repository scanning in 133 ms. Found 6 JPA repository interfaces.
+2023-07-26 16:50:36,455 INFO [main] TomcatWebServer: Tomcat initialized with port(s): 8080 (http)
+2023-07-26 16:50:36,463 INFO [main] Http11NioProtocol: Initializing ProtocolHandler ["http-nio-8080"]
+2023-07-26 16:50:36,469 INFO [main] StandardService: Starting service [Tomcat]
+2023-07-26 16:50:36,469 INFO [main] StandardEngine: Starting Servlet engine: [Apache Tomcat/10.1.10]
+2023-07-26 16:50:36,594 INFO [main] [/]: Initializing Spring embedded WebApplicationContext
+2023-07-26 16:50:36,599 INFO [main] ServletWebServerApplicationContext: Root WebApplicationContext: initialization completed in 2599 ms
+2023-07-26 16:50:36,816 INFO [main] HikariDataSource: HikariPool-1 - Starting...
+2023-07-26 16:50:37,226 INFO [main] HikariPool: HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@51ba952e
+2023-07-26 16:50:37,228 INFO [main] HikariDataSource: HikariPool-1 - Start completed.
+2023-07-26 16:50:37,272 INFO [main] LogHelper: HHH000204: Processing PersistenceUnitInfo [name: default]
+2023-07-26 16:50:37,321 INFO [main] Version: HHH000412: Hibernate ORM core version 6.2.5.Final
+2023-07-26 16:50:37,321 INFO [main] Environment: HHH000406: Using bytecode reflection optimizer
+2023-07-26 16:50:37,543 INFO [main] BytecodeProviderInitiator: HHH000021: Bytecode provider name : bytebuddy
+2023-07-26 16:50:37,726 INFO [main] SpringPersistenceUnitInfo: No LoadTimeWeaver setup: ignoring JPA class transformer
+2023-07-26 16:50:38,167 INFO [main] BytecodeProviderInitiator: HHH000021: Bytecode provider name : bytebuddy
+2023-07-26 16:50:39,009 INFO [main] JtaPlatformInitiator: HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2023-07-26 16:50:39,011 INFO [main] LocalContainerEntityManagerFactoryBean: Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-07-26 16:50:39,639 WARN [main] AnnotationConfigServletWebServerApplicationContext: Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'customErrorResponse' defined in file [D:\programming\java\projects\ElectroScootRental\target\classes\com\example\electroscoot\exceptions\CustomErrorResponse.class]: Failed to instantiate [com.example.electroscoot.exceptions.CustomErrorResponse]: Constructor threw exception
+2023-07-26 16:50:39,640 INFO [main] LocalContainerEntityManagerFactoryBean: Closing JPA EntityManagerFactory for persistence unit 'default'
+2023-07-26 16:50:39,640 INFO [main] HikariDataSource: HikariPool-1 - Shutdown initiated...
+2023-07-26 16:50:39,657 INFO [main] HikariDataSource: HikariPool-1 - Shutdown completed.
+2023-07-26 16:50:39,659 INFO [main] StandardService: Stopping service [Tomcat]
+2023-07-26 16:50:39,669 INFO [main] ConditionEvaluationReportLogger: 
+
+Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
+2023-07-26 16:50:39,690 ERROR [main] SpringApplication: Application run failed
+org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'customErrorResponse' defined in file [D:\programming\java\projects\ElectroScootRental\target\classes\com\example\electroscoot\exceptions\CustomErrorResponse.class]: Failed to instantiate [com.example.electroscoot.exceptions.CustomErrorResponse]: Constructor threw exception
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.instantiateBean(AbstractAutowireCapableBeanFactory.java:1314)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1199)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:560)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:520)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:326)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:324)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:200)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingletons(DefaultListableBeanFactory.java:973)
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:941)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:608)
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:146)
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:734)
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:436)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:312)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1306)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1295)
+	at com.example.electroscoot.ElectroScootApplication.main(ElectroScootApplication.java:34)
+Caused by: org.springframework.beans.BeanInstantiationException: Failed to instantiate [com.example.electroscoot.exceptions.CustomErrorResponse]: Constructor threw exception
+	at org.springframework.beans.BeanUtils.instantiateClass(BeanUtils.java:224)
+	at org.springframework.beans.factory.support.SimpleInstantiationStrategy.instantiate(SimpleInstantiationStrategy.java:87)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.instantiateBean(AbstractAutowireCapableBeanFactory.java:1308)
+	... 17 common frames omitted
+Caused by: java.lang.NullPointerException: clock
+	at java.base/java.util.Objects.requireNonNull(Objects.java:233)
+	at java.base/java.time.LocalDateTime.now(LocalDateTime.java:212)
+	at com.example.electroscoot.exceptions.CustomErrorResponse.<init>(CustomErrorResponse.java:21)
+	at java.base/jdk.internal.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+	at java.base/jdk.internal.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+	at java.base/java.lang.reflect.Constructor.newInstanceWithCaller(Constructor.java:499)
+	at java.base/java.lang.reflect.Constructor.newInstance(Constructor.java:480)
+	at org.springframework.beans.BeanUtils.instantiateClass(BeanUtils.java:198)
+	... 19 common frames omitted
+2023-07-26 16:53:31,050 INFO [main] ElectroScootApplication: Starting ElectroScootApplication using Java 17.0.2 with PID 1808 (D:\programming\java\projects\ElectroScootRental\target\classes started by tocod in D:\programming\java\projects\ElectroScootRental)
+2023-07-26 16:53:31,052 DEBUG [main] ElectroScootApplication: Running with Spring Boot v3.1.1, Spring v6.0.10
+2023-07-26 16:53:31,055 INFO [main] ElectroScootApplication: No active profile set, falling back to 1 default profile: "default"
+2023-07-26 16:53:32,272 INFO [main] RepositoryConfigurationDelegate: Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-07-26 16:53:32,432 INFO [main] RepositoryConfigurationDelegate: Finished Spring Data repository scanning in 143 ms. Found 6 JPA repository interfaces.
+2023-07-26 16:53:33,591 INFO [main] TomcatWebServer: Tomcat initialized with port(s): 8080 (http)
+2023-07-26 16:53:33,604 INFO [main] Http11NioProtocol: Initializing ProtocolHandler ["http-nio-8080"]
+2023-07-26 16:53:33,611 INFO [main] StandardService: Starting service [Tomcat]
+2023-07-26 16:53:33,611 INFO [main] StandardEngine: Starting Servlet engine: [Apache Tomcat/10.1.10]
+2023-07-26 16:53:33,781 INFO [main] [/]: Initializing Spring embedded WebApplicationContext
+2023-07-26 16:53:33,785 INFO [main] ServletWebServerApplicationContext: Root WebApplicationContext: initialization completed in 2637 ms
+2023-07-26 16:53:34,031 INFO [main] HikariDataSource: HikariPool-1 - Starting...
+2023-07-26 16:53:34,492 INFO [main] HikariPool: HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@51ba952e
+2023-07-26 16:53:34,492 INFO [main] HikariDataSource: HikariPool-1 - Start completed.
+2023-07-26 16:53:34,541 INFO [main] LogHelper: HHH000204: Processing PersistenceUnitInfo [name: default]
+2023-07-26 16:53:34,581 INFO [main] Version: HHH000412: Hibernate ORM core version 6.2.5.Final
+2023-07-26 16:53:34,591 INFO [main] Environment: HHH000406: Using bytecode reflection optimizer
+2023-07-26 16:53:34,812 INFO [main] BytecodeProviderInitiator: HHH000021: Bytecode provider name : bytebuddy
+2023-07-26 16:53:34,970 INFO [main] SpringPersistenceUnitInfo: No LoadTimeWeaver setup: ignoring JPA class transformer
+2023-07-26 16:53:35,391 INFO [main] BytecodeProviderInitiator: HHH000021: Bytecode provider name : bytebuddy
+2023-07-26 16:53:36,157 INFO [main] JtaPlatformInitiator: HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2023-07-26 16:53:36,159 INFO [main] LocalContainerEntityManagerFactoryBean: Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-07-26 16:53:36,685 WARN [main] AnnotationConfigServletWebServerApplicationContext: Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'customErrorResponse' defined in file [D:\programming\java\projects\ElectroScootRental\target\classes\com\example\electroscoot\exceptions\CustomErrorResponse.class]: Failed to instantiate [com.example.electroscoot.exceptions.CustomErrorResponse]: No default constructor found
+2023-07-26 16:53:36,685 INFO [main] LocalContainerEntityManagerFactoryBean: Closing JPA EntityManagerFactory for persistence unit 'default'
+2023-07-26 16:53:36,691 INFO [main] HikariDataSource: HikariPool-1 - Shutdown initiated...
+2023-07-26 16:53:36,702 INFO [main] HikariDataSource: HikariPool-1 - Shutdown completed.
+2023-07-26 16:53:36,709 INFO [main] StandardService: Stopping service [Tomcat]
+2023-07-26 16:53:36,721 INFO [main] ConditionEvaluationReportLogger: 
+
+Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
+2023-07-26 16:53:36,757 ERROR [main] SpringApplication: Application run failed
+org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'customErrorResponse' defined in file [D:\programming\java\projects\ElectroScootRental\target\classes\com\example\electroscoot\exceptions\CustomErrorResponse.class]: Failed to instantiate [com.example.electroscoot.exceptions.CustomErrorResponse]: No default constructor found
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.instantiateBean(AbstractAutowireCapableBeanFactory.java:1314)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1199)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:560)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:520)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:326)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:324)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:200)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingletons(DefaultListableBeanFactory.java:973)
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:941)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:608)
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:146)
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:734)
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:436)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:312)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1306)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1295)
+	at com.example.electroscoot.ElectroScootApplication.main(ElectroScootApplication.java:34)
+Caused by: org.springframework.beans.BeanInstantiationException: Failed to instantiate [com.example.electroscoot.exceptions.CustomErrorResponse]: No default constructor found
+	at org.springframework.beans.factory.support.SimpleInstantiationStrategy.instantiate(SimpleInstantiationStrategy.java:83)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.instantiateBean(AbstractAutowireCapableBeanFactory.java:1308)
+	... 17 common frames omitted
+Caused by: java.lang.NoSuchMethodException: com.example.electroscoot.exceptions.CustomErrorResponse.<init>()
+	at java.base/java.lang.Class.getConstructor0(Class.java:3585)
+	at java.base/java.lang.Class.getDeclaredConstructor(Class.java:2754)
+	at org.springframework.beans.factory.support.SimpleInstantiationStrategy.instantiate(SimpleInstantiationStrategy.java:79)
+	... 18 common frames omitted
+2023-07-26 16:54:08,901 INFO [main] ElectroScootApplication: Starting ElectroScootApplication using Java 17.0.2 with PID 19152 (D:\programming\java\projects\ElectroScootRental\target\classes started by tocod in D:\programming\java\projects\ElectroScootRental)
+2023-07-26 16:54:08,902 DEBUG [main] ElectroScootApplication: Running with Spring Boot v3.1.1, Spring v6.0.10
+2023-07-26 16:54:08,902 INFO [main] ElectroScootApplication: No active profile set, falling back to 1 default profile: "default"
+2023-07-26 16:54:10,271 INFO [main] RepositoryConfigurationDelegate: Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-07-26 16:54:10,421 INFO [main] RepositoryConfigurationDelegate: Finished Spring Data repository scanning in 132 ms. Found 6 JPA repository interfaces.
+2023-07-26 16:54:11,578 INFO [main] TomcatWebServer: Tomcat initialized with port(s): 8080 (http)
+2023-07-26 16:54:11,587 INFO [main] Http11NioProtocol: Initializing ProtocolHandler ["http-nio-8080"]
+2023-07-26 16:54:11,590 INFO [main] StandardService: Starting service [Tomcat]
+2023-07-26 16:54:11,591 INFO [main] StandardEngine: Starting Servlet engine: [Apache Tomcat/10.1.10]
+2023-07-26 16:54:11,745 INFO [main] [/]: Initializing Spring embedded WebApplicationContext
+2023-07-26 16:54:11,750 INFO [main] ServletWebServerApplicationContext: Root WebApplicationContext: initialization completed in 2742 ms
+2023-07-26 16:54:11,972 INFO [main] HikariDataSource: HikariPool-1 - Starting...
+2023-07-26 16:54:12,371 INFO [main] HikariPool: HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@2416c658
+2023-07-26 16:54:12,372 INFO [main] HikariDataSource: HikariPool-1 - Start completed.
+2023-07-26 16:54:12,415 INFO [main] LogHelper: HHH000204: Processing PersistenceUnitInfo [name: default]
+2023-07-26 16:54:12,462 INFO [main] Version: HHH000412: Hibernate ORM core version 6.2.5.Final
+2023-07-26 16:54:12,466 INFO [main] Environment: HHH000406: Using bytecode reflection optimizer
+2023-07-26 16:54:12,676 INFO [main] BytecodeProviderInitiator: HHH000021: Bytecode provider name : bytebuddy
+2023-07-26 16:54:12,867 INFO [main] SpringPersistenceUnitInfo: No LoadTimeWeaver setup: ignoring JPA class transformer
+2023-07-26 16:54:13,324 INFO [main] BytecodeProviderInitiator: HHH000021: Bytecode provider name : bytebuddy
+2023-07-26 16:54:14,086 INFO [main] JtaPlatformInitiator: HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2023-07-26 16:54:14,090 INFO [main] LocalContainerEntityManagerFactoryBean: Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-07-26 16:54:14,771 WARN [main] JpaBaseConfiguration$JpaWebConfiguration: spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2023-07-26 16:54:15,263 WARN [main] UserDetailsServiceAutoConfiguration: 
+
+Using generated security password: fde01f1a-77cb-4e8a-a86f-ef4f49a63792
+
+This generated password is for development use only. Your security configuration must be updated before running your application in production.
+
+2023-07-26 16:54:15,435 INFO [main] DefaultSecurityFilterChain: Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@1e9afe4e, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@1f67d37f, org.springframework.security.web.context.SecurityContextHolderFilter@518ed9b4, org.springframework.security.web.header.HeaderWriterFilter@7af17d31, org.springframework.security.web.csrf.CsrfFilter@383a5260, org.springframework.security.web.authentication.logout.LogoutFilter@7c7b27c, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@4f239a76, org.springframework.security.web.authentication.ui.DefaultLoginPageGeneratingFilter@110f66e3, org.springframework.security.web.authentication.ui.DefaultLogoutPageGeneratingFilter@5b8ba1d2, org.springframework.security.web.authentication.www.BasicAuthenticationFilter@4b6942a0, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@694dc99b, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@549fe529, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@57fb6900, org.springframework.security.web.access.ExceptionTranslationFilter@1503f434, org.springframework.security.web.access.intercept.AuthorizationFilter@715523b8]
+2023-07-26 16:54:15,492 INFO [main] Http11NioProtocol: Starting ProtocolHandler ["http-nio-8080"]
+2023-07-26 16:54:15,524 INFO [main] TomcatWebServer: Tomcat started on port(s): 8080 (http) with context path ''
+2023-07-26 16:54:15,532 INFO [main] ElectroScootApplication: Started ElectroScootApplication in 7.487 seconds (process running for 8.138)
+2023-07-26 16:54:15,541 INFO [main] UserController: The <findByUsername> method is called from User Controller.
+2023-07-26 16:54:15,753 INFO [main] UserController: The <findByUsername> method is called from User Controller.
+2023-07-26 16:56:09,144 INFO [SpringApplicationShutdownHook] LocalContainerEntityManagerFactoryBean: Closing JPA EntityManagerFactory for persistence unit 'default'
+2023-07-26 16:56:09,146 INFO [SpringApplicationShutdownHook] HikariDataSource: HikariPool-1 - Shutdown initiated...
+2023-07-26 16:56:09,178 INFO [SpringApplicationShutdownHook] HikariDataSource: HikariPool-1 - Shutdown completed.
+2023-07-26 16:56:13,056 INFO [main] ElectroScootApplication: Starting ElectroScootApplication using Java 17.0.2 with PID 13272 (D:\programming\java\projects\ElectroScootRental\target\classes started by tocod in D:\programming\java\projects\ElectroScootRental)
+2023-07-26 16:56:13,056 DEBUG [main] ElectroScootApplication: Running with Spring Boot v3.1.1, Spring v6.0.10
+2023-07-26 16:56:13,056 INFO [main] ElectroScootApplication: No active profile set, falling back to 1 default profile: "default"
+2023-07-26 16:56:14,235 INFO [main] RepositoryConfigurationDelegate: Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-07-26 16:56:14,374 INFO [main] RepositoryConfigurationDelegate: Finished Spring Data repository scanning in 126 ms. Found 6 JPA repository interfaces.
+2023-07-26 16:56:15,535 INFO [main] TomcatWebServer: Tomcat initialized with port(s): 8080 (http)
+2023-07-26 16:56:15,553 INFO [main] Http11NioProtocol: Initializing ProtocolHandler ["http-nio-8080"]
+2023-07-26 16:56:15,555 INFO [main] StandardService: Starting service [Tomcat]
+2023-07-26 16:56:15,555 INFO [main] StandardEngine: Starting Servlet engine: [Apache Tomcat/10.1.10]
+2023-07-26 16:56:15,699 INFO [main] [/]: Initializing Spring embedded WebApplicationContext
+2023-07-26 16:56:15,699 INFO [main] ServletWebServerApplicationContext: Root WebApplicationContext: initialization completed in 2545 ms
+2023-07-26 16:56:15,960 INFO [main] HikariDataSource: HikariPool-1 - Starting...
+2023-07-26 16:56:16,502 INFO [main] HikariPool: HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@1eca3ea7
+2023-07-26 16:56:16,504 INFO [main] HikariDataSource: HikariPool-1 - Start completed.
+2023-07-26 16:56:16,573 INFO [main] LogHelper: HHH000204: Processing PersistenceUnitInfo [name: default]
+2023-07-26 16:56:16,694 INFO [main] Version: HHH000412: Hibernate ORM core version 6.2.5.Final
+2023-07-26 16:56:16,700 INFO [main] Environment: HHH000406: Using bytecode reflection optimizer
+2023-07-26 16:56:16,992 INFO [main] BytecodeProviderInitiator: HHH000021: Bytecode provider name : bytebuddy
+2023-07-26 16:56:17,198 INFO [main] SpringPersistenceUnitInfo: No LoadTimeWeaver setup: ignoring JPA class transformer
+2023-07-26 16:56:17,684 INFO [main] BytecodeProviderInitiator: HHH000021: Bytecode provider name : bytebuddy
+2023-07-26 16:56:18,444 INFO [main] JtaPlatformInitiator: HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2023-07-26 16:56:18,453 INFO [main] LocalContainerEntityManagerFactoryBean: Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-07-26 16:56:19,075 WARN [main] JpaBaseConfiguration$JpaWebConfiguration: spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2023-07-26 16:56:19,448 WARN [main] UserDetailsServiceAutoConfiguration: 
+
+Using generated security password: d46632a6-50ed-470b-9a18-1be77fc5c093
+
+This generated password is for development use only. Your security configuration must be updated before running your application in production.
+
+2023-07-26 16:56:19,595 INFO [main] DefaultSecurityFilterChain: Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@1f39b3ba, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@53b579d2, org.springframework.security.web.context.SecurityContextHolderFilter@7c7b27c, org.springframework.security.web.header.HeaderWriterFilter@597eb9ac, org.springframework.security.web.csrf.CsrfFilter@3618486e, org.springframework.security.web.authentication.logout.LogoutFilter@3984e2b3, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@6eaf6ced, org.springframework.security.web.authentication.ui.DefaultLoginPageGeneratingFilter@1ac30be4, org.springframework.security.web.authentication.ui.DefaultLogoutPageGeneratingFilter@34f2d3a6, org.springframework.security.web.authentication.www.BasicAuthenticationFilter@d082916, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@7db63a01, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@1bf4a79b, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@3da701a1, org.springframework.security.web.access.ExceptionTranslationFilter@17810908, org.springframework.security.web.access.intercept.AuthorizationFilter@5ac35b17]
+2023-07-26 16:56:19,664 INFO [main] Http11NioProtocol: Starting ProtocolHandler ["http-nio-8080"]
+2023-07-26 16:56:19,695 INFO [main] TomcatWebServer: Tomcat started on port(s): 8080 (http) with context path ''
+2023-07-26 16:56:19,704 INFO [main] ElectroScootApplication: Started ElectroScootApplication in 7.518 seconds (process running for 8.128)
+2023-07-26 16:56:19,704 INFO [main] UserController: The <findByUsername> method is called from User Controller.
+2023-07-26 16:56:19,894 INFO [main] UserController: The <findByUsername> method is called from User Controller.
+2023-07-26 16:56:46,394 INFO [SpringApplicationShutdownHook] LocalContainerEntityManagerFactoryBean: Closing JPA EntityManagerFactory for persistence unit 'default'
+2023-07-26 16:56:46,394 INFO [SpringApplicationShutdownHook] HikariDataSource: HikariPool-1 - Shutdown initiated...
+2023-07-26 16:56:46,418 INFO [SpringApplicationShutdownHook] HikariDataSource: HikariPool-1 - Shutdown completed.
+2023-07-26 18:31:36,753 INFO [main] ElectroScootApplication: Starting ElectroScootApplication using Java 17.0.2 with PID 14124 (D:\programming\java\projects\ElectroScootRental\target\classes started by tocod in D:\programming\java\projects\ElectroScootRental)
+2023-07-26 18:31:36,753 DEBUG [main] ElectroScootApplication: Running with Spring Boot v3.1.1, Spring v6.0.10
+2023-07-26 18:31:36,753 INFO [main] ElectroScootApplication: No active profile set, falling back to 1 default profile: "default"
+2023-07-26 18:31:37,653 INFO [main] RepositoryConfigurationDelegate: Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-07-26 18:31:37,763 INFO [main] RepositoryConfigurationDelegate: Finished Spring Data repository scanning in 103 ms. Found 6 JPA repository interfaces.
+2023-07-26 18:31:38,614 INFO [main] TomcatWebServer: Tomcat initialized with port(s): 8080 (http)
+2023-07-26 18:31:38,629 INFO [main] Http11NioProtocol: Initializing ProtocolHandler ["http-nio-8080"]
+2023-07-26 18:31:38,629 INFO [main] StandardService: Starting service [Tomcat]
+2023-07-26 18:31:38,629 INFO [main] StandardEngine: Starting Servlet engine: [Apache Tomcat/10.1.10]
+2023-07-26 18:31:38,724 INFO [main] [/]: Initializing Spring embedded WebApplicationContext
+2023-07-26 18:31:38,724 INFO [main] ServletWebServerApplicationContext: Root WebApplicationContext: initialization completed in 1901 ms
+2023-07-26 18:31:38,919 INFO [main] HikariDataSource: HikariPool-1 - Starting...
+2023-07-26 18:31:39,359 INFO [main] HikariPool: HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@9e02f84
+2023-07-26 18:31:39,359 INFO [main] HikariDataSource: HikariPool-1 - Start completed.
+2023-07-26 18:31:39,406 INFO [main] LogHelper: HHH000204: Processing PersistenceUnitInfo [name: default]
+2023-07-26 18:31:39,468 INFO [main] Version: HHH000412: Hibernate ORM core version 6.2.5.Final
+2023-07-26 18:31:39,468 INFO [main] Environment: HHH000406: Using bytecode reflection optimizer
+2023-07-26 18:31:39,735 INFO [main] BytecodeProviderInitiator: HHH000021: Bytecode provider name : bytebuddy
+2023-07-26 18:31:39,924 INFO [main] SpringPersistenceUnitInfo: No LoadTimeWeaver setup: ignoring JPA class transformer
+2023-07-26 18:31:40,347 INFO [main] BytecodeProviderInitiator: HHH000021: Bytecode provider name : bytebuddy
+2023-07-26 18:31:41,105 INFO [main] JtaPlatformInitiator: HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2023-07-26 18:31:41,105 INFO [main] LocalContainerEntityManagerFactoryBean: Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-07-26 18:31:41,696 WARN [main] JpaBaseConfiguration$JpaWebConfiguration: spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2023-07-26 18:31:42,063 WARN [main] UserDetailsServiceAutoConfiguration: 
+
+Using generated security password: d214ece2-873c-4e52-a9f7-57b98c00cfb8
+
+This generated password is for development use only. Your security configuration must be updated before running your application in production.
+
+2023-07-26 18:31:42,204 INFO [main] DefaultSecurityFilterChain: Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@1eda853f, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@3f0751b0, org.springframework.security.web.context.SecurityContextHolderFilter@4a15d5f5, org.springframework.security.web.header.HeaderWriterFilter@20e73e41, org.springframework.security.web.csrf.CsrfFilter@5de32e00, org.springframework.security.web.authentication.logout.LogoutFilter@3aac31b7, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@4a2f1ae3, org.springframework.security.web.authentication.ui.DefaultLoginPageGeneratingFilter@5e781b4f, org.springframework.security.web.authentication.ui.DefaultLogoutPageGeneratingFilter@3984e2b3, org.springframework.security.web.authentication.www.BasicAuthenticationFilter@1f67d37f, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@549fe529, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@65a01901, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@35bb3fea, org.springframework.security.web.access.ExceptionTranslationFilter@4a49ce3a, org.springframework.security.web.access.intercept.AuthorizationFilter@190cc39e]
+2023-07-26 18:31:42,251 INFO [main] Http11NioProtocol: Starting ProtocolHandler ["http-nio-8080"]
+2023-07-26 18:31:42,282 INFO [main] TomcatWebServer: Tomcat started on port(s): 8080 (http) with context path ''
+2023-07-26 18:31:42,282 INFO [main] ElectroScootApplication: Started ElectroScootApplication in 6.213 seconds (process running for 6.726)
+2023-07-26 18:31:42,298 INFO [main] UserController: The <findByUsername> method is called from User Controller.
+2023-07-26 18:31:42,486 INFO [main] UserController: The <findByUsername> method is called from User Controller.
+2023-07-26 18:31:54,521 INFO [http-nio-8080-exec-1] [/]: Initializing Spring DispatcherServlet 'dispatcherServlet'
+2023-07-26 18:31:54,521 INFO [http-nio-8080-exec-1] DispatcherServlet: Initializing Servlet 'dispatcherServlet'
+2023-07-26 18:31:54,522 INFO [http-nio-8080-exec-1] DispatcherServlet: Completed initialization in 1 ms
+2023-07-26 18:38:53,535 INFO [SpringApplicationShutdownHook] LocalContainerEntityManagerFactoryBean: Closing JPA EntityManagerFactory for persistence unit 'default'
+2023-07-26 18:38:53,538 INFO [SpringApplicationShutdownHook] HikariDataSource: HikariPool-1 - Shutdown initiated...
+2023-07-26 18:38:53,548 INFO [SpringApplicationShutdownHook] HikariDataSource: HikariPool-1 - Shutdown completed.
+2023-07-26 19:02:29,328 INFO [main] ElectroScootApplication: Starting ElectroScootApplication using Java 17.0.2 with PID 4892 (D:\programming\java\projects\ElectroScootRental\target\classes started by tocod in D:\programming\java\projects\ElectroScootRental)
+2023-07-26 19:02:29,333 DEBUG [main] ElectroScootApplication: Running with Spring Boot v3.1.1, Spring v6.0.10
+2023-07-26 19:02:29,334 INFO [main] ElectroScootApplication: No active profile set, falling back to 1 default profile: "default"
+2023-07-26 19:02:30,670 INFO [main] RepositoryConfigurationDelegate: Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-07-26 19:02:30,857 INFO [main] RepositoryConfigurationDelegate: Finished Spring Data repository scanning in 163 ms. Found 6 JPA repository interfaces.
+2023-07-26 19:02:32,170 INFO [main] TomcatWebServer: Tomcat initialized with port(s): 8080 (http)
+2023-07-26 19:02:32,184 INFO [main] Http11NioProtocol: Initializing ProtocolHandler ["http-nio-8080"]
+2023-07-26 19:02:32,187 INFO [main] StandardService: Starting service [Tomcat]
+2023-07-26 19:02:32,187 INFO [main] StandardEngine: Starting Servlet engine: [Apache Tomcat/10.1.10]
+2023-07-26 19:02:32,358 INFO [main] [/]: Initializing Spring embedded WebApplicationContext
+2023-07-26 19:02:32,363 INFO [main] ServletWebServerApplicationContext: Root WebApplicationContext: initialization completed in 2917 ms
+2023-07-26 19:02:32,654 INFO [main] HikariDataSource: HikariPool-1 - Starting...
+2023-07-26 19:02:33,095 INFO [main] HikariPool: HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@7c70aae1
+2023-07-26 19:02:33,095 INFO [main] HikariDataSource: HikariPool-1 - Start completed.
+2023-07-26 19:02:33,157 INFO [main] LogHelper: HHH000204: Processing PersistenceUnitInfo [name: default]
+2023-07-26 19:02:33,234 INFO [main] Version: HHH000412: Hibernate ORM core version 6.2.5.Final
+2023-07-26 19:02:33,234 INFO [main] Environment: HHH000406: Using bytecode reflection optimizer
+2023-07-26 19:02:33,468 INFO [main] BytecodeProviderInitiator: HHH000021: Bytecode provider name : bytebuddy
+2023-07-26 19:02:33,654 INFO [main] SpringPersistenceUnitInfo: No LoadTimeWeaver setup: ignoring JPA class transformer
+2023-07-26 19:02:34,054 INFO [main] BytecodeProviderInitiator: HHH000021: Bytecode provider name : bytebuddy
+2023-07-26 19:02:34,798 INFO [main] JtaPlatformInitiator: HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2023-07-26 19:02:34,803 INFO [main] LocalContainerEntityManagerFactoryBean: Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-07-26 19:02:35,514 WARN [main] JpaBaseConfiguration$JpaWebConfiguration: spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2023-07-26 19:02:35,964 WARN [main] UserDetailsServiceAutoConfiguration: 
+
+Using generated security password: 7162b9aa-e767-442a-aaca-868c071eab60
+
+This generated password is for development use only. Your security configuration must be updated before running your application in production.
+
+2023-07-26 19:02:36,133 INFO [main] DefaultSecurityFilterChain: Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@77331437, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@98a0842, org.springframework.security.web.context.SecurityContextHolderFilter@55f54852, org.springframework.security.web.header.HeaderWriterFilter@5be8a92c, org.springframework.security.web.csrf.CsrfFilter@19a544cd, org.springframework.security.web.authentication.logout.LogoutFilter@21b792c2, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@62b2bc2e, org.springframework.security.web.authentication.ui.DefaultLoginPageGeneratingFilter@53630682, org.springframework.security.web.authentication.ui.DefaultLogoutPageGeneratingFilter@56f569e, org.springframework.security.web.authentication.www.BasicAuthenticationFilter@156d7556, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@5af8ef61, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@2e76ade9, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@525c0f74, org.springframework.security.web.access.ExceptionTranslationFilter@66c91224, org.springframework.security.web.access.intercept.AuthorizationFilter@7e0393df]
+2023-07-26 19:02:36,175 INFO [main] Http11NioProtocol: Starting ProtocolHandler ["http-nio-8080"]
+2023-07-26 19:02:36,203 INFO [main] TomcatWebServer: Tomcat started on port(s): 8080 (http) with context path ''
+2023-07-26 19:02:36,214 INFO [main] ElectroScootApplication: Started ElectroScootApplication in 7.731 seconds (process running for 8.407)
+2023-07-26 19:02:36,214 INFO [main] UserController: The <findByUsername> method is called from User Controller.
+2023-07-26 19:02:36,423 INFO [main] UserController: The <findByUsername> method is called from User Controller.
+2023-07-26 19:02:57,104 INFO [http-nio-8080-exec-1] [/]: Initializing Spring DispatcherServlet 'dispatcherServlet'
+2023-07-26 19:02:57,104 INFO [http-nio-8080-exec-1] DispatcherServlet: Initializing Servlet 'dispatcherServlet'
+2023-07-26 19:02:57,104 INFO [http-nio-8080-exec-1] DispatcherServlet: Completed initialization in 0 ms
+2023-07-26 19:04:23,973 INFO [SpringApplicationShutdownHook] LocalContainerEntityManagerFactoryBean: Closing JPA EntityManagerFactory for persistence unit 'default'
+2023-07-26 19:04:23,978 INFO [SpringApplicationShutdownHook] HikariDataSource: HikariPool-1 - Shutdown initiated...
+2023-07-26 19:04:24,001 INFO [SpringApplicationShutdownHook] HikariDataSource: HikariPool-1 - Shutdown completed.
+2023-07-26 19:05:42,913 INFO [main] ElectroScootApplication: Starting ElectroScootApplication using Java 17.0.2 with PID 3192 (D:\programming\java\projects\ElectroScootRental\target\classes started by tocod in D:\programming\java\projects\ElectroScootRental)
+2023-07-26 19:05:42,913 DEBUG [main] ElectroScootApplication: Running with Spring Boot v3.1.1, Spring v6.0.10
+2023-07-26 19:05:42,913 INFO [main] ElectroScootApplication: No active profile set, falling back to 1 default profile: "default"
+2023-07-26 19:05:43,815 INFO [main] RepositoryConfigurationDelegate: Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-07-26 19:05:43,958 INFO [main] RepositoryConfigurationDelegate: Finished Spring Data repository scanning in 128 ms. Found 6 JPA repository interfaces.
+2023-07-26 19:05:44,776 INFO [main] TomcatWebServer: Tomcat initialized with port(s): 8080 (http)
+2023-07-26 19:05:44,787 INFO [main] Http11NioProtocol: Initializing ProtocolHandler ["http-nio-8080"]
+2023-07-26 19:05:44,794 INFO [main] StandardService: Starting service [Tomcat]
+2023-07-26 19:05:44,794 INFO [main] StandardEngine: Starting Servlet engine: [Apache Tomcat/10.1.10]
+2023-07-26 19:05:44,903 INFO [main] [/]: Initializing Spring embedded WebApplicationContext
+2023-07-26 19:05:44,905 INFO [main] ServletWebServerApplicationContext: Root WebApplicationContext: initialization completed in 1909 ms
+2023-07-26 19:05:45,103 INFO [main] HikariDataSource: HikariPool-1 - Starting...
+2023-07-26 19:05:45,458 INFO [main] HikariPool: HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@4702e7a5
+2023-07-26 19:05:45,460 INFO [main] HikariDataSource: HikariPool-1 - Start completed.
+2023-07-26 19:05:45,508 INFO [main] LogHelper: HHH000204: Processing PersistenceUnitInfo [name: default]
+2023-07-26 19:05:45,558 INFO [main] Version: HHH000412: Hibernate ORM core version 6.2.5.Final
+2023-07-26 19:05:45,558 INFO [main] Environment: HHH000406: Using bytecode reflection optimizer
+2023-07-26 19:05:45,776 INFO [main] BytecodeProviderInitiator: HHH000021: Bytecode provider name : bytebuddy
+2023-07-26 19:05:45,945 INFO [main] SpringPersistenceUnitInfo: No LoadTimeWeaver setup: ignoring JPA class transformer
+2023-07-26 19:05:46,354 INFO [main] BytecodeProviderInitiator: HHH000021: Bytecode provider name : bytebuddy
+2023-07-26 19:05:47,183 INFO [main] JtaPlatformInitiator: HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2023-07-26 19:05:47,184 INFO [main] LocalContainerEntityManagerFactoryBean: Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-07-26 19:05:47,843 WARN [main] JpaBaseConfiguration$JpaWebConfiguration: spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2023-07-26 19:05:48,243 INFO [main] Http11NioProtocol: Starting ProtocolHandler ["http-nio-8080"]
+2023-07-26 19:05:48,274 INFO [main] TomcatWebServer: Tomcat started on port(s): 8080 (http) with context path ''
+2023-07-26 19:05:48,290 INFO [main] ElectroScootApplication: Started ElectroScootApplication in 6.026 seconds (process running for 6.43)
+2023-07-26 19:06:09,673 INFO [http-nio-8080-exec-1] [/]: Initializing Spring DispatcherServlet 'dispatcherServlet'
+2023-07-26 19:06:09,675 INFO [http-nio-8080-exec-1] DispatcherServlet: Initializing Servlet 'dispatcherServlet'
+2023-07-26 19:06:09,677 INFO [http-nio-8080-exec-1] DispatcherServlet: Completed initialization in 2 ms
+2023-07-26 19:06:17,313 INFO [http-nio-8080-exec-4] UserController: The <getList> method is called from User Controller.
+2023-07-26 19:06:34,754 INFO [http-nio-8080-exec-6] UserController: The <getList> method is called from User Controller.
+2023-07-26 19:08:53,602 INFO [http-nio-8080-exec-9] UserController: The <getList> method is called from User Controller.
+2023-07-26 19:10:59,387 INFO [http-nio-8080-exec-5] UserController: The <register> method is called from User Controller.
+2023-07-26 19:10:59,507 WARN [http-nio-8080-exec-5] SqlExceptionHelper: SQL Error: 1048, SQLState: 23000
+2023-07-26 19:10:59,508 ERROR [http-nio-8080-exec-5] SqlExceptionHelper: Column 'password' cannot be null
+2023-07-26 19:11:36,752 INFO [http-nio-8080-exec-10] UserController: The <register> method is called from User Controller.
+2023-07-26 19:11:36,764 WARN [http-nio-8080-exec-10] SqlExceptionHelper: SQL Error: 1048, SQLState: 23000
+2023-07-26 19:11:36,765 ERROR [http-nio-8080-exec-10] SqlExceptionHelper: Column 'password' cannot be null
+2023-07-26 19:11:44,704 INFO [SpringApplicationShutdownHook] LocalContainerEntityManagerFactoryBean: Closing JPA EntityManagerFactory for persistence unit 'default'
+2023-07-26 19:11:44,717 INFO [SpringApplicationShutdownHook] HikariDataSource: HikariPool-1 - Shutdown initiated...
+2023-07-26 19:11:44,746 INFO [SpringApplicationShutdownHook] HikariDataSource: HikariPool-1 - Shutdown completed.
+2023-07-26 19:11:50,394 INFO [main] ElectroScootApplication: Starting ElectroScootApplication using Java 17.0.2 with PID 10572 (D:\programming\java\projects\ElectroScootRental\target\classes started by tocod in D:\programming\java\projects\ElectroScootRental)
+2023-07-26 19:11:50,396 DEBUG [main] ElectroScootApplication: Running with Spring Boot v3.1.1, Spring v6.0.10
+2023-07-26 19:11:50,398 INFO [main] ElectroScootApplication: No active profile set, falling back to 1 default profile: "default"
+2023-07-26 19:11:51,931 INFO [main] RepositoryConfigurationDelegate: Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-07-26 19:11:52,141 INFO [main] RepositoryConfigurationDelegate: Finished Spring Data repository scanning in 190 ms. Found 6 JPA repository interfaces.
+2023-07-26 19:11:53,384 INFO [main] TomcatWebServer: Tomcat initialized with port(s): 8080 (http)
+2023-07-26 19:11:53,608 INFO [main] ServletWebServerApplicationContext: Root WebApplicationContext: initialization completed in 3098 ms
+2023-07-26 19:11:53,865 INFO [main] HikariDataSource: HikariPool-1 - Starting...
+2023-07-26 19:11:54,402 INFO [main] HikariPool: HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@22d477c2
+2023-07-26 19:11:54,404 INFO [main] HikariDataSource: HikariPool-1 - Start completed.
+2023-07-26 19:11:54,462 INFO [main] LogHelper: HHH000204: Processing PersistenceUnitInfo [name: default]
+2023-07-26 19:11:54,551 INFO [main] Version: HHH000412: Hibernate ORM core version 6.2.5.Final
+2023-07-26 19:11:54,575 INFO [main] Environment: HHH000406: Using bytecode reflection optimizer
+2023-07-26 19:11:54,802 INFO [main] BytecodeProviderInitiator: HHH000021: Bytecode provider name : bytebuddy
+2023-07-26 19:11:54,980 INFO [main] SpringPersistenceUnitInfo: No LoadTimeWeaver setup: ignoring JPA class transformer
+2023-07-26 19:11:55,418 INFO [main] BytecodeProviderInitiator: HHH000021: Bytecode provider name : bytebuddy
+2023-07-26 19:11:56,343 INFO [main] JtaPlatformInitiator: HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2023-07-26 19:11:56,346 INFO [main] LocalContainerEntityManagerFactoryBean: Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-07-26 19:11:57,055 WARN [main] JpaBaseConfiguration$JpaWebConfiguration: spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2023-07-26 19:11:57,476 INFO [main] TomcatWebServer: Tomcat started on port(s): 8080 (http) with context path ''
+2023-07-26 19:11:57,487 INFO [main] ElectroScootApplication: Started ElectroScootApplication in 8.368 seconds (process running for 9.879)
+2023-07-26 19:11:57,506 INFO [SpringApplicationShutdownHook] LocalContainerEntityManagerFactoryBean: Closing JPA EntityManagerFactory for persistence unit 'default'
+2023-07-26 19:11:57,508 INFO [SpringApplicationShutdownHook] HikariDataSource: HikariPool-1 - Shutdown initiated...
+2023-07-26 19:11:57,521 INFO [SpringApplicationShutdownHook] HikariDataSource: HikariPool-1 - Shutdown completed.
+2023-07-26 19:12:17,457 INFO [main] ElectroScootApplication: Starting ElectroScootApplication using Java 17.0.2 with PID 13484 (D:\programming\java\projects\ElectroScootRental\target\classes started by tocod in D:\programming\java\projects\ElectroScootRental)
+2023-07-26 19:12:17,460 DEBUG [main] ElectroScootApplication: Running with Spring Boot v3.1.1, Spring v6.0.10
+2023-07-26 19:12:17,462 INFO [main] ElectroScootApplication: No active profile set, falling back to 1 default profile: "default"
+2023-07-26 19:12:18,824 INFO [main] RepositoryConfigurationDelegate: Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-07-26 19:12:18,997 INFO [main] RepositoryConfigurationDelegate: Finished Spring Data repository scanning in 155 ms. Found 6 JPA repository interfaces.
+2023-07-26 19:12:20,334 INFO [main] TomcatWebServer: Tomcat initialized with port(s): 8080 (http)
+2023-07-26 19:12:20,347 INFO [main] Http11NioProtocol: Initializing ProtocolHandler ["http-nio-8080"]
+2023-07-26 19:12:20,351 INFO [main] StandardService: Starting service [Tomcat]
+2023-07-26 19:12:20,351 INFO [main] StandardEngine: Starting Servlet engine: [Apache Tomcat/10.1.10]
+2023-07-26 19:12:20,549 INFO [main] [/]: Initializing Spring embedded WebApplicationContext
+2023-07-26 19:12:20,554 INFO [main] ServletWebServerApplicationContext: Root WebApplicationContext: initialization completed in 2979 ms
+2023-07-26 19:12:20,829 INFO [main] HikariDataSource: HikariPool-1 - Starting...
+2023-07-26 19:12:21,439 INFO [main] HikariPool: HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@5aa76ad2
+2023-07-26 19:12:21,442 INFO [main] HikariDataSource: HikariPool-1 - Start completed.
+2023-07-26 19:12:21,510 INFO [main] LogHelper: HHH000204: Processing PersistenceUnitInfo [name: default]
+2023-07-26 19:12:21,590 INFO [main] Version: HHH000412: Hibernate ORM core version 6.2.5.Final
+2023-07-26 19:12:21,593 INFO [main] Environment: HHH000406: Using bytecode reflection optimizer
+2023-07-26 19:12:21,868 INFO [main] BytecodeProviderInitiator: HHH000021: Bytecode provider name : bytebuddy
+2023-07-26 19:12:22,067 INFO [main] SpringPersistenceUnitInfo: No LoadTimeWeaver setup: ignoring JPA class transformer
+2023-07-26 19:12:22,522 INFO [main] BytecodeProviderInitiator: HHH000021: Bytecode provider name : bytebuddy
+2023-07-26 19:12:23,450 INFO [main] JtaPlatformInitiator: HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2023-07-26 19:12:23,454 INFO [main] LocalContainerEntityManagerFactoryBean: Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-07-26 19:12:24,317 WARN [main] JpaBaseConfiguration$JpaWebConfiguration: spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2023-07-26 19:12:24,793 INFO [main] Http11NioProtocol: Starting ProtocolHandler ["http-nio-8080"]
+2023-07-26 19:12:24,824 INFO [main] TomcatWebServer: Tomcat started on port(s): 8080 (http) with context path ''
+2023-07-26 19:12:24,838 INFO [main] ElectroScootApplication: Started ElectroScootApplication in 8.307 seconds (process running for 9.242)
+2023-07-26 19:12:30,545 INFO [http-nio-8080-exec-1] [/]: Initializing Spring DispatcherServlet 'dispatcherServlet'
+2023-07-26 19:12:30,545 INFO [http-nio-8080-exec-1] DispatcherServlet: Initializing Servlet 'dispatcherServlet'
+2023-07-26 19:12:30,547 INFO [http-nio-8080-exec-1] DispatcherServlet: Completed initialization in 2 ms
+2023-07-26 19:13:12,137 WARN [HikariPool-1 housekeeper] HikariPool: HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=50s587ms124µs200ns).
+2023-07-26 19:13:12,145 INFO [http-nio-8080-exec-1] UserController: The <register> method is called from User Controller.
+2023-07-26 19:13:18,498 WARN [http-nio-8080-exec-1] SqlExceptionHelper: SQL Error: 1048, SQLState: 23000
+2023-07-26 19:13:18,498 ERROR [http-nio-8080-exec-1] SqlExceptionHelper: Column 'password' cannot be null
+2023-07-26 19:35:15,371 WARN [HikariPool-1 housekeeper] HikariPool: HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=11m33s119ms767µs200ns).
+2023-07-26 19:35:37,955 INFO [http-nio-8080-exec-4] UserController: The <register> method is called from User Controller.
+2023-07-26 19:35:37,971 WARN [http-nio-8080-exec-4] SqlExceptionHelper: SQL Error: 1048, SQLState: 23000
+2023-07-26 19:35:37,971 ERROR [http-nio-8080-exec-4] SqlExceptionHelper: Column 'password' cannot be null
+2023-07-26 19:36:13,121 INFO [http-nio-8080-exec-5] UserController: The <register> method is called from User Controller.
+2023-07-26 19:36:13,137 WARN [http-nio-8080-exec-5] SqlExceptionHelper: SQL Error: 1048, SQLState: 23000
+2023-07-26 19:36:13,137 ERROR [http-nio-8080-exec-5] SqlExceptionHelper: Column 'password' cannot be null
+2023-07-26 19:36:34,364 INFO [http-nio-8080-exec-8] UserController: The <register> method is called from User Controller.
+2023-07-26 19:36:34,380 WARN [http-nio-8080-exec-8] SqlExceptionHelper: SQL Error: 1048, SQLState: 23000
+2023-07-26 19:36:34,380 ERROR [http-nio-8080-exec-8] SqlExceptionHelper: Column 'password' cannot be null
+2023-07-26 19:37:02,553 INFO [SpringApplicationShutdownHook] LocalContainerEntityManagerFactoryBean: Closing JPA EntityManagerFactory for persistence unit 'default'
+2023-07-26 19:37:02,559 INFO [SpringApplicationShutdownHook] HikariDataSource: HikariPool-1 - Shutdown initiated...
+2023-07-26 19:37:02,601 INFO [SpringApplicationShutdownHook] HikariDataSource: HikariPool-1 - Shutdown completed.
+2023-07-26 19:37:08,387 INFO [main] ElectroScootApplication: Starting ElectroScootApplication using Java 17.0.2 with PID 19964 (D:\programming\java\projects\ElectroScootRental\target\classes started by tocod in D:\programming\java\projects\ElectroScootRental)
+2023-07-26 19:37:08,387 DEBUG [main] ElectroScootApplication: Running with Spring Boot v3.1.1, Spring v6.0.10
+2023-07-26 19:37:08,387 INFO [main] ElectroScootApplication: No active profile set, falling back to 1 default profile: "default"
+2023-07-26 19:37:09,596 INFO [main] RepositoryConfigurationDelegate: Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-07-26 19:37:09,734 INFO [main] RepositoryConfigurationDelegate: Finished Spring Data repository scanning in 123 ms. Found 6 JPA repository interfaces.
+2023-07-26 19:37:10,902 INFO [main] TomcatWebServer: Tomcat initialized with port(s): 8080 (http)
+2023-07-26 19:37:10,910 INFO [main] Http11NioProtocol: Initializing ProtocolHandler ["http-nio-8080"]
+2023-07-26 19:37:10,918 INFO [main] StandardService: Starting service [Tomcat]
+2023-07-26 19:37:10,918 INFO [main] StandardEngine: Starting Servlet engine: [Apache Tomcat/10.1.10]
+2023-07-26 19:37:11,103 INFO [main] [/]: Initializing Spring embedded WebApplicationContext
+2023-07-26 19:37:11,103 INFO [main] ServletWebServerApplicationContext: Root WebApplicationContext: initialization completed in 2619 ms
+2023-07-26 19:37:11,339 INFO [main] HikariDataSource: HikariPool-1 - Starting...
+2023-07-26 19:37:11,790 INFO [main] HikariPool: HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@632383b9
+2023-07-26 19:37:11,799 INFO [main] HikariDataSource: HikariPool-1 - Start completed.
+2023-07-26 19:37:11,848 INFO [main] LogHelper: HHH000204: Processing PersistenceUnitInfo [name: default]
+2023-07-26 19:37:11,889 INFO [main] Version: HHH000412: Hibernate ORM core version 6.2.5.Final
+2023-07-26 19:37:11,889 INFO [main] Environment: HHH000406: Using bytecode reflection optimizer
+2023-07-26 19:37:12,078 INFO [main] BytecodeProviderInitiator: HHH000021: Bytecode provider name : bytebuddy
+2023-07-26 19:37:12,256 INFO [main] SpringPersistenceUnitInfo: No LoadTimeWeaver setup: ignoring JPA class transformer
+2023-07-26 19:37:12,654 INFO [main] BytecodeProviderInitiator: HHH000021: Bytecode provider name : bytebuddy
+2023-07-26 19:37:13,631 INFO [main] JtaPlatformInitiator: HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2023-07-26 19:37:13,631 INFO [main] LocalContainerEntityManagerFactoryBean: Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-07-26 19:37:14,243 WARN [main] JpaBaseConfiguration$JpaWebConfiguration: spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2023-07-26 19:37:14,597 INFO [main] Http11NioProtocol: Starting ProtocolHandler ["http-nio-8080"]
+2023-07-26 19:37:14,638 INFO [main] TomcatWebServer: Tomcat started on port(s): 8080 (http) with context path ''
+2023-07-26 19:37:14,646 INFO [main] ElectroScootApplication: Started ElectroScootApplication in 7.071 seconds (process running for 7.657)
+2023-07-26 19:37:43,229 INFO [http-nio-8080-exec-2] [/]: Initializing Spring DispatcherServlet 'dispatcherServlet'
+2023-07-26 19:37:43,229 INFO [http-nio-8080-exec-2] DispatcherServlet: Initializing Servlet 'dispatcherServlet'
+2023-07-26 19:37:43,229 INFO [http-nio-8080-exec-2] DispatcherServlet: Completed initialization in 0 ms
+2023-07-26 19:37:43,454 INFO [http-nio-8080-exec-2] UserController: The <register> method is called from User Controller.
+2023-07-26 19:37:58,139 INFO [http-nio-8080-exec-5] UserController: The <register> method is called from User Controller.
+2023-07-26 19:37:58,171 WARN [http-nio-8080-exec-5] SqlExceptionHelper: SQL Error: 1062, SQLState: 23000
+2023-07-26 19:37:58,171 ERROR [http-nio-8080-exec-5] SqlExceptionHelper: Duplicate entry 'someUsername' for key 'user.username_UNIQUE'
+2023-07-26 19:39:54,570 INFO [SpringApplicationShutdownHook] LocalContainerEntityManagerFactoryBean: Closing JPA EntityManagerFactory for persistence unit 'default'
+2023-07-26 19:39:54,570 INFO [SpringApplicationShutdownHook] HikariDataSource: HikariPool-1 - Shutdown initiated...
+2023-07-26 19:39:54,594 INFO [SpringApplicationShutdownHook] HikariDataSource: HikariPool-1 - Shutdown completed.
+2023-07-26 19:40:00,967 INFO [main] ElectroScootApplication: Starting ElectroScootApplication using Java 17.0.2 with PID 25420 (D:\programming\java\projects\ElectroScootRental\target\classes started by tocod in D:\programming\java\projects\ElectroScootRental)
+2023-07-26 19:40:00,967 DEBUG [main] ElectroScootApplication: Running with Spring Boot v3.1.1, Spring v6.0.10
+2023-07-26 19:40:00,975 INFO [main] ElectroScootApplication: No active profile set, falling back to 1 default profile: "default"
+2023-07-26 19:40:02,260 INFO [main] RepositoryConfigurationDelegate: Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-07-26 19:40:02,440 INFO [main] RepositoryConfigurationDelegate: Finished Spring Data repository scanning in 156 ms. Found 6 JPA repository interfaces.
+2023-07-26 19:40:03,633 INFO [main] TomcatWebServer: Tomcat initialized with port(s): 8080 (http)
+2023-07-26 19:40:03,641 INFO [main] Http11NioProtocol: Initializing ProtocolHandler ["http-nio-8080"]
+2023-07-26 19:40:03,650 INFO [main] StandardService: Starting service [Tomcat]
+2023-07-26 19:40:03,650 INFO [main] StandardEngine: Starting Servlet engine: [Apache Tomcat/10.1.10]
+2023-07-26 19:40:03,773 INFO [main] [/]: Initializing Spring embedded WebApplicationContext
+2023-07-26 19:40:03,781 INFO [main] ServletWebServerApplicationContext: Root WebApplicationContext: initialization completed in 2699 ms
+2023-07-26 19:40:04,018 INFO [main] HikariDataSource: HikariPool-1 - Starting...
+2023-07-26 19:40:04,426 INFO [main] HikariPool: HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@4ae2e781
+2023-07-26 19:40:04,428 INFO [main] HikariDataSource: HikariPool-1 - Start completed.
+2023-07-26 19:40:04,471 INFO [main] LogHelper: HHH000204: Processing PersistenceUnitInfo [name: default]
+2023-07-26 19:40:04,511 INFO [main] Version: HHH000412: Hibernate ORM core version 6.2.5.Final
+2023-07-26 19:40:04,511 INFO [main] Environment: HHH000406: Using bytecode reflection optimizer
+2023-07-26 19:40:04,695 INFO [main] BytecodeProviderInitiator: HHH000021: Bytecode provider name : bytebuddy
+2023-07-26 19:40:04,898 INFO [main] SpringPersistenceUnitInfo: No LoadTimeWeaver setup: ignoring JPA class transformer
+2023-07-26 19:40:05,340 INFO [main] BytecodeProviderInitiator: HHH000021: Bytecode provider name : bytebuddy
+2023-07-26 19:40:06,293 INFO [main] JtaPlatformInitiator: HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2023-07-26 19:40:06,301 INFO [main] LocalContainerEntityManagerFactoryBean: Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-07-26 19:40:07,021 WARN [main] JpaBaseConfiguration$JpaWebConfiguration: spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2023-07-26 19:40:07,499 INFO [main] Http11NioProtocol: Starting ProtocolHandler ["http-nio-8080"]
+2023-07-26 19:40:07,540 INFO [main] TomcatWebServer: Tomcat started on port(s): 8080 (http) with context path ''
+2023-07-26 19:40:07,556 INFO [main] ElectroScootApplication: Started ElectroScootApplication in 7.491 seconds (process running for 8.066)
+2023-07-26 19:40:15,535 INFO [http-nio-8080-exec-1] [/]: Initializing Spring DispatcherServlet 'dispatcherServlet'
+2023-07-26 19:40:15,535 INFO [http-nio-8080-exec-1] DispatcherServlet: Initializing Servlet 'dispatcherServlet'
+2023-07-26 19:40:15,543 INFO [http-nio-8080-exec-1] DispatcherServlet: Completed initialization in 8 ms
+2023-07-26 19:40:15,615 INFO [http-nio-8080-exec-1] UserController: The <findById> method is called from User Controller.
+2023-07-26 19:40:21,358 INFO [http-nio-8080-exec-3] UserController: The <findById> method is called from User Controller.
+2023-07-26 19:40:25,846 INFO [http-nio-8080-exec-4] UserController: The <findById> method is called from User Controller.
+2023-07-26 19:44:36,441 INFO [SpringApplicationShutdownHook] LocalContainerEntityManagerFactoryBean: Closing JPA EntityManagerFactory for persistence unit 'default'
+2023-07-26 19:44:36,453 INFO [SpringApplicationShutdownHook] HikariDataSource: HikariPool-1 - Shutdown initiated...
+2023-07-26 19:44:36,474 INFO [SpringApplicationShutdownHook] HikariDataSource: HikariPool-1 - Shutdown completed.
+2023-07-26 19:44:42,397 INFO [main] ElectroScootApplication: Starting ElectroScootApplication using Java 17.0.2 with PID 20944 (D:\programming\java\projects\ElectroScootRental\target\classes started by tocod in D:\programming\java\projects\ElectroScootRental)
+2023-07-26 19:44:42,397 DEBUG [main] ElectroScootApplication: Running with Spring Boot v3.1.1, Spring v6.0.10
+2023-07-26 19:44:42,405 INFO [main] ElectroScootApplication: No active profile set, falling back to 1 default profile: "default"
+2023-07-26 19:44:43,614 INFO [main] RepositoryConfigurationDelegate: Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-07-26 19:44:43,780 INFO [main] RepositoryConfigurationDelegate: Finished Spring Data repository scanning in 155 ms. Found 6 JPA repository interfaces.
+2023-07-26 19:44:44,957 INFO [main] TomcatWebServer: Tomcat initialized with port(s): 8080 (http)
+2023-07-26 19:44:44,965 INFO [main] Http11NioProtocol: Initializing ProtocolHandler ["http-nio-8080"]
+2023-07-26 19:44:44,965 INFO [main] StandardService: Starting service [Tomcat]
+2023-07-26 19:44:44,973 INFO [main] StandardEngine: Starting Servlet engine: [Apache Tomcat/10.1.10]
+2023-07-26 19:44:45,126 INFO [main] [/]: Initializing Spring embedded WebApplicationContext
+2023-07-26 19:44:45,126 INFO [main] ServletWebServerApplicationContext: Root WebApplicationContext: initialization completed in 2619 ms
+2023-07-26 19:44:45,371 INFO [main] HikariDataSource: HikariPool-1 - Starting...
+2023-07-26 19:44:45,937 INFO [main] HikariPool: HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@632383b9
+2023-07-26 19:44:45,937 INFO [main] HikariDataSource: HikariPool-1 - Start completed.
+2023-07-26 19:44:46,003 INFO [main] LogHelper: HHH000204: Processing PersistenceUnitInfo [name: default]
+2023-07-26 19:44:46,093 INFO [main] Version: HHH000412: Hibernate ORM core version 6.2.5.Final
+2023-07-26 19:44:46,093 INFO [main] Environment: HHH000406: Using bytecode reflection optimizer
+2023-07-26 19:44:46,413 INFO [main] BytecodeProviderInitiator: HHH000021: Bytecode provider name : bytebuddy
+2023-07-26 19:44:46,627 INFO [main] SpringPersistenceUnitInfo: No LoadTimeWeaver setup: ignoring JPA class transformer
+2023-07-26 19:44:47,134 INFO [main] BytecodeProviderInitiator: HHH000021: Bytecode provider name : bytebuddy
+2023-07-26 19:44:47,909 INFO [main] JtaPlatformInitiator: HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2023-07-26 19:44:47,917 INFO [main] LocalContainerEntityManagerFactoryBean: Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-07-26 19:44:48,514 WARN [main] JpaBaseConfiguration$JpaWebConfiguration: spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2023-07-26 19:44:48,883 INFO [main] Http11NioProtocol: Starting ProtocolHandler ["http-nio-8080"]
+2023-07-26 19:44:48,908 INFO [main] TomcatWebServer: Tomcat started on port(s): 8080 (http) with context path ''
+2023-07-26 19:44:48,924 INFO [main] ElectroScootApplication: Started ElectroScootApplication in 7.306 seconds (process running for 7.865)
+2023-07-26 19:44:58,637 INFO [http-nio-8080-exec-2] [/]: Initializing Spring DispatcherServlet 'dispatcherServlet'
+2023-07-26 19:44:58,637 INFO [http-nio-8080-exec-2] DispatcherServlet: Initializing Servlet 'dispatcherServlet'
+2023-07-26 19:44:58,637 INFO [http-nio-8080-exec-2] DispatcherServlet: Completed initialization in 0 ms
+2023-07-26 19:44:58,742 INFO [http-nio-8080-exec-2] UserController: The <findById> method is called from User Controller.
+2023-07-26 19:44:58,870 ERROR [http-nio-8080-exec-2] CustomControllerAdvice: IllegalArgumentException exception occurred. Exception msg: The user with id 10 does not exist.
+2023-07-26 19:48:55,970 INFO [SpringApplicationShutdownHook] LocalContainerEntityManagerFactoryBean: Closing JPA EntityManagerFactory for persistence unit 'default'
+2023-07-26 19:48:55,978 INFO [SpringApplicationShutdownHook] HikariDataSource: HikariPool-1 - Shutdown initiated...
+2023-07-26 19:48:55,995 INFO [SpringApplicationShutdownHook] HikariDataSource: HikariPool-1 - Shutdown completed.
+2023-07-26 19:49:02,094 INFO [main] ElectroScootApplication: Starting ElectroScootApplication using Java 17.0.2 with PID 18424 (D:\programming\java\projects\ElectroScootRental\target\classes started by tocod in D:\programming\java\projects\ElectroScootRental)
+2023-07-26 19:49:02,094 DEBUG [main] ElectroScootApplication: Running with Spring Boot v3.1.1, Spring v6.0.10
+2023-07-26 19:49:02,094 INFO [main] ElectroScootApplication: No active profile set, falling back to 1 default profile: "default"
+2023-07-26 19:49:03,423 INFO [main] RepositoryConfigurationDelegate: Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-07-26 19:49:03,608 INFO [main] RepositoryConfigurationDelegate: Finished Spring Data repository scanning in 163 ms. Found 6 JPA repository interfaces.
+2023-07-26 19:49:04,742 INFO [main] TomcatWebServer: Tomcat initialized with port(s): 8080 (http)
+2023-07-26 19:49:04,758 INFO [main] Http11NioProtocol: Initializing ProtocolHandler ["http-nio-8080"]
+2023-07-26 19:49:04,758 INFO [main] StandardService: Starting service [Tomcat]
+2023-07-26 19:49:04,758 INFO [main] StandardEngine: Starting Servlet engine: [Apache Tomcat/10.1.10]
+2023-07-26 19:49:04,928 INFO [main] [/]: Initializing Spring embedded WebApplicationContext
+2023-07-26 19:49:04,935 INFO [main] ServletWebServerApplicationContext: Root WebApplicationContext: initialization completed in 2723 ms
+2023-07-26 19:49:05,193 INFO [main] HikariDataSource: HikariPool-1 - Starting...
+2023-07-26 19:49:05,659 INFO [main] HikariPool: HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@64021427
+2023-07-26 19:49:05,667 INFO [main] HikariDataSource: HikariPool-1 - Start completed.
+2023-07-26 19:49:05,723 INFO [main] LogHelper: HHH000204: Processing PersistenceUnitInfo [name: default]
+2023-07-26 19:49:05,764 INFO [main] Version: HHH000412: Hibernate ORM core version 6.2.5.Final
+2023-07-26 19:49:05,774 INFO [main] Environment: HHH000406: Using bytecode reflection optimizer
+2023-07-26 19:49:06,022 INFO [main] BytecodeProviderInitiator: HHH000021: Bytecode provider name : bytebuddy
+2023-07-26 19:49:06,190 INFO [main] SpringPersistenceUnitInfo: No LoadTimeWeaver setup: ignoring JPA class transformer
+2023-07-26 19:49:06,594 INFO [main] BytecodeProviderInitiator: HHH000021: Bytecode provider name : bytebuddy
+2023-07-26 19:49:07,389 INFO [main] JtaPlatformInitiator: HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2023-07-26 19:49:07,389 INFO [main] LocalContainerEntityManagerFactoryBean: Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-07-26 19:49:08,057 WARN [main] JpaBaseConfiguration$JpaWebConfiguration: spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2023-07-26 19:49:08,438 INFO [main] Http11NioProtocol: Starting ProtocolHandler ["http-nio-8080"]
+2023-07-26 19:49:08,463 INFO [main] TomcatWebServer: Tomcat started on port(s): 8080 (http) with context path ''
+2023-07-26 19:49:08,479 INFO [main] ElectroScootApplication: Started ElectroScootApplication in 7.236 seconds (process running for 7.851)
+2023-07-26 19:49:26,224 INFO [http-nio-8080-exec-3] [/]: Initializing Spring DispatcherServlet 'dispatcherServlet'
+2023-07-26 19:49:26,225 INFO [http-nio-8080-exec-3] DispatcherServlet: Initializing Servlet 'dispatcherServlet'
+2023-07-26 19:49:26,227 INFO [http-nio-8080-exec-3] DispatcherServlet: Completed initialization in 2 ms
+2023-07-26 19:49:26,309 INFO [http-nio-8080-exec-3] UserController: The <findById> method is called from User Controller.
+2023-07-26 19:49:26,470 ERROR [http-nio-8080-exec-3] CustomControllerAdvice: IllegalArgumentException exception occurred. Exception msg: The user with id 10 does not exist.
+2023-07-26 19:54:02,274 INFO [SpringApplicationShutdownHook] LocalContainerEntityManagerFactoryBean: Closing JPA EntityManagerFactory for persistence unit 'default'
+2023-07-26 19:54:02,274 INFO [SpringApplicationShutdownHook] HikariDataSource: HikariPool-1 - Shutdown initiated...
+2023-07-26 19:54:02,305 INFO [SpringApplicationShutdownHook] HikariDataSource: HikariPool-1 - Shutdown completed.
+2023-07-26 19:54:08,568 INFO [main] ElectroScootApplication: Starting ElectroScootApplication using Java 17.0.2 with PID 16604 (D:\programming\java\projects\ElectroScootRental\target\classes started by tocod in D:\programming\java\projects\ElectroScootRental)
+2023-07-26 19:54:08,568 DEBUG [main] ElectroScootApplication: Running with Spring Boot v3.1.1, Spring v6.0.10
+2023-07-26 19:54:08,568 INFO [main] ElectroScootApplication: No active profile set, falling back to 1 default profile: "default"
+2023-07-26 19:54:09,864 INFO [main] RepositoryConfigurationDelegate: Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-07-26 19:54:10,088 INFO [main] RepositoryConfigurationDelegate: Finished Spring Data repository scanning in 210 ms. Found 6 JPA repository interfaces.
+2023-07-26 19:54:24,288 INFO [main] ElectroScootApplication: Starting ElectroScootApplication using Java 17.0.2 with PID 23744 (D:\programming\java\projects\ElectroScootRental\target\classes started by tocod in D:\programming\java\projects\ElectroScootRental)
+2023-07-26 19:54:24,290 DEBUG [main] ElectroScootApplication: Running with Spring Boot v3.1.1, Spring v6.0.10
+2023-07-26 19:54:24,290 INFO [main] ElectroScootApplication: No active profile set, falling back to 1 default profile: "default"
+2023-07-26 19:54:25,578 INFO [main] RepositoryConfigurationDelegate: Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-07-26 19:54:25,765 INFO [main] RepositoryConfigurationDelegate: Finished Spring Data repository scanning in 167 ms. Found 6 JPA repository interfaces.
+2023-07-26 19:54:27,013 INFO [main] TomcatWebServer: Tomcat initialized with port(s): 8080 (http)
+2023-07-26 19:54:27,029 INFO [main] Http11NioProtocol: Initializing ProtocolHandler ["http-nio-8080"]
+2023-07-26 19:54:27,029 INFO [main] StandardService: Starting service [Tomcat]
+2023-07-26 19:54:27,029 INFO [main] StandardEngine: Starting Servlet engine: [Apache Tomcat/10.1.10]
+2023-07-26 19:54:27,170 INFO [main] [/]: Initializing Spring embedded WebApplicationContext
+2023-07-26 19:54:27,170 INFO [main] ServletWebServerApplicationContext: Root WebApplicationContext: initialization completed in 2771 ms
+2023-07-26 19:54:27,474 INFO [main] HikariDataSource: HikariPool-1 - Starting...
+2023-07-26 19:54:27,994 INFO [main] HikariPool: HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@632383b9
+2023-07-26 19:54:27,994 INFO [main] HikariDataSource: HikariPool-1 - Start completed.
+2023-07-26 19:54:28,052 INFO [main] LogHelper: HHH000204: Processing PersistenceUnitInfo [name: default]
+2023-07-26 19:54:28,131 INFO [main] Version: HHH000412: Hibernate ORM core version 6.2.5.Final
+2023-07-26 19:54:28,146 INFO [main] Environment: HHH000406: Using bytecode reflection optimizer
+2023-07-26 19:54:28,402 INFO [main] BytecodeProviderInitiator: HHH000021: Bytecode provider name : bytebuddy
+2023-07-26 19:54:28,575 INFO [main] SpringPersistenceUnitInfo: No LoadTimeWeaver setup: ignoring JPA class transformer
+2023-07-26 19:54:28,961 INFO [main] BytecodeProviderInitiator: HHH000021: Bytecode provider name : bytebuddy
+2023-07-26 19:54:29,740 INFO [main] JtaPlatformInitiator: HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2023-07-26 19:54:29,740 INFO [main] LocalContainerEntityManagerFactoryBean: Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-07-26 19:54:30,370 WARN [main] JpaBaseConfiguration$JpaWebConfiguration: spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2023-07-26 19:54:30,787 INFO [main] Http11NioProtocol: Starting ProtocolHandler ["http-nio-8080"]
+2023-07-26 19:54:30,818 INFO [main] TomcatWebServer: Tomcat started on port(s): 8080 (http) with context path ''
+2023-07-26 19:54:30,833 INFO [main] ElectroScootApplication: Started ElectroScootApplication in 7.378 seconds (process running for 7.979)
+2023-07-26 19:54:38,320 INFO [http-nio-8080-exec-1] [/]: Initializing Spring DispatcherServlet 'dispatcherServlet'
+2023-07-26 19:54:38,320 INFO [http-nio-8080-exec-1] DispatcherServlet: Initializing Servlet 'dispatcherServlet'
+2023-07-26 19:54:38,320 INFO [http-nio-8080-exec-1] DispatcherServlet: Completed initialization in 0 ms
+2023-07-26 19:54:38,407 INFO [http-nio-8080-exec-1] UserController: The <findById> method is called from User Controller.
+2023-07-26 19:54:38,570 ERROR [http-nio-8080-exec-1] CustomControllerAdvice: IllegalArgumentException exception occurred. Exception msg: The user with id 10 does not exist.
+2023-07-26 19:55:18,383 INFO [SpringApplicationShutdownHook] LocalContainerEntityManagerFactoryBean: Closing JPA EntityManagerFactory for persistence unit 'default'
+2023-07-26 19:55:18,383 INFO [SpringApplicationShutdownHook] HikariDataSource: HikariPool-1 - Shutdown initiated...
+2023-07-26 19:55:18,415 INFO [SpringApplicationShutdownHook] HikariDataSource: HikariPool-1 - Shutdown completed.
+2023-07-26 19:55:24,410 INFO [main] ElectroScootApplication: Starting ElectroScootApplication using Java 17.0.2 with PID 23740 (D:\programming\java\projects\ElectroScootRental\target\classes started by tocod in D:\programming\java\projects\ElectroScootRental)
+2023-07-26 19:55:24,410 DEBUG [main] ElectroScootApplication: Running with Spring Boot v3.1.1, Spring v6.0.10
+2023-07-26 19:55:24,425 INFO [main] ElectroScootApplication: No active profile set, falling back to 1 default profile: "default"
+2023-07-26 19:55:25,635 INFO [main] RepositoryConfigurationDelegate: Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-07-26 19:55:25,760 INFO [main] RepositoryConfigurationDelegate: Finished Spring Data repository scanning in 119 ms. Found 6 JPA repository interfaces.
+2023-07-26 19:55:26,885 INFO [main] TomcatWebServer: Tomcat initialized with port(s): 8080 (http)
+2023-07-26 19:55:26,885 INFO [main] Http11NioProtocol: Initializing ProtocolHandler ["http-nio-8080"]
+2023-07-26 19:55:26,900 INFO [main] StandardService: Starting service [Tomcat]
+2023-07-26 19:55:26,900 INFO [main] StandardEngine: Starting Servlet engine: [Apache Tomcat/10.1.10]
+2023-07-26 19:55:27,056 INFO [main] [/]: Initializing Spring embedded WebApplicationContext
+2023-07-26 19:55:27,059 INFO [main] ServletWebServerApplicationContext: Root WebApplicationContext: initialization completed in 2534 ms
+2023-07-26 19:55:27,301 INFO [main] HikariDataSource: HikariPool-1 - Starting...
+2023-07-26 19:55:27,851 INFO [main] HikariPool: HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@15214920
+2023-07-26 19:55:27,851 INFO [main] HikariDataSource: HikariPool-1 - Start completed.
+2023-07-26 19:55:27,914 INFO [main] LogHelper: HHH000204: Processing PersistenceUnitInfo [name: default]
+2023-07-26 19:55:27,992 INFO [main] Version: HHH000412: Hibernate ORM core version 6.2.5.Final
+2023-07-26 19:55:27,992 INFO [main] Environment: HHH000406: Using bytecode reflection optimizer
+2023-07-26 19:55:28,284 INFO [main] BytecodeProviderInitiator: HHH000021: Bytecode provider name : bytebuddy
+2023-07-26 19:55:28,456 INFO [main] SpringPersistenceUnitInfo: No LoadTimeWeaver setup: ignoring JPA class transformer
+2023-07-26 19:55:28,904 INFO [main] BytecodeProviderInitiator: HHH000021: Bytecode provider name : bytebuddy
+2023-07-26 19:55:29,686 INFO [main] JtaPlatformInitiator: HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2023-07-26 19:55:29,686 INFO [main] LocalContainerEntityManagerFactoryBean: Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-07-26 19:55:30,315 WARN [main] JpaBaseConfiguration$JpaWebConfiguration: spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2023-07-26 19:55:30,678 INFO [main] Http11NioProtocol: Starting ProtocolHandler ["http-nio-8080"]
+2023-07-26 19:55:30,709 INFO [main] TomcatWebServer: Tomcat started on port(s): 8080 (http) with context path ''
+2023-07-26 19:55:30,725 INFO [main] ElectroScootApplication: Started ElectroScootApplication in 7.098 seconds (process running for 7.646)
+2023-07-26 19:55:38,613 INFO [http-nio-8080-exec-2] [/]: Initializing Spring DispatcherServlet 'dispatcherServlet'
+2023-07-26 19:55:38,613 INFO [http-nio-8080-exec-2] DispatcherServlet: Initializing Servlet 'dispatcherServlet'
+2023-07-26 19:55:38,613 INFO [http-nio-8080-exec-2] DispatcherServlet: Completed initialization in 0 ms
+2023-07-26 19:55:38,677 INFO [http-nio-8080-exec-2] UserController: The <findById> method is called from User Controller.
+2023-07-26 19:55:38,782 ERROR [http-nio-8080-exec-2] CustomControllerAdvice: IllegalArgumentException exception occurred. Exception msg: The user with id 10 does not exist.
+2023-07-26 19:58:42,536 INFO [SpringApplicationShutdownHook] LocalContainerEntityManagerFactoryBean: Closing JPA EntityManagerFactory for persistence unit 'default'
+2023-07-26 19:58:42,536 INFO [SpringApplicationShutdownHook] HikariDataSource: HikariPool-1 - Shutdown initiated...
+2023-07-26 19:58:42,551 INFO [SpringApplicationShutdownHook] HikariDataSource: HikariPool-1 - Shutdown completed.
+2023-07-26 19:58:48,684 INFO [main] ElectroScootApplication: Starting ElectroScootApplication using Java 17.0.2 with PID 14364 (D:\programming\java\projects\ElectroScootRental\target\classes started by tocod in D:\programming\java\projects\ElectroScootRental)
+2023-07-26 19:58:48,684 DEBUG [main] ElectroScootApplication: Running with Spring Boot v3.1.1, Spring v6.0.10
+2023-07-26 19:58:48,684 INFO [main] ElectroScootApplication: No active profile set, falling back to 1 default profile: "default"
+2023-07-26 19:58:49,934 INFO [main] RepositoryConfigurationDelegate: Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-07-26 19:58:50,076 INFO [main] RepositoryConfigurationDelegate: Finished Spring Data repository scanning in 130 ms. Found 6 JPA repository interfaces.
+2023-07-26 19:58:51,271 INFO [main] TomcatWebServer: Tomcat initialized with port(s): 8080 (http)
+2023-07-26 19:58:51,286 INFO [main] Http11NioProtocol: Initializing ProtocolHandler ["http-nio-8080"]
+2023-07-26 19:58:51,286 INFO [main] StandardService: Starting service [Tomcat]
+2023-07-26 19:58:51,286 INFO [main] StandardEngine: Starting Servlet engine: [Apache Tomcat/10.1.10]
+2023-07-26 19:58:51,443 INFO [main] [/]: Initializing Spring embedded WebApplicationContext
+2023-07-26 19:58:51,443 INFO [main] ServletWebServerApplicationContext: Root WebApplicationContext: initialization completed in 2648 ms
+2023-07-26 19:58:51,695 INFO [main] HikariDataSource: HikariPool-1 - Starting...
+2023-07-26 19:58:52,214 INFO [main] HikariPool: HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@15214920
+2023-07-26 19:58:52,220 INFO [main] HikariDataSource: HikariPool-1 - Start completed.
+2023-07-26 19:58:52,277 INFO [main] LogHelper: HHH000204: Processing PersistenceUnitInfo [name: default]
+2023-07-26 19:58:52,357 INFO [main] Version: HHH000412: Hibernate ORM core version 6.2.5.Final
+2023-07-26 19:58:52,357 INFO [main] Environment: HHH000406: Using bytecode reflection optimizer
+2023-07-26 19:58:52,601 INFO [main] BytecodeProviderInitiator: HHH000021: Bytecode provider name : bytebuddy
+2023-07-26 19:58:52,780 INFO [main] SpringPersistenceUnitInfo: No LoadTimeWeaver setup: ignoring JPA class transformer
+2023-07-26 19:58:53,204 INFO [main] BytecodeProviderInitiator: HHH000021: Bytecode provider name : bytebuddy
+2023-07-26 19:58:54,054 INFO [main] JtaPlatformInitiator: HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2023-07-26 19:58:54,054 INFO [main] LocalContainerEntityManagerFactoryBean: Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-07-26 19:58:54,713 WARN [main] JpaBaseConfiguration$JpaWebConfiguration: spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2023-07-26 19:58:55,060 INFO [main] Http11NioProtocol: Starting ProtocolHandler ["http-nio-8080"]
+2023-07-26 19:58:55,091 INFO [main] TomcatWebServer: Tomcat started on port(s): 8080 (http) with context path ''
+2023-07-26 19:58:55,107 INFO [main] ElectroScootApplication: Started ElectroScootApplication in 7.288 seconds (process running for 7.82)
+2023-07-26 19:58:58,701 INFO [http-nio-8080-exec-2] [/]: Initializing Spring DispatcherServlet 'dispatcherServlet'
+2023-07-26 19:58:58,701 INFO [http-nio-8080-exec-2] DispatcherServlet: Initializing Servlet 'dispatcherServlet'
+2023-07-26 19:58:58,701 INFO [http-nio-8080-exec-2] DispatcherServlet: Completed initialization in 0 ms
+2023-07-26 19:58:58,767 INFO [http-nio-8080-exec-2] UserController: The <findById> method is called from User Controller.
+2023-07-26 19:58:58,887 ERROR [http-nio-8080-exec-2] CustomControllerAdvice: IllegalArgumentException exception occurred. Exception msg: The user with id 10 does not exist.
+2023-07-26 19:59:00,159 INFO [http-nio-8080-exec-3] UserController: The <findById> method is called from User Controller.
+2023-07-26 19:59:00,167 ERROR [http-nio-8080-exec-3] CustomControllerAdvice: IllegalArgumentException exception occurred. Exception msg: The user with id 10 does not exist.
+2023-07-26 19:59:01,466 INFO [http-nio-8080-exec-6] UserController: The <findById> method is called from User Controller.
+2023-07-26 19:59:01,482 ERROR [http-nio-8080-exec-6] CustomControllerAdvice: IllegalArgumentException exception occurred. Exception msg: The user with id 10 does not exist.
+2023-07-26 19:59:23,107 INFO [SpringApplicationShutdownHook] LocalContainerEntityManagerFactoryBean: Closing JPA EntityManagerFactory for persistence unit 'default'
+2023-07-26 19:59:23,107 INFO [SpringApplicationShutdownHook] HikariDataSource: HikariPool-1 - Shutdown initiated...
+2023-07-26 19:59:23,123 INFO [SpringApplicationShutdownHook] HikariDataSource: HikariPool-1 - Shutdown completed.
+2023-07-26 19:59:26,066 INFO [main] ElectroScootApplication: Starting ElectroScootApplication using Java 17.0.2 with PID 9668 (D:\programming\java\projects\ElectroScootRental\target\classes started by tocod in D:\programming\java\projects\ElectroScootRental)
+2023-07-26 19:59:26,066 DEBUG [main] ElectroScootApplication: Running with Spring Boot v3.1.1, Spring v6.0.10
+2023-07-26 19:59:26,074 INFO [main] ElectroScootApplication: No active profile set, falling back to 1 default profile: "default"
+2023-07-26 19:59:27,387 INFO [main] RepositoryConfigurationDelegate: Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-07-26 19:59:27,540 INFO [main] RepositoryConfigurationDelegate: Finished Spring Data repository scanning in 141 ms. Found 6 JPA repository interfaces.
+2023-07-26 19:59:28,844 INFO [main] TomcatWebServer: Tomcat initialized with port(s): 8080 (http)
+2023-07-26 19:59:28,890 INFO [main] Http11NioProtocol: Initializing ProtocolHandler ["http-nio-8080"]
+2023-07-26 19:59:28,890 INFO [main] StandardService: Starting service [Tomcat]
+2023-07-26 19:59:28,890 INFO [main] StandardEngine: Starting Servlet engine: [Apache Tomcat/10.1.10]
+2023-07-26 19:59:29,094 INFO [main] [/]: Initializing Spring embedded WebApplicationContext
+2023-07-26 19:59:29,094 INFO [main] ServletWebServerApplicationContext: Root WebApplicationContext: initialization completed in 2916 ms
+2023-07-26 19:59:29,355 INFO [main] HikariDataSource: HikariPool-1 - Starting...
+2023-07-26 19:59:30,160 INFO [main] HikariPool: HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@17c0274c
+2023-07-26 19:59:30,168 INFO [main] HikariDataSource: HikariPool-1 - Start completed.
+2023-07-26 19:59:30,257 INFO [main] LogHelper: HHH000204: Processing PersistenceUnitInfo [name: default]
+2023-07-26 19:59:30,393 INFO [main] Version: HHH000412: Hibernate ORM core version 6.2.5.Final
+2023-07-26 19:59:30,393 INFO [main] Environment: HHH000406: Using bytecode reflection optimizer
+2023-07-26 19:59:30,801 INFO [main] BytecodeProviderInitiator: HHH000021: Bytecode provider name : bytebuddy
+2023-07-26 19:59:31,026 INFO [main] SpringPersistenceUnitInfo: No LoadTimeWeaver setup: ignoring JPA class transformer
+2023-07-26 19:59:31,680 INFO [main] BytecodeProviderInitiator: HHH000021: Bytecode provider name : bytebuddy
+2023-07-26 19:59:33,030 INFO [main] JtaPlatformInitiator: HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2023-07-26 19:59:33,030 INFO [main] LocalContainerEntityManagerFactoryBean: Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-07-26 19:59:33,830 WARN [main] JpaBaseConfiguration$JpaWebConfiguration: spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2023-07-26 19:59:34,239 INFO [main] Http11NioProtocol: Starting ProtocolHandler ["http-nio-8080"]
+2023-07-26 19:59:34,286 INFO [main] TomcatWebServer: Tomcat started on port(s): 8080 (http) with context path ''
+2023-07-26 19:59:34,302 INFO [main] ElectroScootApplication: Started ElectroScootApplication in 9.297 seconds (process running for 10.272)
+2023-07-26 19:59:38,368 INFO [http-nio-8080-exec-3] [/]: Initializing Spring DispatcherServlet 'dispatcherServlet'
+2023-07-26 19:59:38,368 INFO [http-nio-8080-exec-3] DispatcherServlet: Initializing Servlet 'dispatcherServlet'
+2023-07-26 19:59:38,376 INFO [http-nio-8080-exec-3] DispatcherServlet: Completed initialization in 0 ms
+2023-07-26 19:59:42,845 INFO [http-nio-8080-exec-3] UserController: The <findById> method is called from User Controller.
+2023-07-26 19:59:43,023 ERROR [http-nio-8080-exec-3] CustomControllerAdvice: IllegalArgumentException exception occurred. Exception msg: The user with id 10 does not exist.
+2023-07-26 20:00:53,630 WARN [HikariPool-1 housekeeper] HikariPool: HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=1m23s356ms597µs400ns).
+2023-07-26 20:01:47,740 WARN [HikariPool-1 housekeeper] HikariPool: HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=54s113ms393µs500ns).
+2023-07-26 20:02:28,736 INFO [SpringApplicationShutdownHook] LocalContainerEntityManagerFactoryBean: Closing JPA EntityManagerFactory for persistence unit 'default'
+2023-07-26 20:02:28,744 INFO [SpringApplicationShutdownHook] HikariDataSource: HikariPool-1 - Shutdown initiated...
+2023-07-26 20:02:28,760 INFO [SpringApplicationShutdownHook] HikariDataSource: HikariPool-1 - Shutdown completed.

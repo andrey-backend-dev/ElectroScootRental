@@ -15,6 +15,8 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Import;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.util.Optional;
+
 @RunWith(SpringRunner.class)
 @Import(RoleServiceTestContextConfiguration.class)
 public class RoleServiceIntegrationTests {
@@ -33,7 +35,7 @@ public class RoleServiceIntegrationTests {
         role.setName(testName);
 
         Mockito.when(roleRepository.save(role)).thenReturn(role);
-        Mockito.when(roleRepository.findByName(testName)).thenReturn(role);
+        Mockito.when(roleRepository.findByName(testName)).thenReturn(Optional.of(role));
         Mockito.when(roleRepository.findByName(fakeName)).thenReturn(null);
     }
 

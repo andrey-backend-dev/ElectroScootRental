@@ -26,13 +26,17 @@ public class RentalPlaceService implements IRentalPlaceService {
     @Override
     @Transactional(readOnly = true)
     public RentalPlaceDTO findById(int id) {
-        return new RentalPlaceDTO(rentalPlaceRepository.findById(id).orElse(null));
+        return new RentalPlaceDTO(rentalPlaceRepository.findById(id).orElseThrow(() -> {
+            return new IllegalArgumentException("The rental place with id " + id + " does not exist.");
+        }));
     }
 
     @Override
     @Transactional(readOnly = true)
     public RentalPlaceDTO findByName(String name) {
-        return new RentalPlaceDTO(rentalPlaceRepository.findByName(name));
+        return new RentalPlaceDTO(rentalPlaceRepository.findByName(name).orElseThrow(() -> {
+            return new IllegalArgumentException("The rental place with name " + name + " does not exist.");
+        }));
     }
 
     @Override
@@ -79,7 +83,9 @@ public class RentalPlaceService implements IRentalPlaceService {
     @Transactional
     public RentalPlaceDTO updateByName(String name, UpdateRentalPlaceDTO updateData) {
 
-        RentalPlace rentalPlace = rentalPlaceRepository.findByName(name);
+        RentalPlace rentalPlace = rentalPlaceRepository.findByName(name).orElseThrow(() -> {
+            return new IllegalArgumentException("The rental place with name " + name + " does not exist.");
+        });
 
         String newName = updateData.getName();
         if (newName != null) {
@@ -119,7 +125,11 @@ public class RentalPlaceService implements IRentalPlaceService {
     @Override
     @Transactional(readOnly = true)
     public List<ScooterDTO> getScootersByName(String name) {
-        return rentalPlaceRepository.findByName(name).getScooters().stream().map(ScooterDTO::new).toList();
+        RentalPlace rentalPlace = rentalPlaceRepository.findByName(name).orElseThrow(() -> {
+            return new IllegalArgumentException("The rental place with name " + name + " does not exist.");
+        });
+
+        return rentalPlace.getScooters().stream().map(ScooterDTO::new).toList();
     }
 
 }

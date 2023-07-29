@@ -34,6 +34,6 @@ public class RoleService implements IRoleService {
     @Override
     @Transactional(readOnly = true)
     public boolean doesExistByName(String name) {
-        return roleRepository.findByName(name) != null;
+        return roleRepository.findByName(name).orElse(null) != null;
     }
 }

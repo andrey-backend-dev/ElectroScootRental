@@ -7,10 +7,11 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface RentalPlaceRepository extends CrudRepository<RentalPlace, Integer> {
-    RentalPlace findByName(String name);
+    Optional<RentalPlace> findByName(String name);
 
     void deleteByName(String name);
 

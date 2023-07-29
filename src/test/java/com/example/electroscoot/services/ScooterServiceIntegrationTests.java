@@ -65,8 +65,8 @@ public class ScooterServiceIntegrationTests {
         scooter.setRentalPlace(rentalPlace);
         scooter.setModel(model);
 
-        Mockito.when(scooterModelRepository.findByName(modelName)).thenReturn(model);
-        Mockito.when(rentalPlaceRepository.findByName(rentalPlaceName)).thenReturn(rentalPlace);
+        Mockito.when(scooterModelRepository.findByName(modelName)).thenReturn(Optional.of(model));
+        Mockito.when(rentalPlaceRepository.findByName(rentalPlaceName)).thenReturn(Optional.of(rentalPlace));
         Mockito.when(scooterRepository.save(scooterWithoutId)).thenReturn(scooter);
         Mockito.when(scooterRepository.findById(testId)).thenReturn(Optional.of(scooter));
     }

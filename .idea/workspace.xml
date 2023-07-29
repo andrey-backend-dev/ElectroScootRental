@@ -5,43 +5,74 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="3b933438-56d1-4b3a-99d8-59a3ddc66fc1" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/dbnavigator.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dbnavigator.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/sql/ddl.sql" beforeDir="false" afterPath="$PROJECT_DIR$/sql/ddl.sql" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/sql/diagram.mwb" beforeDir="false" afterPath="$PROJECT_DIR$/sql/diagram.mwb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/sql/diagram.mwb.bak" beforeDir="false" afterPath="$PROJECT_DIR$/sql/diagram.mwb.bak" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/sql/dml.sql" beforeDir="false" afterPath="$PROJECT_DIR$/sql/dml.sql" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/electroscoot/ElectroScootApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/electroscoot/ElectroScootApplication.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/electroscoot/dao/ScooterRentalRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/electroscoot/dao/ScooterRentalRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/electroscoot/dto/CreateScooterDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/electroscoot/dto/CreateScooterDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/electroscoot/dto/ScooterDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/electroscoot/dto/ScooterDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/electroscoot/dto/ScooterModelDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/electroscoot/dto/ScooterModelDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/electroscoot/dto/ScooterRentalDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/electroscoot/dto/ScooterRentalDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/electroscoot/dto/UpdateScooterDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/electroscoot/dto/UpdateScooterDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/electroscoot/config/AppConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/electroscoot/config/AppConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/electroscoot/config/SchedulerConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/electroscoot/config/SchedulerConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/electroscoot/dao/RentalPlaceRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/electroscoot/dao/RentalPlaceRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/electroscoot/dao/RoleRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/electroscoot/dao/RoleRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/electroscoot/dao/ScooterModelRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/electroscoot/dao/ScooterModelRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/electroscoot/dao/UserRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/electroscoot/dao/UserRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/electroscoot/dto/RegistrationDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/electroscoot/dto/RegistrationDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/electroscoot/dto/RoleDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/electroscoot/dto/RoleDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/electroscoot/entities/RentalPlace.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/electroscoot/entities/RentalPlace.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/electroscoot/entities/Role.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/electroscoot/entities/Role.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/electroscoot/entities/Scooter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/electroscoot/entities/Scooter.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/electroscoot/entities/ScooterModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/electroscoot/entities/ScooterModel.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/electroscoot/entities/ScooterRental.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/electroscoot/entities/ScooterRental.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/electroscoot/entities/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/electroscoot/entities/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/electroscoot/infra/TriggerRentalSchedulerClock.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/electroscoot/infra/schedule/TriggerRentalSchedulerClock.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/electroscoot/services/RentalPlaceService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/electroscoot/services/RentalPlaceService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/electroscoot/services/RoleService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/electroscoot/services/RoleService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/electroscoot/services/ScooterModelService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/electroscoot/services/ScooterModelService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/electroscoot/services/ScooterRentalService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/electroscoot/services/ScooterRentalService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/electroscoot/services/ScooterService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/electroscoot/services/ScooterService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/electroscoot/services/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/electroscoot/services/UserService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/electroscoot/services/interfaces/IScooterRentalService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/electroscoot/services/interfaces/IScooterRentalService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/electroscoot/utils/enums/StateEnum.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/electroscoot/utils/enums/ScooterStateEnum.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/electroscoot/services/interfaces/IUserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/electroscoot/services/interfaces/IUserService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/example/electroscoot/services/RentalPlaceServiceIntegrationTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/example/electroscoot/services/RentalPlaceServiceIntegrationTests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/example/electroscoot/services/RoleServiceIntegrationTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/example/electroscoot/services/RoleServiceIntegrationTests.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/com/example/electroscoot/services/ScooterModelServiceIntegrationTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/example/electroscoot/services/ScooterModelServiceIntegrationTests.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/com/example/electroscoot/services/ScooterRentalServiceIntegrationTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/example/electroscoot/services/ScooterRentalServiceIntegrationTests.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/com/example/electroscoot/services/ScooterServiceIntegrationTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/example/electroscoot/services/ScooterServiceIntegrationTests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/example/electroscoot/services/UserServiceIntegrationTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/example/electroscoot/services/UserServiceIntegrationTests.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/application.properties" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/example/electroscoot/ElectroScootApplication.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/electroscoot/ElectroScootApplication.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/electroscoot/dao/ScooterRentalRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/electroscoot/dao/ScooterRentalRepository.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/electroscoot/dto/ScooterModelDTO.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/electroscoot/dto/ScooterModelDTO.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/electroscoot/dto/ScooterRentalDTO.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/electroscoot/dto/ScooterRentalDTO.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/electroscoot/config/AppConfig.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/electroscoot/config/AppConfig.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/electroscoot/config/SchedulerConfig.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/electroscoot/config/SchedulerConfig.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/electroscoot/dao/RentalPlaceRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/electroscoot/dao/RentalPlaceRepository.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/electroscoot/dao/RoleRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/electroscoot/dao/RoleRepository.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/electroscoot/dao/ScooterModelRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/electroscoot/dao/ScooterModelRepository.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/electroscoot/dao/UserRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/electroscoot/dao/UserRepository.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/electroscoot/dto/RegistrationDTO.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/electroscoot/dto/RegistrationDTO.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/electroscoot/dto/RoleDTO.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/electroscoot/dto/RoleDTO.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/electroscoot/entities/RentalPlace.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/electroscoot/entities/RentalPlace.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/electroscoot/entities/Role.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/electroscoot/entities/Role.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/electroscoot/entities/Scooter.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/electroscoot/entities/Scooter.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/example/electroscoot/entities/ScooterModel.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/electroscoot/entities/ScooterModel.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/example/electroscoot/entities/ScooterRental.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/electroscoot/entities/ScooterRental.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/electroscoot/entities/User.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/electroscoot/entities/User.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/electroscoot/infra/TriggerRentalSchedulerClock.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/electroscoot/services/RentalPlaceService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/electroscoot/services/RentalPlaceService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/electroscoot/services/RoleService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/electroscoot/services/RoleService.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/example/electroscoot/services/ScooterModelService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/electroscoot/services/ScooterModelService.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/example/electroscoot/services/ScooterRentalService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/electroscoot/services/ScooterRentalService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/electroscoot/services/ScooterService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/electroscoot/services/ScooterService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/electroscoot/services/UserService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/electroscoot/services/UserService.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/example/electroscoot/services/interfaces/IScooterRentalService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/electroscoot/services/interfaces/IScooterRentalService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/electroscoot/services/interfaces/IUserService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/electroscoot/services/interfaces/IUserService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/com/example/electroscoot/services/RentalPlaceServiceIntegrationTests.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/com/example/electroscoot/services/RentalPlaceServiceIntegrationTests.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/com/example/electroscoot/services/RoleServiceIntegrationTests.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/com/example/electroscoot/services/RoleServiceIntegrationTests.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/test-classes/com/example/electroscoot/services/ScooterModelServiceIntegrationTests.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/com/example/electroscoot/services/ScooterModelServiceIntegrationTests.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/test-classes/com/example/electroscoot/services/ScooterRentalServiceIntegrationTests.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/com/example/electroscoot/services/ScooterRentalServiceIntegrationTests.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/com/example/electroscoot/services/ScooterServiceIntegrationTests.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/com/example/electroscoot/services/ScooterServiceIntegrationTests.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/com/example/electroscoot/services/UserServiceIntegrationTests.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/com/example/electroscoot/services/UserServiceIntegrationTests.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -53,9 +84,10 @@
       <list>
         <option value="Kotlin Class" />
         <option value="Interface" />
-        <option value="Class" />
         <option value="JUnit5 Test Class" />
         <option value="Enum" />
+        <option value="AnnotationType" />
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -84,6 +116,7 @@
     <ConfirmationsSetting value="1" id="Add" />
   </component>
   <component name="ProjectViewState">
+    <option name="autoscrollToSource" value="true" />
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
@@ -97,7 +130,7 @@
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.0" />
     <property name="project.structure.side.proportion" value="0.0" />
-    <property name="settings.editor.selected.configurable" value="preferences.keymap" />
+    <property name="settings.editor.selected.configurable" value="editor.preferences.folding" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
@@ -113,7 +146,20 @@
       <recent name="com.example.electroscoot.infra" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.All in ElectroScootRental">
+  <component name="RunManager" selected="Application.ElectroScootApplication">
+    <configuration name="ElectroScootApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.example.electroscoot.ElectroScootApplication" />
+      <module name="ElectroScootRental" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.example.electroscoot.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="All in ElectroScootRental" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="ElectroScootRental" />
       <option name="PACKAGE_NAME" value="" />
@@ -126,7 +172,7 @@
       <module name="ElectroScootRental" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="com.example.electroscoot.infra.*" />
+          <option name="PATTERN" value="com.example.electroscoot.infra.schedule.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -141,29 +187,13 @@
       <module name="ElectroScootRental" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="com.example.electroscoot.infra.*" />
+          <option name="PATTERN" value="com.example.electroscoot.infra.schedule.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="com.example.electroscoot.services" />
       <option name="MAIN_CLASS_NAME" value="com.example.electroscoot.services.ScooterRentalServiceIntegrationTests" />
       <option name="METHOD_NAME" value="closeRentalByIdTest" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="ScooterRentalServiceIntegrationTests.createTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="ElectroScootRental" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.example.electroscoot.infra.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="com.example.electroscoot.services" />
-      <option name="MAIN_CLASS_NAME" value="com.example.electroscoot.services.ScooterRentalServiceIntegrationTests" />
-      <option name="METHOD_NAME" value="createTest" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -187,11 +217,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.ElectroScootApplication" />
         <item itemvalue="JUnit.All in ElectroScootRental" />
         <item itemvalue="JUnit.ScooterRentalServiceIntegrationTests" />
         <item itemvalue="JUnit.ScooterRentalServiceIntegrationTests.takePaymentByIdTest" />
         <item itemvalue="JUnit.ScooterRentalServiceIntegrationTests.closeRentalByIdTest" />
-        <item itemvalue="JUnit.ScooterRentalServiceIntegrationTests.createTest" />
       </list>
     </recent_temporary>
   </component>
@@ -221,19 +251,24 @@
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/example/electroscoot/services/UserService.java</url>
-          <line>36</line>
-          <option name="timeStamp" value="9" />
+          <url>file://$PROJECT_DIR$/src/main/java/com/example/electroscoot/controllers/CustomControllerAdvice.java</url>
+          <line>57</line>
+          <option name="timeStamp" value="3" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/example/electroscoot/services/UserService.java</url>
-          <line>42</line>
-          <option name="timeStamp" value="12" />
+          <line>135</line>
+          <option name="timeStamp" value="4" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/example/electroscoot/ElectroScootApplication.java</url>
-          <line>77</line>
-          <option name="timeStamp" value="21" />
+          <url>file://$PROJECT_DIR$/src/main/java/com/example/electroscoot/services/UserService.java</url>
+          <line>160</line>
+          <option name="timeStamp" value="5" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/example/electroscoot/services/UserService.java</url>
+          <line>142</line>
+          <option name="timeStamp" value="8" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

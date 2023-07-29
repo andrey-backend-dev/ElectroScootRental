@@ -1,5 +1,11 @@
 package com.example.electroscoot;
 
+import com.example.electroscoot.controllers.RentalPlaceController;
+import com.example.electroscoot.controllers.RoleController;
+import com.example.electroscoot.controllers.ScooterController;
+import com.example.electroscoot.controllers.ScooterModelController;
+import com.example.electroscoot.controllers.ScooterRentalController;
+import com.example.electroscoot.controllers.UserController;
 import com.example.electroscoot.dto.CreateScooterRentalDTO;
 import com.example.electroscoot.dto.ScooterRentalDTO;
 import com.example.electroscoot.services.interfaces.IRentalPlaceService;
@@ -17,40 +23,21 @@ import java.time.LocalDateTime;
 
 @SpringBootApplication
 public class ElectroScootApplication {
-    private static IUserService userService;
-    private static IRoleService roleService;
-    private static IScooterModelService scooterModelService;
-    private static IScooterService scooterService;
-    private static IRentalPlaceService rentalPlaceService;
-    private static IScooterRentalService scooterRentalService;
+    private static UserController userController;
+    private static RoleController roleController;
+    private static ScooterModelController scooterModelController;
+    private static ScooterController scooterController;
+    private static RentalPlaceController rentalPlaceController;
+    private static ScooterRentalController scooterRentalController;
 
     public static void main(String[] args) throws AccessDeniedException {
         ApplicationContext context = SpringApplication.run(ElectroScootApplication.class, args);
-        userService = context.getBean(IUserService.class);
-        roleService = context.getBean(IRoleService.class);
-        scooterModelService = context.getBean(IScooterModelService.class);
-        scooterService = context.getBean(IScooterService.class);
-        rentalPlaceService = context.getBean(IRentalPlaceService.class);
-        scooterRentalService = context.getBean(IScooterRentalService.class);
-
-//        CreateScooterRentalDTO createScooterRentalDTO = new CreateScooterRentalDTO("bladeattheneck", 1);
-//
-//        System.out.println(userService.findByUsername("bladeattheneck"));
-//        ScooterRentalDTO scooterRentalDTO = scooterRentalService.create(createScooterRentalDTO);
-//        System.out.println(scooterRentalDTO);
-//        System.out.println(userService.findByUsername("bladeattheneck"));
-//        System.out.println("sleep 5 seconds");
-//        try {
-//            Thread.sleep(5000);
-//        } catch (InterruptedException e) {
-//            e.printStackTrace();
-//        }
-//
-//        System.out.println(userService.findByUsername("bladeattheneck"));
-//
-//        System.out.println(scooterRentalService.closeRentalById(scooterRentalDTO.getId(), scooterRentalDTO.getInitRentalPlaceName()));
-//
-//        System.out.println(userService.findByUsername("bladeattheneck"));
+        userController = context.getBean(UserController.class);
+        roleController = context.getBean(RoleController.class);
+        scooterModelController = context.getBean(ScooterModelController.class);
+        scooterController = context.getBean(ScooterController.class);
+        rentalPlaceController = context.getBean(RentalPlaceController.class);
+        scooterRentalController = context.getBean(ScooterRentalController.class);
 
 //        CreateScooterRentalDTO createScooterRentalDTO = new CreateScooterRentalDTO("bladeattheneck", 1);
 //        ScooterRentalDTO scooterRentalDTO = scooterRentalService.create(createScooterRentalDTO);
@@ -60,25 +47,24 @@ public class ElectroScootApplication {
 //        } catch (InterruptedException e) {
 //            e.printStackTrace();
 //        }
-
-        CreateScooterRentalDTO createScooterRentalDTO2 = new CreateScooterRentalDTO("testUser", 3);
-        ScooterRentalDTO scooterRentalDTO2 = scooterRentalService.create(createScooterRentalDTO2);
-
-        LocalDateTime finishAt = LocalDateTime.now().plusSeconds(10);
-        boolean go = true;
-
-        while (true) {
-            try {
-                Thread.sleep(500);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-
-            if (LocalDateTime.now().isAfter(finishAt) && go) {
-                System.out.println(scooterRentalService.closeRentalById(scooterRentalDTO2.getId(), "ТРЦ СПБ"));
-                go = !go;
-            }
-        }
-
+//
+//        CreateScooterRentalDTO createScooterRentalDTO2 = new CreateScooterRentalDTO("testUser", 3);
+//        ScooterRentalDTO scooterRentalDTO2 = scooterRentalService.create(createScooterRentalDTO2);
+//
+//        LocalDateTime finishAt = LocalDateTime.now().plusSeconds(10);
+//        boolean go = true;
+//
+//        while (true) {
+//            try {
+//                Thread.sleep(500);
+//            } catch (InterruptedException e) {
+//                e.printStackTrace();
+//            }
+//
+//            if (LocalDateTime.now().isAfter(finishAt) && go) {
+//                System.out.println(scooterRentalService.closeRentalById(scooterRentalDTO2.getId(), "ТРЦ СПБ"));
+//                go = !go;
+//            }
+//        }
     }
 }

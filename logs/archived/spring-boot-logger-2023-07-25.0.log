@@ -1,0 +1,50 @@
+2023-07-25 18:58:37,762 INFO [main] ElectroScootApplication: Starting ElectroScootApplication using Java 17.0.2 with PID 15632 (D:\programming\java\projects\ElectroScootRental\target\classes started by tocod in D:\programming\java\projects\ElectroScootRental)
+2023-07-25 18:58:37,762 DEBUG [main] ElectroScootApplication: Running with Spring Boot v3.1.1, Spring v6.0.10
+2023-07-25 18:58:37,769 INFO [main] ElectroScootApplication: No active profile set, falling back to 1 default profile: "default"
+2023-07-25 18:58:39,428 INFO [main] RepositoryConfigurationDelegate: Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-07-25 18:58:39,617 INFO [main] RepositoryConfigurationDelegate: Finished Spring Data repository scanning in 169 ms. Found 6 JPA repository interfaces.
+2023-07-25 18:58:41,311 INFO [main] TomcatWebServer: Tomcat initialized with port(s): 8080 (http)
+2023-07-25 18:58:41,331 INFO [main] Http11NioProtocol: Initializing ProtocolHandler ["http-nio-8080"]
+2023-07-25 18:58:41,337 INFO [main] StandardService: Starting service [Tomcat]
+2023-07-25 18:58:41,337 INFO [main] StandardEngine: Starting Servlet engine: [Apache Tomcat/10.1.10]
+2023-07-25 18:58:41,561 INFO [main] [/]: Initializing Spring embedded WebApplicationContext
+2023-07-25 18:58:41,566 INFO [main] ServletWebServerApplicationContext: Root WebApplicationContext: initialization completed in 3646 ms
+2023-07-25 18:58:41,937 INFO [main] HikariDataSource: HikariPool-1 - Starting...
+2023-07-25 18:58:42,688 INFO [main] HikariPool: HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@7ddcb0dc
+2023-07-25 18:58:42,691 INFO [main] HikariDataSource: HikariPool-1 - Start completed.
+2023-07-25 18:58:42,802 INFO [main] LogHelper: HHH000204: Processing PersistenceUnitInfo [name: default]
+2023-07-25 18:58:43,033 INFO [main] Version: HHH000412: Hibernate ORM core version 6.2.5.Final
+2023-07-25 18:58:43,042 INFO [main] Environment: HHH000406: Using bytecode reflection optimizer
+2023-07-25 18:58:43,462 INFO [main] BytecodeProviderInitiator: HHH000021: Bytecode provider name : bytebuddy
+2023-07-25 18:58:43,739 INFO [main] SpringPersistenceUnitInfo: No LoadTimeWeaver setup: ignoring JPA class transformer
+2023-07-25 18:58:44,492 INFO [main] BytecodeProviderInitiator: HHH000021: Bytecode provider name : bytebuddy
+2023-07-25 18:58:46,052 INFO [main] JtaPlatformInitiator: HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2023-07-25 18:58:46,058 INFO [main] LocalContainerEntityManagerFactoryBean: Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-07-25 18:58:47,128 WARN [main] JpaBaseConfiguration$JpaWebConfiguration: spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2023-07-25 18:58:47,800 WARN [main] UserDetailsServiceAutoConfiguration: 
+
+Using generated security password: 4db7fb71-a822-480c-ba98-f478aa5bdf87
+
+This generated password is for development use only. Your security configuration must be updated before running your application in production.
+
+2023-07-25 18:58:48,090 INFO [main] DefaultSecurityFilterChain: Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@1bd6bfb0, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@3b9c386d, org.springframework.security.web.context.SecurityContextHolderFilter@f3e6876, org.springframework.security.web.header.HeaderWriterFilter@2d6e09f0, org.springframework.security.web.csrf.CsrfFilter@74120029, org.springframework.security.web.authentication.logout.LogoutFilter@45775a15, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@19f9404d, org.springframework.security.web.authentication.ui.DefaultLoginPageGeneratingFilter@2e04c89d, org.springframework.security.web.authentication.ui.DefaultLogoutPageGeneratingFilter@7fb28ed, org.springframework.security.web.authentication.www.BasicAuthenticationFilter@455cb6d9, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@1a67bcaf, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@506654fa, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@536f389, org.springframework.security.web.access.ExceptionTranslationFilter@2740585b, org.springframework.security.web.access.intercept.AuthorizationFilter@628cb8e0]
+2023-07-25 18:58:48,161 INFO [main] Http11NioProtocol: Starting ProtocolHandler ["http-nio-8080"]
+2023-07-25 18:58:48,222 INFO [main] TomcatWebServer: Tomcat started on port(s): 8080 (http) with context path ''
+2023-07-25 18:58:48,242 INFO [main] ElectroScootApplication: Started ElectroScootApplication in 11.578 seconds (process running for 12.366)
+2023-07-25 18:58:49,721 INFO [pool-2-thread-1] TriggerRentalSchedulerClock: Scheduler for scooter rental with id 3 is called at 2023-07-25T18:58:49.716790400
+2023-07-25 18:58:50,803 INFO [pool-2-thread-1] TriggerRentalSchedulerClock: Scheduler for scooter rental with id 4 is called at 2023-07-25T18:58:50.803193400
+2023-07-25 18:58:52,804 INFO [pool-2-thread-1] TriggerRentalSchedulerClock: Scheduler for scooter rental with id 3 is called at 2023-07-25T18:58:52.804543300
+2023-07-25 18:58:53,877 INFO [pool-2-thread-1] TriggerRentalSchedulerClock: Scheduler for scooter rental with id 4 is called at 2023-07-25T18:58:53.877870500
+2023-07-25 18:58:55,859 INFO [pool-2-thread-1] TriggerRentalSchedulerClock: Scheduler for scooter rental with id 3 is called at 2023-07-25T18:58:55.859301200
+2023-07-25 18:58:56,955 INFO [pool-2-thread-1] TriggerRentalSchedulerClock: Scheduler for scooter rental with id 4 is called at 2023-07-25T18:58:56.955711400
+2023-07-25 18:58:58,926 INFO [pool-2-thread-1] TriggerRentalSchedulerClock: Scheduler for scooter rental with id 3 is called at 2023-07-25T18:58:58.926492
+2023-07-25 18:58:59,995 INFO [pool-2-thread-1] TriggerRentalSchedulerClock: Scheduler for scooter rental with id 4 is called at 2023-07-25T18:58:59.995797
+2023-07-25 18:59:00,012 INFO [pool-2-thread-1] TriggerRentalSchedulerClock: Scheduler for scooter rental with id 4 is stopped, cause rent is already closed.
+2023-07-25 18:59:01,999 INFO [pool-2-thread-1] TriggerRentalSchedulerClock: Scheduler for scooter rental with id 3 is called at 2023-07-25T18:59:01.999037500
+2023-07-25 18:59:05,075 INFO [pool-2-thread-1] TriggerRentalSchedulerClock: Scheduler for scooter rental with id 3 is called at 2023-07-25T18:59:05.075398300
+2023-07-25 18:59:08,142 INFO [pool-2-thread-1] TriggerRentalSchedulerClock: Scheduler for scooter rental with id 3 is called at 2023-07-25T18:59:08.142395700
+2023-07-25 18:59:11,175 INFO [pool-2-thread-1] TriggerRentalSchedulerClock: Scheduler for scooter rental with id 3 is called at 2023-07-25T18:59:11.175565300
+2023-07-25 18:59:11,247 INFO [pool-2-thread-1] TriggerRentalSchedulerClock: Scheduler for scooter rental with id 3 is stopped, cause user does not have enough money to continue the rent.
+2023-07-25 18:59:19,268 INFO [SpringApplicationShutdownHook] LocalContainerEntityManagerFactoryBean: Closing JPA EntityManagerFactory for persistence unit 'default'
+2023-07-25 18:59:19,271 INFO [SpringApplicationShutdownHook] HikariDataSource: HikariPool-1 - Shutdown initiated...
+2023-07-25 18:59:19,301 INFO [SpringApplicationShutdownHook] HikariDataSource: HikariPool-1 - Shutdown completed.

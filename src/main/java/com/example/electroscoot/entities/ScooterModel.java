@@ -6,13 +6,20 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Positive;
+import jakarta.validation.constraints.PositiveOrZero;
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @Entity
 @Table(name = "scootermodel")
@@ -20,10 +27,14 @@ public class ScooterModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+    @NotBlank(message = "Name is mandatory.")
     private String name;
+    @Positive(message = "Price per time must be positive.")
     private float pricePerTime;
+    @PositiveOrZero(message = "Start price must be positive.")
     private float startPrice;
+    @PositiveOrZero(message = "Discount can not be less than zero.")
     private int discount;
     @OneToMany(mappedBy = "model")
-    private List<Scooter> scooters = new ArrayList<>();
+    private Set<Scooter> scooters;
 }

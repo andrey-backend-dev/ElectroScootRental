@@ -26,6 +26,7 @@ import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
 
 @RunWith(SpringRunner.class)
@@ -75,11 +76,11 @@ public class UserServiceIntegrationTests {
 
         Mockito.when(clock.getZone()).thenReturn(fixedClock.getZone());
 
-        Mockito.when(roleRepository.findByName(defaultRole)).thenReturn(role);
+        Mockito.when(roleRepository.findByName(defaultRole)).thenReturn(Optional.of(role));
 
         Mockito.when(userRepository.save(user)).thenReturn(user);
 
-        Mockito.when(userRepository.findByUsername(username)).thenReturn(user);
+        Mockito.when(userRepository.findByUsername(username)).thenReturn(Optional.of(user));
 
     }
 

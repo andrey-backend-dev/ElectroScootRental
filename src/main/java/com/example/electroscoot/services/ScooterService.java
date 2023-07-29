@@ -29,7 +29,9 @@ public class ScooterService implements IScooterService {
     @Override
     @Transactional(readOnly = true)
     public ScooterDTO findById(int id) {
-        return new ScooterDTO(scooterRepository.findById(id).orElse(null));
+        return new ScooterDTO(scooterRepository.findById(id).orElseThrow(() -> {
+            return new IllegalArgumentException("The scooter with id " + id + " does not exist.");
+        }));
     }
 
     @Override
@@ -45,7 +47,9 @@ public class ScooterService implements IScooterService {
         Scooter scooter = new Scooter();
 
 //        указывать модель обязательно, поэтому не проверяем
-        scooter.setModel(scooterModelRepository.findByName(createData.getModel()));
+        scooter.setModel(scooterModelRepository.findByName(createData.getModel()).orElseThrow(() -> {
+            return new IllegalArgumentException("The scooter model with name " + createData.getModel() + " does not exist.");
+        }));
 
         if (createData.getState() != null) {
             scooter.setState(createData.getState());
@@ -54,7 +58,9 @@ public class ScooterService implements IScooterService {
 //        указывать точку проката необязательно, поэтому проверяем
 
         if (createData.getRentalPlaceName() != null) {
-            RentalPlace rentalPlace = rentalPlaceRepository.findByName(createData.getRentalPlaceName());
+            RentalPlace rentalPlace = rentalPlaceRepository.findByName(createData.getRentalPlaceName()).orElseThrow(() -> {
+                return new IllegalArgumentException("The rental place with name " + createData.getRentalPlaceName() + " does not exist.");
+            });
             scooter.setRentalPlace(rentalPlace);
         }
 
@@ -72,15 +78,21 @@ public class ScooterService implements IScooterService {
     @Transactional
     public ScooterDTO updateById(UpdateScooterDTO updateData) {
 
-        Scooter scooter = scooterRepository.findById(updateData.getId()).orElse(null);
+        Scooter scooter = scooterRepository.findById(updateData.getId()).orElseThrow(() -> {
+            return new IllegalArgumentException("The scooter with id " + updateData.getId() + " does not exist.");
+        });
 
         if (updateData.getRentalPlaceName() != null) {
-            RentalPlace rentalPlace = rentalPlaceRepository.findByName(updateData.getRentalPlaceName());
+            RentalPlace rentalPlace = rentalPlaceRepository.findByName(updateData.getRentalPlaceName()).orElseThrow(() -> {
+                return new IllegalArgumentException("The rental place with name " + updateData.getRentalPlaceName() + " does not exist.");
+            });
             scooter.setRentalPlace(rentalPlace);
         }
 
         if (updateData.getModel() != null) {
-            ScooterModel scooterModel = scooterModelRepository.findByName(updateData.getModel());
+            ScooterModel scooterModel = scooterModelRepository.findByName(updateData.getModel()).orElseThrow(() -> {
+                return new IllegalArgumentException("The scooter model with name " + updateData.getModel() + " does not exist.");
+            });
             scooter.setModel(scooterModel);
         }
 

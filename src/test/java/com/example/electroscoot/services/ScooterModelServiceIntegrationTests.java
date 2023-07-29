@@ -19,6 +19,8 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Import;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.util.Optional;
+
 @RunWith(SpringRunner.class)
 @Import(ScooterModelServiceTestContextConfiguration.class)
 public class ScooterModelServiceIntegrationTests {
@@ -42,7 +44,7 @@ public class ScooterModelServiceIntegrationTests {
         scooterModel.setStartPrice(testStartPrice);
 
         Mockito.when(scooterModelRepository.save(scooterModel)).thenReturn(scooterModel);
-        Mockito.when(scooterModelRepository.findByName(testName)).thenReturn(scooterModel);
+        Mockito.when(scooterModelRepository.findByName(testName)).thenReturn(Optional.of(scooterModel));
     }
 
     @Test

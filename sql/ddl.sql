@@ -70,7 +70,7 @@ CREATE TABLE IF NOT EXISTS `electroscootdb`.`User` (
   `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
   `username` VARCHAR(20) NOT NULL,
   `password` VARCHAR(100) NOT NULL,
-  `phone` VARCHAR(10) NOT NULL,
+  `phone` VARCHAR(11) NOT NULL,
   `registered_since` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `firstname` VARCHAR(45) NULL,
   `secondname` VARCHAR(45) NULL,
@@ -103,25 +103,22 @@ CREATE TABLE IF NOT EXISTS `electroscootdb`.`Role` (
 ENGINE = InnoDB;
 
 
--- -----------------------------------------------------
--- Table `electroscootdb`.`User2Role`
--- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `electroscootdb`.`User2Role` (
   `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
-  `roleName` VARCHAR(45) NOT NULL,
-  `userUsername` VARCHAR(20) NOT NULL,
+  `role_id` INT UNSIGNED NOT NULL,
+  `user_id` INT UNSIGNED NOT NULL,
   PRIMARY KEY (`id`),
-  INDEX `RoleID_idx` (`roleName` ASC) VISIBLE,
+  INDEX `RoleID_idx` (`role_id` ASC) VISIBLE,
   UNIQUE INDEX `id_UNIQUE` (`id` ASC) VISIBLE,
-  INDEX `UserID_idx` (`userUsername` ASC) VISIBLE,
+  INDEX `UserID_idx` (`user_id` ASC) VISIBLE,
   CONSTRAINT `RoleName`
-    FOREIGN KEY (`roleName`)
-    REFERENCES `electroscootdb`.`Role` (`name`)
+    FOREIGN KEY (`role_id`)
+    REFERENCES `electroscootdb`.`Role` (`id`)
     ON DELETE CASCADE
     ON UPDATE CASCADE,
   CONSTRAINT `UserUsername`
-    FOREIGN KEY (`userUsername`)
-    REFERENCES `electroscootdb`.`User` (`username`)
+    FOREIGN KEY (`user_id`)
+    REFERENCES `electroscootdb`.`User` (`id`)
     ON DELETE CASCADE
     ON UPDATE CASCADE)
 ENGINE = InnoDB;

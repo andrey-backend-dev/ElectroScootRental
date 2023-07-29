@@ -25,13 +25,17 @@ public class ScooterModelService implements IScooterModelService {
     @Override
     @Transactional(readOnly = true)
     public ScooterModelDTO findById(int id) {
-        return new ScooterModelDTO(scooterModelRepository.findById(id).orElse(null));
+        return new ScooterModelDTO(scooterModelRepository.findById(id).orElseThrow(() -> {
+            return new IllegalArgumentException("The scooter model with id " + id + " does not exist.");
+        }));
     }
 
     @Override
     @Transactional(readOnly = true)
     public ScooterModelDTO findByName(String name) {
-        return new ScooterModelDTO(scooterModelRepository.findByName(name));
+        return new ScooterModelDTO(scooterModelRepository.findByName(name).orElseThrow(() -> {
+            return new IllegalArgumentException("The scooter model with name " + name + " does not exist.");
+        }));
     }
 
     @Override
@@ -56,7 +60,9 @@ public class ScooterModelService implements IScooterModelService {
     @Transactional
     public ScooterModelDTO updateByName(String name, UpdateScooterModelDTO updateData) {
 
-        ScooterModel scooterModel = scooterModelRepository.findByName(name);
+        ScooterModel scooterModel = scooterModelRepository.findByName(name).orElseThrow(() -> {
+            return new IllegalArgumentException("The scooter model with name " + name + " does not exist.");
+        });
 
         String newName = updateData.getName();
         if (newName != null) {
@@ -84,12 +90,16 @@ public class ScooterModelService implements IScooterModelService {
     @Override
     @Transactional
     public boolean deleteByName(String name) {
-        return scooterModelRepository.deleteByName(name);
+        scooterModelRepository.deleteByName(name);
+        return true;
     }
 
     @Override
     @Transactional(readOnly = true)
     public List<ScooterDTO> getScootersByName(String name) {
-        return scooterModelRepository.findByName(name).getScooters().stream().map(ScooterDTO::new).toList();
+        ScooterModel scooterModel = scooterModelRepository.findByName(name).orElseThrow(() -> {
+            return new IllegalArgumentException("The scooter model with name " + name + " does not exist.");
+        });
+        return scooterModel.getScooters().stream().map(ScooterDTO::new).toList();
     }
 }
