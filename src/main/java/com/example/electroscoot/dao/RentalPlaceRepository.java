@@ -6,6 +6,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -20,4 +21,6 @@ public interface RentalPlaceRepository extends CrudRepository<RentalPlace, Integ
     List<RentalPlace> findByOrderByCityAscStreetAscHouseAsc();
 
     List<RentalPlace> findByCity(String city);
+
+    List<RentalPlace> findByCityOrderByCityAscStreetAscHouseAsc(String city);
 }

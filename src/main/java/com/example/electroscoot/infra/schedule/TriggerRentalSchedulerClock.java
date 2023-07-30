@@ -26,7 +26,7 @@ public class TriggerRentalSchedulerClock {
         this.scooterRentalId = scooterRentalId;
     }
 
-    @Scheduled(initialDelayString = "${business.initDelayBeforeFirstPayInSeconds}000",fixedDelayString = "${business.pricePerTimeInSeconds}000")
+    @Scheduled(initialDelayString = "${business.pricePerTimeInSeconds}000",fixedDelayString = "${business.pricePerTimeInSeconds}000")
     public void scheduledTask() {
         logger.debug("Scheduler for scooter rental with id " +
                 scooterRentalId + " is called at " + LocalDateTime.now(clock));

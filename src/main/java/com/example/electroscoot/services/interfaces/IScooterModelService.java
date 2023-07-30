@@ -4,15 +4,18 @@ import com.example.electroscoot.dto.CreateScooterModelDTO;
 import com.example.electroscoot.dto.ScooterDTO;
 import com.example.electroscoot.dto.ScooterModelDTO;
 import com.example.electroscoot.dto.UpdateScooterModelDTO;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Positive;
 
 import java.util.List;
 
 public interface IScooterModelService {
-    ScooterModelDTO findById(int id);
-    ScooterModelDTO findByName(String name);
+    ScooterModelDTO findById(@Positive(message = "Id must be more than zero.") int id);
+    ScooterModelDTO findByName(@NotBlank(message = "Name is mandatory.") String name);
     List<ScooterModelDTO> getList();
-    ScooterModelDTO create(CreateScooterModelDTO createData);
-    ScooterModelDTO updateByName(String name, UpdateScooterModelDTO updateData);
-    boolean deleteByName(String name);
-    List<ScooterDTO> getScootersByName(String name);
+    ScooterModelDTO create(@Valid CreateScooterModelDTO createData);
+    ScooterModelDTO updateByName(@NotBlank(message = "Name is mandatory.") String name, UpdateScooterModelDTO updateData);
+    boolean deleteByName(@NotBlank(message = "Name is mandatory.") String name);
+    List<ScooterDTO> getScootersByName(@NotBlank(message = "Name is mandatory.") String name);
 }

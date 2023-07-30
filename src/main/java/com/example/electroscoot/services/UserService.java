@@ -2,21 +2,20 @@ package com.example.electroscoot.services;
 
 import com.example.electroscoot.dao.RoleRepository;
 import com.example.electroscoot.dao.UserRepository;
+import com.example.electroscoot.dto.MoneyDTO;
 import com.example.electroscoot.dto.RegistrationDTO;
 import com.example.electroscoot.dto.RoleDTO;
+import com.example.electroscoot.dto.RoleNameDTO;
 import com.example.electroscoot.dto.ScooterRentalDTO;
 import com.example.electroscoot.dto.UpdateUserDTO;
 import com.example.electroscoot.dto.UserDTO;
 import com.example.electroscoot.entities.Role;
 import com.example.electroscoot.entities.User;
-import com.example.electroscoot.infra.validation.validators.PhoneValidator;
 import com.example.electroscoot.services.interfaces.IUserService;
 import jakarta.validation.ConstraintViolationException;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Positive;
-import jakarta.validation.constraints.PositiveOrZero;
-import org.hibernate.validator.internal.constraintvalidators.bv.EmailValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -138,41 +137,54 @@ public class UserService implements IUserService {
 
     @Override
     @Transactional
-    public UserDTO addRoleByUsername(@NotBlank(message = "Username is mandatory.") String username,
-                                     @NotBlank(message = "Role name is mandatory.") String roleName) {
+    public List<RoleDTO> addRoleByUsername(@NotBlank(message = "Username is mandatory.") String username,
+                                           @Valid RoleNameDTO roleNameDTO) {
         User user = userRepository.findByUsername(username).orElseThrow(() -> {
             return new IllegalArgumentException("The user with username " + username + " does not exist.");
         });
+        Role role = roleRepository.findByName(roleNameDTO.getName()).orElseThrow(() -> {
+            return new IllegalArgumentException("The role with name " + roleNameDTO.getName() + " does not exist.");
+        });
+
         Set<Role> roles = user.getRoles();
-        roles.add(roleRepository.findByName(roleName).orElseThrow(() -> {
-            return new IllegalArgumentException("The role with name " + defaultRole + " does not exist.");
-        }));
-        return new UserDTO(user);
+        if (roles.contains(role)) {
+            throw new IllegalArgumentException("The user with username " + username + " already has the role with name " + roleNameDTO.getName());
+        }
+
+        roles.add(role);
+
+        return user.getRoles().stream().map(RoleDTO::new).toList();
     }
 
     @Override
     @Transactional
-    public UserDTO removeRoleByUsername(@NotBlank(message = "Username is mandatory.") String username,
-                                        @NotBlank(message = "Role name is mandatory.") String roleName) {
+    public List<RoleDTO> removeRoleByUsername(@NotBlank(message = "Username is mandatory.") String username,
+                                              @Valid RoleNameDTO roleNameDTO) {
         User user = userRepository.findByUsername(username).orElseThrow(() -> {
             return new IllegalArgumentException("The user with username " + username + " does not exist.");
         });
+        Role role = roleRepository.findByName(roleNameDTO.getName()).orElseThrow(() -> {
+            return new IllegalArgumentException("The role with name " + roleNameDTO.getName() + " does not exist.");
+        });
+
         Set<Role> roles = user.getRoles();
-        roles.remove(roleRepository.findByName(roleName).orElseThrow(() -> {
-            return new IllegalArgumentException("The role with name " + roleName + " does not exist.");
-        }));
-        user.setRoles(roles);
-        return new UserDTO(user);
+        if (!roles.contains(role)) {
+            throw new IllegalArgumentException("The user with username " + username + " does not have the role with name " + roleNameDTO.getName());
+        }
+
+        roles.remove(role);
+
+        return user.getRoles().stream().map(RoleDTO::new).toList();
     }
 
     @Override
     @Transactional
     public UserDTO addMoneyByUsername(@NotBlank(message = "Username is mandatory.") String username,
-                                      @Positive(message = "Money must be more than zero.") float money) {
+                                      @Valid MoneyDTO moneyDTO) {
         User user = userRepository.findByUsername(username).orElseThrow(() -> {
             return new IllegalArgumentException("The user with username " + username + " does not exist.");
         });
-        user.setMoney(user.getMoney() + money);
+        user.setMoney(user.getMoney() + moneyDTO.getMoney());
         return new UserDTO(user);
     }
 
@@ -192,6 +204,11 @@ public class UserService implements IUserService {
             return new IllegalArgumentException("The user with username " + username + " does not exist.");
         });
 
+        if (user.getSubscriptionTill() != null && user.getSubscriptionTill().isAfter(LocalDateTime.now(clock))) {
+            throw new IllegalArgumentException("The user with username " + username + " has already bought a subscription." +
+                    " Subscription is active till: " + user.getSubscriptionTill());
+        }
+
         float money = user.getMoney();
         if (money >= subscriptionCost) {
             user.setMoney(money - subscriptionCost);
@@ -206,7 +223,7 @@ public class UserService implements IUserService {
     private String getUsernameIfValid(String newUsername) {
         if (!newUsername.isBlank())
             return newUsername;
-        throw new ConstraintViolationException("Username is not valid.", null);
+        throw new ConstraintViolationException("Username can not be blank.", null);
     }
 
     private String getEmailIfValid(String email) {

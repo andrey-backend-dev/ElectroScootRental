@@ -37,7 +37,7 @@ public class Scooter {
     @NotNull
     private ScooterModel model;
     @Enumerated(EnumType.STRING)
-    private ScooterStateEnum state = ScooterStateEnum.OK;
+    private ScooterStateEnum state;
     @OneToMany(mappedBy = "scooter")
     private Set<ScooterRental> scooterRentals;
     @OneToOne(mappedBy = "scooter")

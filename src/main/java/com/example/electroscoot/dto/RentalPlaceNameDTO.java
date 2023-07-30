@@ -6,9 +6,6 @@ import lombok.NoArgsConstructor;
 
 @Data
 @AllArgsConstructor
-public class UpdateScooterModelDTO {
+public class RentalPlaceNameDTO {
     private String name;
-    private Float pricePerTime;
-    private Float startPrice;
-    private Integer discount;
 }

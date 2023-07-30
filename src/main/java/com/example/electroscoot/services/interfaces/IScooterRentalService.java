@@ -2,21 +2,25 @@ package com.example.electroscoot.services.interfaces;
 
 
 import com.example.electroscoot.dto.CreateScooterRentalDTO;
+import com.example.electroscoot.dto.RentalPlaceNameDTO;
 import com.example.electroscoot.dto.ScooterRentalDTO;
 import com.example.electroscoot.utils.enums.RentalStateEnum;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.Positive;
 
 import java.nio.file.AccessDeniedException;
 import java.util.List;
 
 public interface IScooterRentalService {
 
-    ScooterRentalDTO findById(int id);
+    ScooterRentalDTO findById(@Positive(message = "Id must be more than zero.") int id);
 
-    ScooterRentalDTO create(CreateScooterRentalDTO createData);
+    ScooterRentalDTO create(@Valid CreateScooterRentalDTO createData);
 
-    RentalStateEnum takePaymentById(int id);
+    RentalStateEnum takePaymentById(@Positive(message = "Id must be more than zero.") int id);
 
-    ScooterRentalDTO closeRentalById(int id, String finalRentalPlaceName);
+    ScooterRentalDTO closeRentalById(@Positive(message = "Id must be more than zero.") int id,
+                                     @Valid RentalPlaceNameDTO rentalPlaceNameDTO);
 
     List<ScooterRentalDTO> getList();
 }

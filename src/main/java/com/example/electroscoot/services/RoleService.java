@@ -4,6 +4,7 @@ import com.example.electroscoot.dao.RoleRepository;
 import com.example.electroscoot.dto.RoleDTO;
 import com.example.electroscoot.entities.Role;
 import com.example.electroscoot.services.interfaces.IRoleService;
+import jakarta.validation.constraints.NotBlank;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -17,7 +18,7 @@ public class RoleService implements IRoleService {
 
     @Override
     @Transactional
-    public RoleDTO create(String name) {
+    public RoleDTO create(@NotBlank(message = "Name is mandatory.") String name) {
         Role role = new Role();
 
         role.setName(name);
@@ -33,7 +34,7 @@ public class RoleService implements IRoleService {
 
     @Override
     @Transactional(readOnly = true)
-    public boolean doesExistByName(String name) {
+    public boolean doesExistByName(@NotBlank(message = "Name is mandatory.") String name) {
         return roleRepository.findByName(name).orElse(null) != null;
     }
 }

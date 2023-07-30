@@ -6,6 +6,7 @@ import com.example.electroscoot.dao.ScooterRentalRepository;
 import com.example.electroscoot.dao.ScooterRepository;
 import com.example.electroscoot.dao.UserRepository;
 import com.example.electroscoot.dto.CreateScooterRentalDTO;
+import com.example.electroscoot.dto.RentalPlaceNameDTO;
 import com.example.electroscoot.dto.ScooterRentalDTO;
 import com.example.electroscoot.entities.RentalPlace;
 import com.example.electroscoot.entities.Scooter;
@@ -292,13 +293,13 @@ public class ScooterRentalServiceIntegrationTests {
 
         ScooterRentalDTO expectedScooterRentalDTO = new ScooterRentalDTO(scooterRental);
 
-        ScooterRentalDTO resultScooterRentalDTO = scooterRentalService.closeRentalById(testScooterRentalId, testRentalPlaceName);
+        ScooterRentalDTO resultScooterRentalDTO = scooterRentalService.closeRentalById(testScooterRentalId, new RentalPlaceNameDTO(testRentalPlaceName));
 
         Assert.assertEquals(expectedScooterRentalDTO, resultScooterRentalDTO);
 
         Assert.assertThrows(AccessDeniedException.class, () -> {
 //            аренда уже закрыта
-            scooterRentalService.closeRentalById(testScooterRentalId, testRentalPlaceName);
+            scooterRentalService.closeRentalById(testScooterRentalId, new RentalPlaceNameDTO(testRentalPlaceName));
         });
     }
 

@@ -11,6 +11,8 @@ import com.example.electroscoot.entities.Scooter;
 import com.example.electroscoot.entities.ScooterModel;
 import com.example.electroscoot.services.interfaces.IScooterService;
 import com.example.electroscoot.utils.enums.ScooterStateEnum;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.Positive;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -28,7 +30,7 @@ public class ScooterService implements IScooterService {
 
     @Override
     @Transactional(readOnly = true)
-    public ScooterDTO findById(int id) {
+    public ScooterDTO findById(@Positive(message = "Id must be more than zero.") int id) {
         return new ScooterDTO(scooterRepository.findById(id).orElseThrow(() -> {
             return new IllegalArgumentException("The scooter with id " + id + " does not exist.");
         }));
@@ -42,20 +44,19 @@ public class ScooterService implements IScooterService {
 
     @Override
     @Transactional
-    public ScooterDTO create(CreateScooterDTO createData) {
+    public ScooterDTO create(@Valid CreateScooterDTO createData) {
 
         Scooter scooter = new Scooter();
 
-//        указывать модель обязательно, поэтому не проверяем
         scooter.setModel(scooterModelRepository.findByName(createData.getModel()).orElseThrow(() -> {
             return new IllegalArgumentException("The scooter model with name " + createData.getModel() + " does not exist.");
         }));
 
         if (createData.getState() != null) {
             scooter.setState(createData.getState());
+        } else {
+            scooter.setState(ScooterStateEnum.OK);
         }
-
-//        указывать точку проката необязательно, поэтому проверяем
 
         if (createData.getRentalPlaceName() != null) {
             RentalPlace rentalPlace = rentalPlaceRepository.findByName(createData.getRentalPlaceName()).orElseThrow(() -> {
@@ -69,9 +70,14 @@ public class ScooterService implements IScooterService {
 
     @Override
     @Transactional
-    public boolean deleteById(int id) {
+    public boolean deleteById(@Positive(message = "Id must be more than zero.") int id) {
+        scooterRepository.findById(id).orElseThrow(() -> {
+           return new IllegalArgumentException("Scooter with id " + id + " does not exist.");
+        });
+
         scooterRepository.deleteById(id);
-        return true;
+
+        return scooterRepository.findById(id).orElse(null) == null;
     }
 
     @Override

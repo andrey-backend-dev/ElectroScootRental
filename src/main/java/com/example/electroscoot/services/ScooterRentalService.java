@@ -5,6 +5,7 @@ import com.example.electroscoot.dao.ScooterRentalRepository;
 import com.example.electroscoot.dao.ScooterRepository;
 import com.example.electroscoot.dao.UserRepository;
 import com.example.electroscoot.dto.CreateScooterRentalDTO;
+import com.example.electroscoot.dto.RentalPlaceNameDTO;
 import com.example.electroscoot.dto.ScooterRentalDTO;
 import com.example.electroscoot.entities.RentalPlace;
 import com.example.electroscoot.entities.Scooter;
@@ -16,6 +17,8 @@ import com.example.electroscoot.infra.schedule.TriggerRentalSchedulerClock;
 import com.example.electroscoot.services.interfaces.IScooterRentalService;
 import com.example.electroscoot.utils.enums.RentalStateEnum;
 import com.example.electroscoot.utils.enums.ScooterStateEnum;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.Positive;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Lookup;
 import org.springframework.beans.factory.annotation.Value;
@@ -49,7 +52,7 @@ public class ScooterRentalService implements IScooterRentalService {
 
     @Override
     @Transactional(readOnly = true)
-    public ScooterRentalDTO findById(int id) {
+    public ScooterRentalDTO findById(@Positive(message = "Id must be more than zero.") int id) {
         return new ScooterRentalDTO(scooterRentalRepository.findById(id).orElseThrow(() -> {
             return new IllegalArgumentException("The scooter rental with id " + id + " does not exist.");
         }));
@@ -63,7 +66,7 @@ public class ScooterRentalService implements IScooterRentalService {
 
     @Transactional
     @Override
-    public ScooterRentalDTO create(CreateScooterRentalDTO createData) {
+    public ScooterRentalDTO create(@Valid CreateScooterRentalDTO createData) {
         Scooter scooter = scooterRepository.findById(createData.getScooterId()).orElseThrow(() -> {
             return new IllegalArgumentException("The scooter with id " + createData.getScooterId() + " does not exist.");
         });
@@ -80,9 +83,10 @@ public class ScooterRentalService implements IScooterRentalService {
             throw new CustomConflictException("Your previous rent has not been already closed");
 
         if (user.getSubscriptionTill() == null || user.getSubscriptionTill().isBefore(LocalDateTime.now(clock))) {
-            float finalMoney = user.getMoney() - scooterModel.getStartPrice();
-//            если у пользователя остались деньги хотя бы на 1 час аренды
-            if (finalMoney >= scooterModel.getPricePerTime())
+            // сразу снимаем деньги за взятие аренды + за час аренды, на таймере стоит initdelay размером в промежуток
+            // между выплатами, так что все ок
+            float finalMoney = user.getMoney() - scooterModel.getStartPrice() - scooterModel.getPricePerTime();
+            if (finalMoney >= 0)
                 user.setMoney(finalMoney);
             else
                 throw new IllegalArgumentException("User does not have enough money");
@@ -110,7 +114,7 @@ public class ScooterRentalService implements IScooterRentalService {
 
     @Transactional
     @Override
-    public RentalStateEnum takePaymentById(int id) {
+    public RentalStateEnum takePaymentById(@Positive(message = "Id must be more than zero.") int id) {
         ScooterRental scooterRental = scooterRentalRepository.findById(id).orElseThrow(() -> {
             return new IllegalArgumentException("The scooter rental with id " + id + " does not exist.");
         });
@@ -124,14 +128,15 @@ public class ScooterRentalService implements IScooterRentalService {
         } else if (scooterRental.getScooterPassedAt() != null) {
             return RentalStateEnum.CLOSED;
         } else {
-            closeRentalById(id, "");
+            closeRentalById(id, new RentalPlaceNameDTO("null"));
             return RentalStateEnum.BAD;
         }
     }
 
     @Transactional
     @Override
-    public ScooterRentalDTO closeRentalById(int id, String rentalPlaceName) {
+    public ScooterRentalDTO closeRentalById(@Positive(message = "Id must be more than zero.") int id,
+                                            @Valid RentalPlaceNameDTO rentalPlaceNameDTO) {
         ScooterRental scooterRental = scooterRentalRepository.findById(id).orElseThrow(() -> {
             return new IllegalArgumentException("The scooter rental with id " + id + " does not exist.");
         });
@@ -142,7 +147,7 @@ public class ScooterRentalService implements IScooterRentalService {
         Scooter scooter = scooterRental.getScooter();
         User user = scooterRental.getUser();
 
-        RentalPlace rentalPlace = rentalPlaceRepository.findByName(rentalPlaceName).orElse(null);
+        RentalPlace rentalPlace = rentalPlaceRepository.findByName(rentalPlaceNameDTO.getName()).orElse(null);
 
         user.setScooter(null);
 

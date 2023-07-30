@@ -1,7 +1,9 @@
 package com.example.electroscoot.services.interfaces;
 
+import com.example.electroscoot.dto.MoneyDTO;
 import com.example.electroscoot.dto.RegistrationDTO;
 import com.example.electroscoot.dto.RoleDTO;
+import com.example.electroscoot.dto.RoleNameDTO;
 import com.example.electroscoot.dto.ScooterRentalDTO;
 import com.example.electroscoot.dto.UpdateUserDTO;
 import com.example.electroscoot.dto.UserDTO;
@@ -19,12 +21,12 @@ public interface IUserService {
     List<UserDTO> getList();
     boolean deleteByUsername(@NotBlank(message = "Username is mandatory.") String username);
     List<RoleDTO> getRolesByUsername(@NotBlank(message = "Username is mandatory.") String username);
-    UserDTO addRoleByUsername(@NotBlank(message = "Username is mandatory.") String username,
-                              @NotBlank(message = "Role name is mandatory.") String roleName);
-    UserDTO removeRoleByUsername(@NotBlank(message = "Username is mandatory.") String username,
-                                 @NotBlank(message = "Role name is mandatory.") String roleName);
+    List<RoleDTO> addRoleByUsername(@NotBlank(message = "Username is mandatory.") String username,
+                              @Valid RoleNameDTO roleNameDTO);
+    List<RoleDTO> removeRoleByUsername(@NotBlank(message = "Username is mandatory.") String username,
+                                       @Valid RoleNameDTO roleNameDTO);
     UserDTO addMoneyByUsername(@NotBlank(message = "Username is mandatory.") String username,
-                               @Positive(message = "Money must be more than zero.") float money);
+                               @Valid MoneyDTO moneyDTO);
     List<ScooterRentalDTO> getRentHistoryByUsername(@NotBlank(message = "Username is mandatory.") String username);
     UserDTO buySubscriptionByUsername(@NotBlank(message = "Username is mandatory.") String username);
 }
