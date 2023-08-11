@@ -23,48 +23,8 @@ import java.time.LocalDateTime;
 
 @SpringBootApplication
 public class ElectroScootApplication {
-    private static UserController userController;
-    private static RoleController roleController;
-    private static ScooterModelController scooterModelController;
-    private static ScooterController scooterController;
-    private static RentalPlaceController rentalPlaceController;
-    private static ScooterRentalController scooterRentalController;
 
     public static void main(String[] args) throws AccessDeniedException {
         ApplicationContext context = SpringApplication.run(ElectroScootApplication.class, args);
-        userController = context.getBean(UserController.class);
-        roleController = context.getBean(RoleController.class);
-        scooterModelController = context.getBean(ScooterModelController.class);
-        scooterController = context.getBean(ScooterController.class);
-        rentalPlaceController = context.getBean(RentalPlaceController.class);
-        scooterRentalController = context.getBean(ScooterRentalController.class);
-
-//        CreateScooterRentalDTO createScooterRentalDTO = new CreateScooterRentalDTO("bladeattheneck", 1);
-//        ScooterRentalDTO scooterRentalDTO = scooterRentalService.create(createScooterRentalDTO);
-//
-//        try {
-//            Thread.sleep(1000);
-//        } catch (InterruptedException e) {
-//            e.printStackTrace();
-//        }
-//
-//        CreateScooterRentalDTO createScooterRentalDTO2 = new CreateScooterRentalDTO("testUser", 3);
-//        ScooterRentalDTO scooterRentalDTO2 = scooterRentalService.create(createScooterRentalDTO2);
-//
-//        LocalDateTime finishAt = LocalDateTime.now().plusSeconds(10);
-//        boolean go = true;
-//
-//        while (true) {
-//            try {
-//                Thread.sleep(500);
-//            } catch (InterruptedException e) {
-//                e.printStackTrace();
-//            }
-//
-//            if (LocalDateTime.now().isAfter(finishAt) && go) {
-//                System.out.println(scooterRentalService.closeRentalById(scooterRentalDTO2.getId(), "ТРЦ СПБ"));
-//                go = !go;
-//            }
-//        }
     }
 }
