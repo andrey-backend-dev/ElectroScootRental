@@ -1,12 +1,11 @@
 package com.example.electroscoot.services;
 
-import com.example.electroscoot.config.ScooterModelServiceTestContextConfiguration;
+import com.example.electroscoot.configs.ScooterModelServiceTestContextConfiguration;
 import com.example.electroscoot.dao.ScooterModelRepository;
 import com.example.electroscoot.dao.ScooterRepository;
 import com.example.electroscoot.dto.CreateScooterModelDTO;
 import com.example.electroscoot.dto.ScooterModelDTO;
 import com.example.electroscoot.dto.UpdateScooterModelDTO;
-import com.example.electroscoot.entities.Scooter;
 import com.example.electroscoot.entities.ScooterModel;
 import com.example.electroscoot.services.interfaces.IScooterModelService;
 import org.junit.Assert;

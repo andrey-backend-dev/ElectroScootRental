@@ -1,10 +1,11 @@
 package com.example.electroscoot.utils.enums;
 
-public enum SortMethod {
-    NULL("null"), ADDRESS("address"), STATE("state");
+public enum OrderEnum {
+    ASC("asc"), DESC("desc"), NULL("null");
+
     private String name;
 
-    SortMethod(String name) {
+    OrderEnum(String name) {
         this.name = name;
     }
 

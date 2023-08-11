@@ -28,7 +28,6 @@ public class Role {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    @NotBlank(message = "Name is mandatory.")
     private String name;
     @ManyToMany(mappedBy = "roles")
     private Set<User> users;

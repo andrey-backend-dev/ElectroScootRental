@@ -8,13 +8,7 @@ import com.example.electroscoot.utils.enums.RentalStateEnum;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PatchMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -33,9 +27,9 @@ public class ScooterRentalController {
     }
 
     @GetMapping(value = "/", produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<ScooterRentalDTO> getList() {
-        logger.info("The <getList> method is called from Scooter Rental Controller.");
-        return scooterRentalService.getList();
+    public List<ScooterRentalDTO> getList(@RequestParam(value = "passed-filter", required = false) Boolean passed) {
+        logger.info("The <getList> method is called from Scooter Rental Controller. Passed filter: " + passed);
+        return scooterRentalService.getList(passed);
     }
 
     @PostMapping(value = "/create", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
@@ -45,7 +39,7 @@ public class ScooterRentalController {
     }
 
     @PatchMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ScooterRentalDTO closeRentalById(int id, RentalPlaceNameDTO rentalPlaceNameDTO) {
+    public ScooterRentalDTO closeRentalById(@PathVariable("id") int id, @RequestBody RentalPlaceNameDTO rentalPlaceNameDTO) {
         logger.info("The <closeRentalById> method is called from Scooter Rental Controller.");
         return scooterRentalService.closeRentalById(id, rentalPlaceNameDTO);
     }

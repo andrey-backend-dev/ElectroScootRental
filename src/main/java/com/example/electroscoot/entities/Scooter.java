@@ -34,7 +34,6 @@ public class Scooter {
     private RentalPlace rentalPlace;
     @ManyToOne
     @JoinColumn(name = "model", referencedColumnName = "name")
-    @NotNull
     private ScooterModel model;
     @Enumerated(EnumType.STRING)
     private ScooterStateEnum state;

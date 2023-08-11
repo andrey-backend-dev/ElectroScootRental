@@ -11,5 +11,5 @@ public class CreateScooterDTO {
     private String rentalPlaceName;
     @NotBlank(message = "Model is mandatory.")
     private String model;
-    private ScooterStateEnum state;
+    private String state;
 }

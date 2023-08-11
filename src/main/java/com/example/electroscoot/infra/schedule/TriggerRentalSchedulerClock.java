@@ -4,6 +4,7 @@ import com.example.electroscoot.services.interfaces.IScooterRentalService;
 import com.example.electroscoot.utils.enums.RentalStateEnum;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.scheduling.annotation.ScheduledAnnotationBeanPostProcessor;
 
@@ -19,6 +20,8 @@ public class TriggerRentalSchedulerClock {
     private ScheduledAnnotationBeanPostProcessor scheduledAnnotationBeanPostProcessor;
     @Autowired
     private Logger logger;
+    @Value("${business.pricePerTimeInSeconds}")
+    private String pricePerTimeInSeconds;
 
     private int scooterRentalId;
 
@@ -33,11 +36,8 @@ public class TriggerRentalSchedulerClock {
 
         RentalStateEnum rentalState = scooterRentalService.takePaymentById(scooterRentalId);
 
-        if (rentalState == RentalStateEnum.BAD) {
-            logger.info("Scheduler for scooter rental with id " + scooterRentalId + " is stopped, cause user does not have enough money to continue the rent.");
-            scheduledAnnotationBeanPostProcessor.postProcessBeforeDestruction(this, "TriggerRentalSchedulerClock");
-        } else if (rentalState == RentalStateEnum.CLOSED) {
-            logger.info("Scheduler for scooter rental with id " + scooterRentalId + " is stopped, cause rent is already closed.");
+        if (rentalState == RentalStateEnum.BAD || rentalState == RentalStateEnum.CLOSED) {
+            logger.debug("Scheduler for scooter rental with id " + scooterRentalId + " is stopped. Reason: " + rentalState.getName());
             scheduledAnnotationBeanPostProcessor.postProcessBeforeDestruction(this, "TriggerRentalSchedulerClock");
         }
     }

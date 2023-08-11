@@ -53,8 +53,8 @@ CREATE TABLE IF NOT EXISTS `electroscootdb`.`Scooter` (
   CONSTRAINT `RentalPlaceId`
     FOREIGN KEY (`rental_place_name`)
     REFERENCES `electroscootdb`.`RentalPlace` (`name`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
+    ON DELETE SET NULL
+    ON UPDATE CASCADE,
   CONSTRAINT `ModelName`
     FOREIGN KEY (`model`)
     REFERENCES `electroscootdb`.`ScooterModel` (`name`)
@@ -87,8 +87,8 @@ CREATE TABLE IF NOT EXISTS `electroscootdb`.`User` (
   CONSTRAINT `fk_User_Scooter1`
     FOREIGN KEY (`scooter_id`)
     REFERENCES `electroscootdb`.`Scooter` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+    ON DELETE SET NULL
+    ON UPDATE CASCADE)
 ENGINE = InnoDB;
 
 
@@ -146,21 +146,21 @@ CREATE TABLE IF NOT EXISTS `electroscootdb`.`ScooterRental` (
   CONSTRAINT `ScooterRented`
     FOREIGN KEY (`scooter_id`)
     REFERENCES `electroscootdb`.`Scooter` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
   CONSTRAINT `UserRented`
     FOREIGN KEY (`username`)
     REFERENCES `electroscootdb`.`User` (`username`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
   CONSTRAINT `RentalPlaceInit`
     FOREIGN KEY (`init_rental_place_name`)
     REFERENCES `electroscootdb`.`RentalPlace` (`name`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
+    ON DELETE SET NULL
+    ON UPDATE CASCADE,
   CONSTRAINT `RentalPlaceFinal`
     FOREIGN KEY (`final_rental_place_name`)
     REFERENCES `electroscootdb`.`RentalPlace` (`name`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+    ON DELETE SET NULL
+    ON UPDATE CASCADE)
 ENGINE = InnoDB;

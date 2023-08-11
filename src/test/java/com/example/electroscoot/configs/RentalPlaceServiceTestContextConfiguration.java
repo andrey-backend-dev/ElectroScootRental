@@ -1,4 +1,4 @@
-package com.example.electroscoot.config;
+package com.example.electroscoot.configs;
 
 import com.example.electroscoot.services.RentalPlaceService;
 import com.example.electroscoot.services.interfaces.IRentalPlaceService;

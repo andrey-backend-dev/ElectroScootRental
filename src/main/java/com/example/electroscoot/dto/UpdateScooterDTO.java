@@ -7,8 +7,7 @@ import lombok.Data;
 @Data
 @AllArgsConstructor
 public class UpdateScooterDTO {
-    private int id;
     private String rentalPlaceName;
     private String model;
-    private ScooterStateEnum state;
+    private String state;
 }

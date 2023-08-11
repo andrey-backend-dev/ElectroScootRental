@@ -1,6 +1,6 @@
 package com.example.electroscoot.services;
 
-import com.example.electroscoot.config.RentalPlaceServiceTestContextConfiguration;
+import com.example.electroscoot.configs.RentalPlaceServiceTestContextConfiguration;
 import com.example.electroscoot.dao.RentalPlaceRepository;
 import com.example.electroscoot.dao.ScooterRepository;
 import com.example.electroscoot.dto.CreateRentalPlaceDTO;
@@ -8,7 +8,6 @@ import com.example.electroscoot.dto.RentalPlaceDTO;
 import com.example.electroscoot.dto.UpdateRentalPlaceDTO;
 import com.example.electroscoot.entities.RentalPlace;
 import com.example.electroscoot.services.interfaces.IRentalPlaceService;
-import com.example.electroscoot.utils.enums.SortMethod;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;

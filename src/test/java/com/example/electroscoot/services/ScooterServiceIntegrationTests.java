@@ -1,6 +1,6 @@
 package com.example.electroscoot.services;
 
-import com.example.electroscoot.config.ScooterServiceTestContextConfiguration;
+import com.example.electroscoot.configs.ScooterServiceTestContextConfiguration;
 import com.example.electroscoot.dao.RentalPlaceRepository;
 import com.example.electroscoot.dao.ScooterModelRepository;
 import com.example.electroscoot.dao.ScooterRepository;
@@ -118,9 +118,9 @@ public class ScooterServiceIntegrationTests {
 
         ScooterDTO expectedScooterDTO = new ScooterDTO(scooter);
 
-        UpdateScooterDTO updateData = new UpdateScooterDTO(testId, rentalPlaceName, modelName, ScooterStateEnum.BROKEN);
+        UpdateScooterDTO updateData = new UpdateScooterDTO(rentalPlaceName, modelName, ScooterStateEnum.BROKEN);
 
-        ScooterDTO resultScooterDTO = scooterService.updateById(updateData);
+        ScooterDTO resultScooterDTO = scooterService.updateById(testId, updateData);
 
         Assert.assertEquals(expectedScooterDTO, resultScooterDTO);
     }

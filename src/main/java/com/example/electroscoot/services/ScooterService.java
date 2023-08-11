@@ -10,16 +10,23 @@ import com.example.electroscoot.entities.RentalPlace;
 import com.example.electroscoot.entities.Scooter;
 import com.example.electroscoot.entities.ScooterModel;
 import com.example.electroscoot.services.interfaces.IScooterService;
+import com.example.electroscoot.utils.enums.OrderEnum;
 import com.example.electroscoot.utils.enums.ScooterStateEnum;
+import com.example.electroscoot.utils.enums.SortMethod;
+import com.example.electroscoot.utils.maps.ScooterStateMap;
+import jakarta.validation.ConstraintViolationException;
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.validation.annotation.Validated;
 
 import java.util.List;
 
 @Service
+@Validated
 public class ScooterService implements IScooterService {
     @Autowired
     private ScooterRepository scooterRepository;
@@ -38,8 +45,27 @@ public class ScooterService implements IScooterService {
 
     @Override
     @Transactional(readOnly = true)
-    public List<ScooterDTO> getList() {
-        return ((List<Scooter>) scooterRepository.findAll()).stream().map(ScooterDTO::new).toList();
+    public List<ScooterDTO> getList(@NotNull(message = "Sort method is mandatory.") SortMethod sortMethod,
+                                    @NotNull(message = "Ordering is mandatory.") OrderEnum ordering,
+                                    @NotNull(message = "Scooter-filter is mandatory.") ScooterStateEnum state) {
+        if (sortMethod != SortMethod.NULL && ordering == OrderEnum.NULL) {
+            ordering = OrderEnum.ASC;
+        }
+
+        if (state == ScooterStateEnum.NULL) {
+            if (sortMethod == SortMethod.NULL) {
+                return ((List<Scooter>) scooterRepository.findAll()).stream().map(ScooterDTO::new).toList();
+            } else if (sortMethod == SortMethod.STATE) {
+                if (ordering == OrderEnum.ASC) {
+                    return scooterRepository.findByOrderByStateAsc().stream().map(ScooterDTO::new).toList();
+                } else {
+                    return scooterRepository.findByOrderByStateDesc().stream().map(ScooterDTO::new).toList();
+                }
+            }
+            throw new ConstraintViolationException("Invalid sort method.", null);
+        } else {
+            return scooterRepository.findByState(state).stream().map(ScooterDTO::new).toList();
+        }
     }
 
     @Override
@@ -52,8 +78,12 @@ public class ScooterService implements IScooterService {
             return new IllegalArgumentException("The scooter model with name " + createData.getModel() + " does not exist.");
         }));
 
+
         if (createData.getState() != null) {
-            scooter.setState(createData.getState());
+            ScooterStateEnum scooterState = ScooterStateMap.getScooterStateByName(createData.getState());
+            if (scooterState != ScooterStateEnum.OK && scooterState != ScooterStateEnum.BROKEN)
+                throw new IllegalArgumentException("Scooter state, while creating, can be only OK/BROKEN.");
+            scooter.setState(scooterState);
         } else {
             scooter.setState(ScooterStateEnum.OK);
         }
@@ -70,22 +100,10 @@ public class ScooterService implements IScooterService {
 
     @Override
     @Transactional
-    public boolean deleteById(@Positive(message = "Id must be more than zero.") int id) {
-        scooterRepository.findById(id).orElseThrow(() -> {
-           return new IllegalArgumentException("Scooter with id " + id + " does not exist.");
-        });
+    public ScooterDTO updateById(int id, UpdateScooterDTO updateData) {
 
-        scooterRepository.deleteById(id);
-
-        return scooterRepository.findById(id).orElse(null) == null;
-    }
-
-    @Override
-    @Transactional
-    public ScooterDTO updateById(UpdateScooterDTO updateData) {
-
-        Scooter scooter = scooterRepository.findById(updateData.getId()).orElseThrow(() -> {
-            return new IllegalArgumentException("The scooter with id " + updateData.getId() + " does not exist.");
+        Scooter scooter = scooterRepository.findById(id).orElseThrow(() -> {
+            return new IllegalArgumentException("The scooter with id " + id + " does not exist.");
         });
 
         if (updateData.getRentalPlaceName() != null) {
@@ -102,11 +120,27 @@ public class ScooterService implements IScooterService {
             scooter.setModel(scooterModel);
         }
 
-        ScooterStateEnum state = updateData.getState();
-        if (state != null) {
-            scooter.setState(state);
+        if (updateData.getState() != null) {
+            ScooterStateEnum state = ScooterStateMap.getScooterStateByName(updateData.getState());
+            if (state == ScooterStateEnum.NULL)
+                throw new IllegalArgumentException("No such state as " + updateData.getState() + ".");
+            else if (state == ScooterStateEnum.RENTED)
+                throw new IllegalArgumentException("You can not directly set the RENTED state.");
+            scooter.setState(ScooterStateMap.getScooterStateByName(updateData.getState()));
         }
 
         return new ScooterDTO(scooter);
+    }
+
+    @Override
+    @Transactional
+    public boolean deleteById(@Positive(message = "Id must be more than zero.") int id) {
+        scooterRepository.findById(id).orElseThrow(() -> {
+           return new IllegalArgumentException("Scooter with id " + id + " does not exist.");
+        });
+
+        scooterRepository.deleteById(id);
+
+        return scooterRepository.findById(id).orElse(null) == null;
     }
 }

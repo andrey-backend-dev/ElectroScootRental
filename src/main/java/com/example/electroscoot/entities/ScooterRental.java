@@ -35,9 +35,7 @@ public class ScooterRental {
     private Scooter scooter;
     @ManyToOne
     @JoinColumn(name = "username", referencedColumnName = "username")
-    @NotNull(message = "User is mandatory.")
     private User user;
-    @PastOrPresent(message = "Scooter taken at future. Validation issues.")
     private LocalDateTime scooterTakenAt;
     private LocalDateTime scooterPassedAt;
     @ManyToOne
@@ -46,8 +44,6 @@ public class ScooterRental {
     @ManyToOne
     @JoinColumn(name = "final_rental_place_name", referencedColumnName = "name")
     private RentalPlace finalRentalPlace;
-    @Positive(message = "Initial Price Per Time must be positive.")
     private float initPricePerTime;
-    @PositiveOrZero(message = "Initial Discount can not be less than zero.")
     private int initDiscount;
 }

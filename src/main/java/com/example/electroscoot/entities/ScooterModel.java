@@ -27,13 +27,9 @@ public class ScooterModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    @NotBlank(message = "Name is mandatory.")
     private String name;
-    @Positive(message = "Price per time must be positive.")
     private float pricePerTime;
-    @PositiveOrZero(message = "Start price must be positive.")
     private float startPrice;
-    @PositiveOrZero(message = "Discount can not be less than zero.")
     private int discount;
     @OneToMany(mappedBy = "model")
     private Set<Scooter> scooters;

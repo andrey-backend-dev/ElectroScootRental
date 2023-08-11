@@ -1,4 +1,4 @@
-package com.example.electroscoot.config;
+package com.example.electroscoot.configs;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

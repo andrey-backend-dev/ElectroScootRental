@@ -1,6 +1,6 @@
 package com.example.electroscoot.services;
 
-import com.example.electroscoot.config.RoleServiceTestContextConfiguration;
+import com.example.electroscoot.configs.RoleServiceTestContextConfiguration;
 import com.example.electroscoot.dao.RoleRepository;
 import com.example.electroscoot.dto.RoleDTO;
 import com.example.electroscoot.entities.Role;

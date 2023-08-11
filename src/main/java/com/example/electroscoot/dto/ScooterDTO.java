@@ -13,7 +13,9 @@ public class ScooterDTO {
 
     public ScooterDTO(Scooter scooter) {
         this.id = scooter.getId();
-        this.rentalPlaceName = scooter.getRentalPlace().getName();
+        if (scooter.getRentalPlace() != null) {
+            this.rentalPlaceName = scooter.getRentalPlace().getName();
+        }
         this.model = scooter.getModel().getName();
         this.state = scooter.getState();
     }

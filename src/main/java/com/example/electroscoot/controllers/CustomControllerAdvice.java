@@ -12,6 +12,7 @@ import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;
@@ -64,6 +65,15 @@ public class CustomControllerAdvice {
         if (exception.getMessage().split(": ").length > 1) {
             return new ResponseEntity<>(exception.getMessage().split(": ")[1], status);
         }
+
+        return new ResponseEntity<>(exception.getMessage(), status);
+    }
+
+    @ExceptionHandler(MethodArgumentTypeMismatchException.class)
+    public ResponseEntity<Object> handleTypeMismatchException(Exception exception) {
+        logger.error("MethodArgumentTypeMismatchException exception occurred. Exception msg: " + exception.getMessage());
+
+        HttpStatus status = HttpStatus.BAD_REQUEST;
 
         return new ResponseEntity<>(exception.getMessage(), status);
     }

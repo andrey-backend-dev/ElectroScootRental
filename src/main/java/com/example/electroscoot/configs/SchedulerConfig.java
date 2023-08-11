@@ -1,4 +1,4 @@
-package com.example.electroscoot.config;
+package com.example.electroscoot.configs;
 
 import com.example.electroscoot.infra.schedule.TriggerRentalSchedulerClock;
 import org.springframework.context.annotation.Bean;

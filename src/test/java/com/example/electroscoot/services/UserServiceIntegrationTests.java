@@ -1,6 +1,6 @@
 package com.example.electroscoot.services;
 
-import com.example.electroscoot.config.UserServiceTestContextConfiguration;
+import com.example.electroscoot.configs.UserServiceTestContextConfiguration;
 import com.example.electroscoot.dao.RoleRepository;
 import com.example.electroscoot.dao.UserRepository;
 import com.example.electroscoot.dto.RegistrationDTO;

@@ -1,6 +1,6 @@
 package com.example.electroscoot.services;
 
-import com.example.electroscoot.config.ScooterRentalServiceTestContextConfiguration;
+import com.example.electroscoot.configs.ScooterRentalServiceTestContextConfiguration;
 import com.example.electroscoot.dao.RentalPlaceRepository;
 import com.example.electroscoot.dao.ScooterRentalRepository;
 import com.example.electroscoot.dao.ScooterRepository;

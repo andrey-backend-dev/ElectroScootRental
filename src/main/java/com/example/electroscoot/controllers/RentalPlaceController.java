@@ -5,6 +5,9 @@ import com.example.electroscoot.dto.RentalPlaceDTO;
 import com.example.electroscoot.dto.ScooterDTO;
 import com.example.electroscoot.dto.UpdateRentalPlaceDTO;
 import com.example.electroscoot.services.interfaces.IRentalPlaceService;
+import com.example.electroscoot.utils.enums.OrderEnum;
+import com.example.electroscoot.utils.enums.SortMethod;
+import com.example.electroscoot.utils.maps.OrderMap;
 import com.example.electroscoot.utils.maps.SortMap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -42,9 +45,18 @@ public class RentalPlaceController {
     }
 
     @GetMapping(value = "/", produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<RentalPlaceDTO> getList(@RequestParam("sort") String sortMethod, @RequestParam("city") String city) {
-        logger.info("The <getList> method is called from Rental Place Controller. Sort: " + sortMethod + ", byCity: " + city);
-        return rentalPlaceService.getList(SortMap.getSortByName(sortMethod), city);
+    public List<RentalPlaceDTO> getList(@RequestParam(value = "sort", required = false) String sortMethod,
+                                        @RequestParam(value = "ordering", required = false) String ordering,
+                                        @RequestParam(value = "city", required = false) String city) {
+        logger.info("The <getList> method is called from Rental Place Controller. " +
+                "Sort: " + sortMethod + ", ordering: " + ordering + ", byCity: " + city);
+        SortMethod sort = sortMethod == null || SortMap.getSortByName(sortMethod) == SortMethod.NULL
+                ? SortMethod.NULL
+                : SortMap.getSortByName(sortMethod);
+        OrderEnum order = ordering == null || OrderMap.getOrderingByName(ordering) == OrderEnum.NULL
+                ? OrderEnum.NULL
+                : OrderMap.getOrderingByName(ordering);
+        return rentalPlaceService.getList(sort, order, city);
     }
 
     @PostMapping(value = "/create", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)

@@ -16,10 +16,12 @@ import jakarta.validation.constraints.Positive;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.validation.annotation.Validated;
 
 import java.util.List;
 
 @Service
+@Validated
 public class ScooterModelService implements IScooterModelService {
     @Autowired
     private ScooterModelRepository scooterModelRepository;
@@ -116,7 +118,7 @@ public class ScooterModelService implements IScooterModelService {
         if (!newName.isBlank()) {
             return newName;
         }
-        throw new ConstraintViolationException("Username can not be blank.", null);
+        throw new ConstraintViolationException("Name can not be blank.", null);
     }
 
     private float getPricePerTimeIfValid(float pricePerTime) {

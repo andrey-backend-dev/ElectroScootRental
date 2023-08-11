@@ -19,11 +19,11 @@ INSERT INTO user2role
 
 INSERT INTO rentalplace
 (name, city, street, house, rating) VALUES
-('Метро Люблино', 'Москва', 'Совхозная улица', null, 2),
-('Братеевская', 'Москва', 'Братеевская', 10, 5),
-('ТРЦ НеКЛЮЧЕВОЙ', 'Москва', 'Ключевая', 30, 3),
-('ТРЦ Ключевой', 'Москва', 'Ключевая', 20, 3),
-('ТРЦ СПБ', 'Санкт-Петербург' , 'Какая-то' , 42, 0);
+('Metro Lublino', 'Moscow', 'Sovkhoznaya st', null, 2),
+('Brateevskaya', 'Moscow', 'Brateevskaya st', 10, 5),
+('TRC neKluchevoy', 'Moscow', 'Kluchevaya st', 30, 3),
+('TRC Kluchevoy', 'Moscow', 'Kluchevaya st', 20, 3),
+('TRC SPB', 'St. Petersburg' , 'Some st' , 42, 0);
 
 INSERT INTO scootermodel
 (name, price_per_time, start_price, discount) VALUES
@@ -32,11 +32,11 @@ INSERT INTO scootermodel
 
 INSERT INTO scooter
 (rental_place_name, model, state) VALUES
-('Метро Люблино', 'FX230', 'OK'),
-('Метро Люблино', 'ES4921', 'BROKEN'),
-('Братеевская', 'FX230', 'OK'),
-('ТРЦ СПБ', 'ES4921', 'OK');
+('Metro Lublino', 'FX230', 'OK'),
+('Metro Lublino', 'ES4921', 'BROKEN'),
+('Brateevskaya', 'FX230', 'OK'),
+('TRC SPB', 'ES4921', 'OK');
 
 insert INTO scooterrental
 (scooter_id, scooter_taken_at, scooter_passed_at, username, init_rental_place_name, final_rental_place_name, init_price_per_time, init_discount) VALUES
-(2, date('2023-07-23 15:00:00'), current_time(), 'bladeattheneck', 'Братеевская', 'Метро Люблино', 100.0, 10);
+(2, date('2023-07-23 15:00:00'), current_time(), 'bladeattheneck', 'Brateevskaya', 'Metro Lublino', 100.0, 10);

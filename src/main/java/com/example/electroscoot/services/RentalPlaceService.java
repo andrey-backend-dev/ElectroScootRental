@@ -8,6 +8,7 @@ import com.example.electroscoot.dto.ScooterDTO;
 import com.example.electroscoot.dto.UpdateRentalPlaceDTO;
 import com.example.electroscoot.entities.RentalPlace;
 import com.example.electroscoot.services.interfaces.IRentalPlaceService;
+import com.example.electroscoot.utils.enums.OrderEnum;
 import com.example.electroscoot.utils.enums.SortMethod;
 import jakarta.validation.ConstraintViolationException;
 import jakarta.validation.Valid;
@@ -18,10 +19,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.validation.annotation.Validated;
 
 import java.util.List;
 
 @Service
+@Validated
 public class RentalPlaceService implements IRentalPlaceService {
     @Autowired
     private ScooterRepository scooterRepository;
@@ -46,22 +49,26 @@ public class RentalPlaceService implements IRentalPlaceService {
 
     @Override
     @Transactional(readOnly = true)
-    public List<RentalPlaceDTO> getList(@NotNull(message = "Sort method is mandatory.") SortMethod sortMethod, String city) {
-        if (sortMethod.getName().equals("address")) {
-            if (city == null) {
-                return rentalPlaceRepository.findByOrderByCityAscStreetAscHouseAsc().stream().
-                        map(RentalPlaceDTO::new).toList();
+    public List<RentalPlaceDTO> getList(@NotNull(message = "Sort method is mandatory.") SortMethod sortMethod,
+                                        @NotNull(message = "Ordering is mandatory.") OrderEnum ordering, String city) {
+        if (sortMethod != SortMethod.NULL && ordering == OrderEnum.NULL) {
+            ordering = OrderEnum.ASC;
+        }
+
+        if (sortMethod == SortMethod.ADDRESS) {
+            if (city == null || city.isBlank()) {
+                return returnSortedConsideringOrdering(ordering);
             } else {
-                return rentalPlaceRepository.findByCityOrderByCityAscStreetAscHouseAsc(city).stream().
-                        map(RentalPlaceDTO::new).toList();
+                return returnSortedConsideringOrderingAndCity(ordering, city);
             }
-        } else if (sortMethod.getName().equals("null")) {
-            if (city == null) {
+        } else if (sortMethod == SortMethod.NULL) {
+            if (city == null || city.isBlank()) {
                 return ((List<RentalPlace>) rentalPlaceRepository.findAll()).stream().map(RentalPlaceDTO::new).toList();
             } else {
                 return (rentalPlaceRepository.findByCity(city)).stream().map(RentalPlaceDTO::new).toList();
             }
         }
+
         throw new ConstraintViolationException("Invalid sort method.", null);
     }
 
@@ -141,6 +148,25 @@ public class RentalPlaceService implements IRentalPlaceService {
         });
 
         return rentalPlace.getScooters().stream().map(ScooterDTO::new).toList();
+    }
+
+    private List<RentalPlaceDTO> returnSortedConsideringOrderingAndCity(OrderEnum ordering, String city) {
+        if (ordering == OrderEnum.ASC) {
+            return rentalPlaceRepository.findByCityOrderByCityAscStreetAscHouseAsc(city).stream().
+                    map(RentalPlaceDTO::new).toList();
+        } else {
+            return rentalPlaceRepository.findByCityOrderByCityDescStreetDescHouseDesc(city).stream().
+                    map(RentalPlaceDTO::new).toList();
+        }
+    }
+
+    private List<RentalPlaceDTO> returnSortedConsideringOrdering(OrderEnum ordering) {
+        if (ordering == OrderEnum.ASC)
+            return rentalPlaceRepository.findByOrderByCityAscStreetAscHouseAsc().stream().
+                    map(RentalPlaceDTO::new).toList();
+        else
+            return rentalPlaceRepository.findByOrderByCityDescStreetDescHouseDesc().stream().
+                    map(RentalPlaceDTO::new).toList();
     }
 
     private Integer getHouseIfValid(Integer house) {

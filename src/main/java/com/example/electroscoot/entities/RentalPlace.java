@@ -30,16 +30,10 @@ public class RentalPlace {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    @NotBlank(message = "Name is mandatory.")
     private String name;
-    @NotBlank(message = "City is mandatory.")
     private String city;
-    @NotBlank(message = "Street is mandatory.")
     private String street;
-    @Positive(message = "House number must be positive.")
     private Integer house;
-    @Min(0)
-    @Max(5)
     private int rating;
     @OneToMany(mappedBy = "rentalPlace")
     private Set<Scooter> scooters;

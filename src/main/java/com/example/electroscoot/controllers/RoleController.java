@@ -4,12 +4,7 @@ import com.example.electroscoot.dto.RoleDTO;
 import com.example.electroscoot.services.interfaces.IRoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import org.slf4j.Logger;
@@ -25,7 +20,13 @@ public class RoleController {
     @PostMapping(value = "/create", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
     public RoleDTO create(@RequestBody RoleDTO roleDTO) {
         logger.info("The <create> method is called from Role Controller.");
-        return roleService.create(roleDTO.getName());
+        return roleService.create(roleDTO);
+    }
+
+    @DeleteMapping(value = "/{name}")
+    public boolean deleteByName(@PathVariable("name") String name) {
+        logger.info("The <delete> method is called from Role Controller.");
+        return roleService.deleteByName(name);
     }
 
     @GetMapping(value = "/", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -34,7 +35,7 @@ public class RoleController {
         return roleService.getList();
     }
 
-    @GetMapping("/{name}/exists")
+    @GetMapping("/exists")
     public boolean doesExistByName(@RequestParam("name") String name) {
         logger.info("The <doesExistByName> method is called from Role Controller.");
         return roleService.doesExistByName(name);

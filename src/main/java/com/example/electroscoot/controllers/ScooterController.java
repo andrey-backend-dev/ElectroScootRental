@@ -4,16 +4,15 @@ import com.example.electroscoot.dto.CreateScooterDTO;
 import com.example.electroscoot.dto.ScooterDTO;
 import com.example.electroscoot.dto.UpdateScooterDTO;
 import com.example.electroscoot.services.interfaces.IScooterService;
+import com.example.electroscoot.utils.enums.OrderEnum;
+import com.example.electroscoot.utils.enums.ScooterStateEnum;
+import com.example.electroscoot.utils.enums.SortMethod;
+import com.example.electroscoot.utils.maps.OrderMap;
+import com.example.electroscoot.utils.maps.ScooterStateMap;
+import com.example.electroscoot.utils.maps.SortMap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import org.slf4j.Logger;
@@ -33,9 +32,21 @@ public class ScooterController {
     }
 
     @GetMapping(value = "/", produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<ScooterDTO> getList() {
-        logger.info("The <getList> method is called from Scooter Controller.");
-        return scooterService.getList();
+    public List<ScooterDTO> getList(@RequestParam(value = "sort", required = false) String sortMethod,
+                                    @RequestParam(value = "ordering", required = false) String ordering,
+                                    @RequestParam(value = "state-filter", required = false) String state) {
+        logger.info("The <getList> method is called from Scooter Controller. " +
+                "Sort: " + sortMethod + ", ordering: " + ordering + ", state-filter: " + state);
+        SortMethod sort = sortMethod == null || SortMap.getSortByName(sortMethod) == SortMethod.NULL
+                ? SortMethod.NULL
+                : SortMap.getSortByName(sortMethod);
+        OrderEnum order = ordering == null || OrderMap.getOrderingByName(ordering) == OrderEnum.NULL
+                ? OrderEnum.NULL
+                : OrderMap.getOrderingByName(ordering);
+        ScooterStateEnum scooterState = state == null || ScooterStateMap.getScooterStateByName(state) == ScooterStateEnum.NULL
+                ? ScooterStateEnum.NULL
+                : ScooterStateMap.getScooterStateByName(state);
+        return scooterService.getList(sort, order, scooterState);
     }
 
     @PostMapping(value = "/create", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
@@ -51,8 +62,8 @@ public class ScooterController {
     }
 
     @PutMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ScooterDTO updateById(@RequestBody UpdateScooterDTO updateData) {
+    public ScooterDTO updateById(@PathVariable("id") int id, @RequestBody UpdateScooterDTO updateData) {
         logger.info("The <updateById> method is called from Scooter Controller.");
-        return scooterService.updateById(updateData);
+        return scooterService.updateById(id, updateData);
     }
 }
