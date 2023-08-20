@@ -1,8 +1,11 @@
 package com.example.electroscoot.configs;
 
+import com.example.electroscoot.exceptions.handlers.DelegatingToControllerAdviceAccessDeniedHandler;
+import com.example.electroscoot.filters.JwtExceptionHandlerFilter;
 import com.example.electroscoot.filters.JwtFilter;
 import com.example.electroscoot.services.CustomUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -16,6 +19,7 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.savedrequest.NullRequestCache;
 import org.springframework.security.web.savedrequest.RequestCache;
@@ -27,15 +31,13 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 public class SecurityConfig {
     @Autowired
     private CustomUserDetailsService userService;
-    @Autowired
-    private JwtFilter jwtFilter;
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-                .csrf(csrf -> csrf.disable())
-                .cors(cors -> cors.disable())
-                .formLogin(formLogin -> formLogin.disable())
+                .csrf(AbstractHttpConfigurer::disable)
+                .cors(AbstractHttpConfigurer::disable)
+                .formLogin(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(requests -> requests.
                         requestMatchers("/users/register", "/users/login").permitAll().
                         requestMatchers(HttpMethod.GET,
@@ -54,7 +56,11 @@ public class SecurityConfig {
                 .sessionManagement((sessionManagement) ->
                         sessionManagement.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 )
-                .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
+                .addFilterBefore(jwtFilter(), UsernamePasswordAuthenticationFilter.class)
+                .addFilterBefore(jwtExceptionHandlerFilter(), JwtFilter.class)
+                .exceptionHandling(handler -> {
+                    handler.accessDeniedHandler(delegatingAccessDeniedHandler());
+                });
 
         return http.build();
     }
@@ -75,5 +81,20 @@ public class SecurityConfig {
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
+    }
+
+    @Bean
+    public JwtFilter jwtFilter() {
+        return new JwtFilter();
+    }
+
+    @Bean
+    public JwtExceptionHandlerFilter jwtExceptionHandlerFilter() {
+        return new JwtExceptionHandlerFilter();
+    }
+
+    @Bean
+    public AccessDeniedHandler delegatingAccessDeniedHandler() {
+        return new DelegatingToControllerAdviceAccessDeniedHandler();
     }
 }

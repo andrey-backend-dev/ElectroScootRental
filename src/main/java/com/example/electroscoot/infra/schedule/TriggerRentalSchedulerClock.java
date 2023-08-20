@@ -10,6 +10,7 @@ import org.springframework.scheduling.annotation.ScheduledAnnotationBeanPostProc
 
 import java.time.Clock;
 import java.time.LocalDateTime;
+import java.util.concurrent.TimeUnit;
 
 public class TriggerRentalSchedulerClock {
     @Autowired
@@ -20,8 +21,6 @@ public class TriggerRentalSchedulerClock {
     private ScheduledAnnotationBeanPostProcessor scheduledAnnotationBeanPostProcessor;
     @Autowired
     private Logger logger;
-    @Value("${business.pricePerTimeInSeconds}")
-    private String pricePerTimeInSeconds;
 
     private int scooterRentalId;
 
@@ -29,7 +28,7 @@ public class TriggerRentalSchedulerClock {
         this.scooterRentalId = scooterRentalId;
     }
 
-    @Scheduled(initialDelayString = "${business.pricePerTimeInSeconds}000",fixedDelayString = "${business.pricePerTimeInSeconds}000")
+    @Scheduled(initialDelayString = "${business.pricePerTimeInSeconds}",fixedDelayString = "${business.pricePerTimeInSeconds}", timeUnit = TimeUnit.SECONDS)
     public void scheduledTask() {
         logger.debug("Scheduler for scooter rental with id " +
                 scooterRentalId + " is called at " + LocalDateTime.now(clock));

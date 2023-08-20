@@ -10,6 +10,7 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpRequest;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -35,6 +36,12 @@ public class UserController {
     public AuthenticationDTO login(@RequestBody LoginDTO loginDTO) {
         logger.info("The <login> method is called from User Controller.");
         return userService.login(loginDTO);
+    }
+
+    @PostMapping(value = "/logout", produces = MediaType.APPLICATION_JSON_VALUE)
+    public boolean logout(HttpRequest request) {
+        logger.info("The <logout> method is called from User Controller.");
+        return userService.logout(request.getHeaders().get("Authorization").get(0));
     }
 
     @GetMapping(value = "/id/{id}", produces = MediaType.APPLICATION_JSON_VALUE)

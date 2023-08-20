@@ -5,7 +5,7 @@ import com.example.electroscoot.dao.UserRepository;
 import com.example.electroscoot.dto.*;
 import com.example.electroscoot.entities.Role;
 import com.example.electroscoot.entities.User;
-import com.example.electroscoot.exceptions.CustomConflictException;
+import com.example.electroscoot.infra.schedule.JwtBlacklistScheduler;
 import com.example.electroscoot.services.interfaces.IUserService;
 import com.example.electroscoot.utils.enums.UserStatus;
 import jakarta.validation.ConstraintViolationException;
@@ -14,6 +14,7 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Positive;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -42,6 +43,8 @@ public class UserService implements IUserService {
     private PasswordEncoder passwordEncoder;
     @Autowired
     private Clock clock;
+    @Autowired
+    private JwtBlacklistScheduler jwtBlacklistScheduler;
     @Value("${business.defaultRole}")
     private String defaultRole;
     @Value("${business.subscriptionCost}")
@@ -84,6 +87,18 @@ public class UserService implements IUserService {
         String jwt = jwtService.generateJWT(user);
 
         return new AuthenticationDTO(new UserDTO(user), jwt);
+    }
+
+    @Override
+    public boolean logout(@NotBlank(message = "Bearer Token is mandatory.") String bearerToken) {
+        String jwt = bearerToken.substring(7);
+
+        boolean success = jwtBlacklistScheduler.blacklistJwt(jwt);
+
+        if (!success)
+            throw new AccessDeniedException("You can not visit this page, while you are logged out.");
+
+        return true;
     }
 
     @Override
@@ -258,7 +273,7 @@ public class UserService implements IUserService {
         }
 
         if (user.getStatus() == status) {
-            throw new CustomConflictException(String.format("The user with username %s already has %s status.", username, status.getName()));
+            throw new IllegalArgumentException(String.format("The user with username %s already has %s status.", username, status.getName()));
         }
 
         user.setStatus(status);

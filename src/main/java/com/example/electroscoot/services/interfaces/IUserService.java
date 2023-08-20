@@ -12,6 +12,7 @@ import java.util.List;
 public interface IUserService {
     AuthenticationDTO register(@Valid RegistrationDTO registrationData);
     AuthenticationDTO login(@Valid LoginDTO loginData);
+    boolean logout(@NotBlank(message = "Bearer Token is mandatory.") String bearerToken);
     UserDTO findById(@Positive(message = "Id must be more than zero.") int id);
     UserDTO findByUsername(@NotBlank(message = "Username is mandatory.") String username);
     UserDTO updateByUsername(@NotBlank(message = "Username is mandatory.") String username, UpdateUserDTO updateData);

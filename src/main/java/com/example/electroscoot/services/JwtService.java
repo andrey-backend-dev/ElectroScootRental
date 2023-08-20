@@ -2,9 +2,9 @@ package com.example.electroscoot.services;
 
 import com.example.electroscoot.entities.Role;
 import com.example.electroscoot.entities.User;
-import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
+import com.example.electroscoot.exceptions.BlacklistedJwtException;
+import com.example.electroscoot.infra.schedule.JwtBlacklistScheduler;
+import io.jsonwebtoken.*;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
 import jakarta.servlet.http.HttpServletRequest;
@@ -30,6 +30,8 @@ public class JwtService {
     private String secret;
     @Value("${jwt.exp.hours}")
     private int expInHours;
+    @Autowired
+    private JwtBlacklistScheduler jwtBlacklistScheduler;
     @Autowired
     private Clock clock;
 
@@ -57,7 +59,12 @@ public class JwtService {
     }
 
     public boolean validateJWT(String jwt) {
-        return extractExpiration(jwt).after(Date.from(Instant.now(clock)));
+        if (extractExpiration(jwt).after(Date.from(Instant.now(clock)))) {
+            if (!jwtBlacklistScheduler.isJwtBlacklisted(jwt))
+                throw new BlacklistedJwtException("JWT is blacklisted. Try to log in again.");
+            return true;
+        }
+        return false;
     }
 
     public Authentication getAuthentication(String jwt) {
@@ -81,7 +88,7 @@ public class JwtService {
                 .stream().map(authorityMap -> authorityMap.get("authority")).collect(Collectors.toList());
     }
 
-    private Date extractExpiration(String jwt) {
+    public Date extractExpiration(String jwt) {
         return extractClaim(jwt, Claims::getExpiration);
     }
 

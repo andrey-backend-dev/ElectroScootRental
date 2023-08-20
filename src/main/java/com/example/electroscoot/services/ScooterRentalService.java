@@ -12,7 +12,6 @@ import com.example.electroscoot.entities.Scooter;
 import com.example.electroscoot.entities.ScooterModel;
 import com.example.electroscoot.entities.ScooterRental;
 import com.example.electroscoot.entities.User;
-import com.example.electroscoot.exceptions.CustomConflictException;
 import com.example.electroscoot.infra.schedule.TriggerRentalSchedulerClock;
 import com.example.electroscoot.services.interfaces.IScooterRentalService;
 import com.example.electroscoot.utils.enums.RentalStateEnum;
@@ -82,7 +81,7 @@ public class ScooterRentalService implements IScooterRentalService {
         });
 
         if (scooter.getState() == ScooterStateEnum.BROKEN || scooter.getState() == ScooterStateEnum.RENTED )
-            throw new CustomConflictException("This scooter is not available for rent");
+            throw new IllegalArgumentException("This scooter is not available for rent");
 
         User user = userRepository.findByUsername(createData.getUsername()).orElseThrow(() -> {
             return new IllegalArgumentException("The user with username " + createData.getUsername() + " does not exist.");
@@ -90,7 +89,7 @@ public class ScooterRentalService implements IScooterRentalService {
         ScooterModel scooterModel = scooter.getModel();
 
         if (user.getScooter() != null)
-            throw new CustomConflictException("Your previous rent has not been already closed");
+            throw new IllegalArgumentException("Your previous rent has not been already closed");
 
         ScooterRental scooterRental = setUpEntities(scooter, user, scooterModel);
 
@@ -135,7 +134,7 @@ public class ScooterRentalService implements IScooterRentalService {
         });
 
         if (scooterRental.getScooterPassedAt() != null)
-            throw new CustomConflictException("this rental is already closed");
+            throw new IllegalArgumentException("this rental is already closed");
 
         Scooter scooter = scooterRental.getScooter();
         User user = scooterRental.getUser();
