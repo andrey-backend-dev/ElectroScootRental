@@ -12,7 +12,7 @@ import com.example.electroscoot.entities.Scooter;
 import com.example.electroscoot.entities.ScooterModel;
 import com.example.electroscoot.entities.ScooterRental;
 import com.example.electroscoot.entities.User;
-import com.example.electroscoot.exceptions.custom.CustomConflictException;
+import com.example.electroscoot.exceptions.CustomConflictException;
 import com.example.electroscoot.infra.schedule.TriggerRentalSchedulerClock;
 import com.example.electroscoot.services.interfaces.IScooterRentalService;
 import com.example.electroscoot.utils.enums.RentalStateEnum;

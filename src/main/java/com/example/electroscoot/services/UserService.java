@@ -2,22 +2,21 @@ package com.example.electroscoot.services;
 
 import com.example.electroscoot.dao.RoleRepository;
 import com.example.electroscoot.dao.UserRepository;
-import com.example.electroscoot.dto.MoneyDTO;
-import com.example.electroscoot.dto.RegistrationDTO;
-import com.example.electroscoot.dto.RoleDTO;
-import com.example.electroscoot.dto.RoleNameDTO;
-import com.example.electroscoot.dto.ScooterRentalDTO;
-import com.example.electroscoot.dto.UpdateUserDTO;
-import com.example.electroscoot.dto.UserDTO;
+import com.example.electroscoot.dto.*;
 import com.example.electroscoot.entities.Role;
 import com.example.electroscoot.entities.User;
+import com.example.electroscoot.exceptions.CustomConflictException;
 import com.example.electroscoot.services.interfaces.IUserService;
+import com.example.electroscoot.utils.enums.UserStatus;
 import jakarta.validation.ConstraintViolationException;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Positive;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
@@ -36,6 +35,12 @@ public class UserService implements IUserService {
     @Autowired
     private RoleRepository roleRepository;
     @Autowired
+    private AuthenticationManager authManager;
+    @Autowired
+    private JwtService jwtService;
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+    @Autowired
     private Clock clock;
     @Value("${business.defaultRole}")
     private String defaultRole;
@@ -44,20 +49,41 @@ public class UserService implements IUserService {
 
     @Override
     @Transactional
-    public UserDTO register(@Valid RegistrationDTO registrationData) {
+    public AuthenticationDTO register(@Valid RegistrationDTO registrationData) {
 
-        User user = new User();
         Role role = roleRepository.findByName(defaultRole).orElseThrow(() -> {
             return new IllegalArgumentException("The role with name " + defaultRole + " does not exist.");
         });
 
-        user.setPassword(registrationData.getPassword());
-        user.setPhone(formatPhone(registrationData.getPhone()));
-        user.setUsername(registrationData.getUsername());
-        user.setRoles(new HashSet<>(Set.of(role)));
-        user.setRegisteredSince(LocalDateTime.now(clock));
+        User user = User.builder()
+                .password(passwordEncoder.encode(registrationData.getPassword()))
+                .phone(formatPhone(registrationData.getPhone()))
+                .username(registrationData.getUsername())
+                .status(UserStatus.OK)
+                .roles(new HashSet<>(Set.of(role)))
+                .registeredSince(LocalDateTime.now(clock))
+                .build();
 
-        return new UserDTO(userRepository.save(user));
+        String jwt = jwtService.generateJWT(user);
+
+        return new AuthenticationDTO(new UserDTO(userRepository.save(user)), jwt);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public AuthenticationDTO login(@Valid LoginDTO loginData) {
+        String username = loginData.getUsername();
+        String password = loginData.getPassword();
+
+        User user = userRepository.findByUsername(username).orElseThrow(() -> {
+            return new IllegalArgumentException("The user with username " + username + " does not exist.");
+        });
+
+        authManager.authenticate(new UsernamePasswordAuthenticationToken(username, password));
+
+        String jwt = jwtService.generateJWT(user);
+
+        return new AuthenticationDTO(new UserDTO(user), jwt);
     }
 
     @Override
@@ -216,6 +242,26 @@ public class UserService implements IUserService {
         } else {
             throw new IllegalArgumentException(user.getUsername() + " does not have enough money to buy subscription.");
         }
+
+        return new UserDTO(user);
+    }
+
+    @Override
+    @Transactional
+    public UserDTO changeUserStatusByUsername(@NotBlank(message = "Username is mandatory.") String username, UserStatus status) {
+        User user = userRepository.findByUsername(username).orElseThrow(() -> {
+            return new IllegalArgumentException("The user with username " + username + " does not exist.");
+        });
+
+        if (status == null) {
+            throw new ConstraintViolationException("User status is not valid.", null);
+        }
+
+        if (user.getStatus() == status) {
+            throw new CustomConflictException(String.format("The user with username %s already has %s status.", username, status.getName()));
+        }
+
+        user.setStatus(status);
 
         return new UserDTO(user);
     }

@@ -1,22 +1,14 @@
 package com.example.electroscoot.entities;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.JoinTable;
-import jakarta.persistence.ManyToMany;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.OneToOne;
-import lombok.Data;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import com.example.electroscoot.utils.enums.UserStatus;
+import jakarta.persistence.*;
+import lombok.*;
 
 import java.time.LocalDateTime;
 import java.util.Set;
 
+@Builder
+@AllArgsConstructor
 @Getter
 @Setter
 @NoArgsConstructor
@@ -33,6 +25,8 @@ public class User {
     private String secondname;
     private String email;
     private LocalDateTime subscriptionTill;
+    @Enumerated(EnumType.STRING)
+    private UserStatus status;
     private float money;
     @OneToOne
     @JoinColumn(name = "scooter_id", referencedColumnName = "id")

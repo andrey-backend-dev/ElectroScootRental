@@ -2,14 +2,14 @@ use electroscootdb;
 
 INSERT INTO role
 (name) VALUES
-('ADMIN'),
-('USER');
+('ROLE_ADMIN'),
+('ROLE_USER');
 
 INSERT INTO user
 (username, password, phone, firstname, secondname, email, money) VALUES
-('testUser' , 'testPassword', '2134', 'Vasiliy', 'Ivanov', 'test@mail.ru', 10000),
-('bladeattheneck' , 'testPassword', '5125', 'Andrey', null, null, 15000),
-('usedreamless' , 'testPassword', '4219', null, null, 'example@mail.ru', 0);
+('testUser' , '$2a$12$irFNLaWVUZaHVyL5l35F1uUj3jBt7I03HKJkKnvbEZ8ZFbW5k0PL2', '2134', 'Vasiliy', 'Ivanov', 'test@mail.ru', 10000),
+('bladeattheneck' , '$2a$12$irFNLaWVUZaHVyL5l35F1uUj3jBt7I03HKJkKnvbEZ8ZFbW5k0PL2', '5125', 'Andrey', null, null, 15000),
+('usedreamless' , '$2a$12$irFNLaWVUZaHVyL5l35F1uUj3jBt7I03HKJkKnvbEZ8ZFbW5k0PL2', '4219', null, null, 'example@mail.ru', 0);
 
 INSERT INTO user2role
 (role_id, user_id) VALUES

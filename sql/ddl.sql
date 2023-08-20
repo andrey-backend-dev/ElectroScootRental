@@ -78,6 +78,7 @@ CREATE TABLE IF NOT EXISTS `electroscootdb`.`User` (
   `subscription_till` TIMESTAMP NULL,
   `money` FLOAT NOT NULL DEFAULT 0,
   `scooter_id` INT UNSIGNED NULL,
+  `status` ENUM("OK", "BANNED") NOT NULL DEFAULT 'OK',
   PRIMARY KEY (`id`),
   UNIQUE INDEX `username_UNIQUE` (`username` ASC) VISIBLE,
   UNIQUE INDEX `email_UNIQUE` (`email` ASC) VISIBLE,

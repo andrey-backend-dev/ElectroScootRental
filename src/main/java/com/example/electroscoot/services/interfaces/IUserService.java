@@ -1,20 +1,17 @@
 package com.example.electroscoot.services.interfaces;
 
-import com.example.electroscoot.dto.MoneyDTO;
-import com.example.electroscoot.dto.RegistrationDTO;
-import com.example.electroscoot.dto.RoleDTO;
-import com.example.electroscoot.dto.RoleNameDTO;
-import com.example.electroscoot.dto.ScooterRentalDTO;
-import com.example.electroscoot.dto.UpdateUserDTO;
-import com.example.electroscoot.dto.UserDTO;
+import com.example.electroscoot.dto.*;
+import com.example.electroscoot.utils.enums.UserStatus;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 
 import java.util.List;
 
 public interface IUserService {
-    UserDTO register(@Valid RegistrationDTO registrationData);
+    AuthenticationDTO register(@Valid RegistrationDTO registrationData);
+    AuthenticationDTO login(@Valid LoginDTO loginData);
     UserDTO findById(@Positive(message = "Id must be more than zero.") int id);
     UserDTO findByUsername(@NotBlank(message = "Username is mandatory.") String username);
     UserDTO updateByUsername(@NotBlank(message = "Username is mandatory.") String username, UpdateUserDTO updateData);
@@ -29,4 +26,5 @@ public interface IUserService {
                                @Valid MoneyDTO moneyDTO);
     List<ScooterRentalDTO> getRentHistoryByUsername(@NotBlank(message = "Username is mandatory.") String username);
     UserDTO buySubscriptionByUsername(@NotBlank(message = "Username is mandatory.") String username);
+    UserDTO changeUserStatusByUsername(@NotBlank(message = "Username is mandatory.") String username, UserStatus status);
 }

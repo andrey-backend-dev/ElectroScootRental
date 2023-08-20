@@ -1,29 +1,46 @@
-package com.example.electroscoot.controllers;
+package com.example.electroscoot.exceptions.handlers;
 
-import com.example.electroscoot.exceptions.custom.CustomConflictException;
+import com.example.electroscoot.exceptions.CustomConflictException;
 import jakarta.validation.ConstraintViolationException;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.json.JsonParseException;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.http.converter.HttpMessageNotReadableException;
+import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;
+import java.nio.file.AccessDeniedException;
 
 @RestControllerAdvice
 public class CustomControllerAdvice {
     @Autowired
     private Logger logger;
 
+    @ExceptionHandler(AccessDeniedException.class)
+    public ResponseEntity<Object> accessDeniedException(AccessDeniedException ex) {
+        return new ResponseEntity<>("You are not allowed to visit this page.", HttpStatus.FORBIDDEN);
+    }
+
+    @ExceptionHandler(BadCredentialsException.class)
+    public ResponseEntity<Object> badCredentialsException(BadCredentialsException ex, WebRequest request) {
+        return new ResponseEntity<>("Authentication issues. Incorrect login or password. Try again.", HttpStatus.UNAUTHORIZED);
+    }
+
+    @ExceptionHandler(AuthenticationException.class)
+    public ResponseEntity<Object> authenticationException(AuthenticationException ex, WebRequest request) {
+        return new ResponseEntity<>("Authentication issues. Log in / Register, firstly.", HttpStatus.UNAUTHORIZED);
+    }
+
     @ExceptionHandler(CustomConflictException.class)
-    public ResponseEntity<Object> handleCustomConflictException(Exception exception) {
+    public ResponseEntity<Object> handleCustomConflictException(CustomConflictException exception) {
         logger.error("CustomConflictException exception occurred.\nException msg: " + exception.getMessage());
 
         HttpStatus status = HttpStatus.CONFLICT;
@@ -32,7 +49,7 @@ public class CustomControllerAdvice {
     }
 
     @ExceptionHandler(IllegalArgumentException.class)
-    public ResponseEntity<Object> handleIllegalArgumentException(Exception exception) {
+    public ResponseEntity<Object> handleIllegalArgumentException(IllegalArgumentException exception) {
         logger.error("IllegalArgumentException exception occurred.\nException msg: " + exception.getMessage());
 
         HttpStatus status = HttpStatus.BAD_REQUEST;
@@ -41,7 +58,7 @@ public class CustomControllerAdvice {
 }
 
     @ExceptionHandler(DataIntegrityViolationException.class)
-    public ResponseEntity<Object> handleUniqueConstraintException(Exception exception) {
+    public ResponseEntity<Object> handleUniqueConstraintException(DataIntegrityViolationException exception) {
         String customMsg = "The field <" +
                 exception.getMessage().split("'")[3].split("\\.")[1].split("_")[0] +
                 "> is unique. The value you've wrote (" +
@@ -70,7 +87,7 @@ public class CustomControllerAdvice {
     }
 
     @ExceptionHandler(MethodArgumentTypeMismatchException.class)
-    public ResponseEntity<Object> handleTypeMismatchException(Exception exception) {
+    public ResponseEntity<Object> handleTypeMismatchException(MethodArgumentTypeMismatchException exception) {
         logger.error("MethodArgumentTypeMismatchException exception occurred. Exception msg: " + exception.getMessage());
 
         HttpStatus status = HttpStatus.BAD_REQUEST;
