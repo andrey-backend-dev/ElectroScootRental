@@ -1,5 +1,6 @@
 package com.example.electroscoot.exceptions.handlers;
 
+import com.example.electroscoot.exceptions.BlacklistedJwtException;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.MalformedJwtException;
 import io.jsonwebtoken.security.SignatureException;
@@ -26,19 +27,23 @@ public class CustomControllerAdvice {
     @Autowired
     private Logger logger;
 
+    @ExceptionHandler(BlacklistedJwtException.class)
+    public ResponseEntity<Object> blacklistedJwtException(BlacklistedJwtException ex) {
+        return new ResponseEntity<>(ex.getMessage(), HttpStatus.UNAUTHORIZED);
+    }
 
     @ExceptionHandler(ExpiredJwtException.class)
-    public ResponseEntity<Object> expiredJwtException(Exception ex) {
+    public ResponseEntity<Object> expiredJwtException(ExpiredJwtException ex) {
         return new ResponseEntity<>("Your JWT Token is expired.", HttpStatus.UNAUTHORIZED);
     }
 
     @ExceptionHandler(SignatureException.class)
-    public ResponseEntity<Object> signatureException(RuntimeException ex, WebRequest request) {
+    public ResponseEntity<Object> signatureException(SignatureException ex) {
         return new ResponseEntity<>("Signature issues. Incorrect JWT. Try again.", HttpStatus.UNAUTHORIZED);
     }
 
     @ExceptionHandler(MalformedJwtException.class)
-    public ResponseEntity<Object> malformedJwtException(RuntimeException ex, WebRequest request) {
+    public ResponseEntity<Object> malformedJwtException(MalformedJwtException ex) {
         return new ResponseEntity<>("Malformed issues. Incorrect format of the JWT.", HttpStatus.UNAUTHORIZED);
     }
 

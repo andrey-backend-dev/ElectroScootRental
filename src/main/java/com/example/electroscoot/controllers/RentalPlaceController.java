@@ -59,24 +59,6 @@ public class RentalPlaceController {
         return rentalPlaceService.getList(sort, order, city);
     }
 
-    @PostMapping(value = "/create", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public RentalPlaceDTO create(@RequestBody CreateRentalPlaceDTO createData) {
-        logger.info("The <create> method is called from Rental Place Controller.");
-        return rentalPlaceService.create(createData);
-    }
-
-    @PutMapping(value = "/{name}", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public RentalPlaceDTO updateByName(@PathVariable("name") String name, @RequestBody UpdateRentalPlaceDTO updateData) {
-        logger.info("The <updateByName> method is called from Rental Place Controller.");
-        return rentalPlaceService.updateByName(name, updateData);
-    }
-
-    @DeleteMapping(value = "/{name}")
-    public boolean deleteByName(@PathVariable("name") String name) {
-        logger.info("The <deleteByName> method is called from Rental Place Controller.");
-        return rentalPlaceService.deleteByName(name);
-    }
-
     @GetMapping(value = "/{name}/scooters", produces = MediaType.APPLICATION_JSON_VALUE)
     public List<ScooterDTO> getScootersByName(@PathVariable("name") String name) {
         logger.info("The <getScootersByName> method is called from Rental Place Controller.");

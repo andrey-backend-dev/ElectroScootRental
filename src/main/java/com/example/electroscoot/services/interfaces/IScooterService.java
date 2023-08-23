@@ -15,9 +15,9 @@ import java.util.List;
 
 public interface IScooterService {
     ScooterDTO findById(@Positive(message = "Id must be more than zero.") int id);
-    public List<ScooterDTO> getList(@NotNull(message = "Sort method is mandatory.") SortMethod sortMethod,
-                                    @NotNull(message = "Ordering is mandatory.") OrderEnum ordering,
-                                    @NotNull(message = "State-filter is mandatory.") ScooterStateEnum state);
+    List<ScooterDTO> getList(@NotNull(message = "Sort method is mandatory.") SortMethod sortMethod,
+                             @NotNull(message = "Ordering is mandatory.") OrderEnum ordering,
+                             @NotNull(message = "Scooter-filter is mandatory.") ScooterStateEnum state);
     ScooterDTO create(@Valid CreateScooterDTO createData);
     ScooterDTO updateById(int id, UpdateScooterDTO updateData);
     boolean deleteById(@Positive(message = "Id must be more than zero.") int id);

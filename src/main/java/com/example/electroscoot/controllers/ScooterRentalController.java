@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.util.List;
 
 @RestController
@@ -20,27 +21,15 @@ public class ScooterRentalController {
     @Autowired
     private Logger logger;
 
-    @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ScooterRentalDTO findById(@PathVariable("id") int id) {
-        logger.info("The <findById> method is called from Scooter Rental Controller.");
-        return scooterRentalService.findById(id);
-    }
-
-    @GetMapping(value = "/", produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<ScooterRentalDTO> getList(@RequestParam(value = "passed-filter", required = false) Boolean passed) {
-        logger.info("The <getList> method is called from Scooter Rental Controller. Passed filter: " + passed);
-        return scooterRentalService.getList(passed);
-    }
-
-    @PostMapping(value = "/create", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ScooterRentalDTO create(@RequestBody CreateScooterRentalDTO createData) {
+    @PostMapping(value = "/rent", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ScooterRentalDTO create(Principal principal, @RequestParam("scooter") int scooterId) {
         logger.info("The <create> method is called from Scooter Rental Controller.");
-        return scooterRentalService.create(createData);
+        return scooterRentalService.create(principal.getName(), scooterId);
     }
 
-    @PatchMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ScooterRentalDTO closeRentalById(@PathVariable("id") int id, @RequestBody RentalPlaceNameDTO rentalPlaceNameDTO) {
+    @PatchMapping(value = "/rent/close", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ScooterRentalDTO closeRentalById(Principal principal, @RequestParam("rental-place") String rentalPlace) {
         logger.info("The <closeRentalById> method is called from Scooter Rental Controller.");
-        return scooterRentalService.closeRentalById(id, rentalPlaceNameDTO);
+        return scooterRentalService.closeRentalByPrincipal(principal.getName(), rentalPlace);
     }
 }

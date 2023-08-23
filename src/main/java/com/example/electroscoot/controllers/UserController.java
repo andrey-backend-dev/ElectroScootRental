@@ -2,20 +2,13 @@ package com.example.electroscoot.controllers;
 
 import com.example.electroscoot.dto.*;
 import com.example.electroscoot.services.interfaces.IUserService;
-import com.example.electroscoot.utils.enums.UserStatus;
-import com.example.electroscoot.utils.maps.UserStatusMap;
-import jakarta.servlet.http.Cookie;
-import jakarta.servlet.http.HttpServletResponse;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
+import jakarta.servlet.http.HttpServletRequest;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpRequest;
 import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.awt.*;
+import java.security.Principal;
 import java.util.List;
 
 @RestController
@@ -39,9 +32,9 @@ public class UserController {
     }
 
     @PostMapping(value = "/logout", produces = MediaType.APPLICATION_JSON_VALUE)
-    public boolean logout(HttpRequest request) {
+    public boolean logout(HttpServletRequest request) {
         logger.info("The <logout> method is called from User Controller.");
-        return userService.logout(request.getHeaders().get("Authorization").get(0));
+        return userService.logout(request.getHeader("Authorization"));
     }
 
     @GetMapping(value = "/id/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -56,65 +49,45 @@ public class UserController {
         return userService.findByUsername(username);
     }
 
-    @GetMapping(value = "/", produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<UserDTO> getList() {
-        logger.info("The <getList> method is called from User Controller.");
-        return userService.getList();
+    @GetMapping(value = "/my-account", produces = MediaType.APPLICATION_JSON_VALUE)
+    public UserDTO findByPrincipal(Principal principal) {
+        logger.info("The <findByPrincipal> method is called from User Controller.");
+        return userService.findByUsername(principal.getName());
     }
 
-    @DeleteMapping(value = "/{username}")
-    public boolean deleteByUsername(@PathVariable("username") String username) {
-        logger.info("The <deleteByUsername> method is called from User Controller.");
-        return userService.deleteByUsername(username);
+    @DeleteMapping(value = "/my-account")
+    public boolean deleteByToken(HttpServletRequest request) {
+        logger.info("The <deleteByPrincipal> method is called from User Controller.");
+        return userService.deleteByToken(request.getHeader("Authorization"));
     }
 
-    @PutMapping(value = "/{username}", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public UserDTO updateByUsername(@PathVariable("username") String username, @RequestBody UpdateUserDTO updateData) {
-        logger.info("The <updateByUsername> method is called from User Controller.");
-        return userService.updateByUsername(username, updateData);
+    @PutMapping(value = "/my-account", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+    public UpdateUserResponseDTO updateByToken(HttpServletRequest request, @RequestBody UpdateUserDTO updateData) {
+        logger.info("The <updateByToken> method is called from User Controller.");
+        return userService.updateByToken(request.getHeader("Authorization"), updateData);
     }
 
-    @GetMapping(value = "/{username}/roles", produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<RoleDTO> getRolesByUsername(@PathVariable("username") String username) {
-        logger.info("The <getRolesByUsername> method is called from User Controller.");
-        return userService.getRolesByUsername(username);
+    @GetMapping(value = "/my-account/roles", produces = MediaType.APPLICATION_JSON_VALUE)
+    public List<RoleDTO> getRolesByPrincipal(Principal principal) {
+        logger.info("The <getRolesByPrincipal> method is called from User Controller.");
+        return userService.getRolesByUsername(principal.getName());
     }
 
-    @PatchMapping(value = "/{username}/roles/add", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public List<RoleDTO> addRoleByUsername(@PathVariable("username") String username, @RequestBody RoleNameDTO roleNameDTO) {
-        logger.info("The <addRoleByUsername> method is called from User Controller.");
-        return userService.addRoleByUsername(username, roleNameDTO);
+    @PatchMapping(value = "/my-account/add-money", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+    public UserDTO addMoneyByPrincipal(Principal principal, @RequestBody MoneyDTO moneyDTO) {
+        logger.info("The <addMoneyByPrincipal> method is called from User Controller.");
+        return userService.addMoneyByUsername(principal.getName(), moneyDTO);
     }
 
-    @PatchMapping(value = "/{username}/roles/remove", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public List<RoleDTO> removeRoleByUsername(@PathVariable("username") String username, @RequestBody RoleNameDTO roleNameDTO) {
-        logger.info("The <removeRoleByUsername> method is called from User Controller.");
-        return userService.removeRoleByUsername(username, roleNameDTO);
+    @GetMapping(value = "/my-account/rent-history", produces = MediaType.APPLICATION_JSON_VALUE)
+    public List<ScooterRentalDTO> getRentHistoryByPrincipal(Principal principal) {
+        logger.info("The <getRentHistoryByPrincipal> method is called from User Controller.");
+        return userService.getRentHistoryByUsername(principal.getName());
     }
 
-    @PatchMapping(value = "/{username}/add-money", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public UserDTO addMoneyByUsername(@PathVariable("username") String username, @RequestBody MoneyDTO moneyDTO) {
-        logger.info("The <addMoneyByUsername> method is called from User Controller.");
-        return userService.addMoneyByUsername(username, moneyDTO);
-    }
-
-    @GetMapping(value = "/{username}/rent-history", produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<ScooterRentalDTO> getRentHistoryByUsername(@PathVariable("username") String username) {
-        logger.info("The <getRentHistoryByUsername> method is called from User Controller.");
-        return userService.getRentHistoryByUsername(username);
-    }
-
-    @PatchMapping(value = "/{username}/buy-subscription", produces = MediaType.APPLICATION_JSON_VALUE)
-    public UserDTO buySubscriptionByUsername(@PathVariable("username") String username) {
-        logger.info("The <buySubscriptionByUsername> method is called from User Controller.");
-        return userService.buySubscriptionByUsername(username);
-    }
-
-    @PatchMapping(value = "/{username}/change-status", produces = MediaType.APPLICATION_JSON_VALUE)
-    public UserDTO changeUserStatusByUsername(@PathVariable("username") String username,
-                                              @RequestParam("status") String status) {
-        logger.info("The <changeUserStatusByUsername> method is called from User Controller.");
-        UserStatus userStatus = UserStatusMap.getStatusByName(status);
-        return userService.changeUserStatusByUsername(username, userStatus);
+    @PatchMapping(value = "/my-account/buy-subscription", produces = MediaType.APPLICATION_JSON_VALUE)
+    public UserDTO buySubscriptionByPrincipal(Principal principal) {
+        logger.info("The <buySubscriptionByPrincipal> method is called from User Controller.");
+        return userService.buySubscriptionByUsername(principal.getName());
     }
 }

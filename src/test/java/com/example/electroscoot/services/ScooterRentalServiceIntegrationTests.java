@@ -211,31 +211,26 @@ public class ScooterRentalServiceIntegrationTests {
         scooterRental.setInitPricePerTime(scooterModel.getPricePerTime());
         scooterRental.setInitDiscount(scooterModel.getDiscount());
 
-        CreateScooterRentalDTO createData = new CreateScooterRentalDTO(testUsername, testScooterId);
 
         ScooterRentalDTO expectedScooterRentalDTO = new ScooterRentalDTO(scooterRental);
 
-        ScooterRentalDTO resultScooterRentalDTO = scooterRentalService.create(createData);
+        ScooterRentalDTO resultScooterRentalDTO = scooterRentalService.create(testUsername, testScooterId);
 
         Assert.assertEquals(expectedScooterRentalDTO, resultScooterRentalDTO);
 
 //        scooter status is rented
         Assert.assertThrows(AccessDeniedException.class, () -> {
-            scooterRentalService.create(createData);
+            scooterRentalService.create(testUsername, testScooterId);
         });
 
 //        not enough money
         Assert.assertThrows(AccessDeniedException.class, () -> {
-            createData.setUsername(testUsername2);
-            createData.setScooterId(testScooterId2);
-            scooterRentalService.create(createData);
+            scooterRentalService.create(testUsername, testScooterId);
         });
 
 //        user already rented scooter
         Assert.assertThrows(AccessDeniedException.class, () -> {
-            createData.setUsername(testUsername3);
-            createData.setScooterId(testScooterId3);
-            scooterRentalService.create(createData);
+            scooterRentalService.create(testUsername, testScooterId);
         });
     }
 
@@ -293,13 +288,13 @@ public class ScooterRentalServiceIntegrationTests {
 
         ScooterRentalDTO expectedScooterRentalDTO = new ScooterRentalDTO(scooterRental);
 
-        ScooterRentalDTO resultScooterRentalDTO = scooterRentalService.closeRentalById(testScooterRentalId, new RentalPlaceNameDTO(testRentalPlaceName));
+        ScooterRentalDTO resultScooterRentalDTO = scooterRentalService.closeRentalById(testScooterRentalId, testRentalPlaceName);
 
         Assert.assertEquals(expectedScooterRentalDTO, resultScooterRentalDTO);
 
         Assert.assertThrows(AccessDeniedException.class, () -> {
 //            аренда уже закрыта
-            scooterRentalService.closeRentalById(testScooterRentalId, new RentalPlaceNameDTO(testRentalPlaceName));
+            scooterRentalService.closeRentalById(testScooterRentalId, testRentalPlaceName);
         });
     }
 

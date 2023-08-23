@@ -3,9 +3,7 @@ package com.example.electroscoot.services;
 import com.example.electroscoot.configs.UserServiceTestContextConfiguration;
 import com.example.electroscoot.dao.RoleRepository;
 import com.example.electroscoot.dao.UserRepository;
-import com.example.electroscoot.dto.RegistrationDTO;
-import com.example.electroscoot.dto.UpdateUserDTO;
-import com.example.electroscoot.dto.UserDTO;
+import com.example.electroscoot.dto.*;
 import com.example.electroscoot.entities.Role;
 import com.example.electroscoot.entities.User;
 import com.example.electroscoot.services.interfaces.IUserService;
@@ -99,7 +97,7 @@ public class UserServiceIntegrationTests {
 
         UserDTO expectedUserDTO = new UserDTO(user);
 
-        UserDTO resultUserDTO = userService.register(registrationDTO);
+        AuthenticationDTO resultUserDTO = userService.register(registrationDTO);
 
         Assert.assertEquals(expectedUserDTO, resultUserDTO);
     }

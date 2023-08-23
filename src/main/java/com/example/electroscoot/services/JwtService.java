@@ -48,8 +48,8 @@ public class JwtService {
     public String generateJWT(User user) {
         String jwt = Jwts
                 .builder()
-                .setSubject(user.getUsername())
                 .setClaims(new HashMap<>(Map.of("authorities", mapRolesToAuthorities(user.getRoles()))))
+                .setSubject(user.getUsername())
                 .setIssuedAt(Date.from(Instant.now(clock)))
                 .setExpiration(Date.from(Instant.now(clock).plusSeconds(expInHours * 3600)))
                 .signWith(getSigningKey(), SignatureAlgorithm.HS256)
@@ -60,7 +60,7 @@ public class JwtService {
 
     public boolean validateJWT(String jwt) {
         if (extractExpiration(jwt).after(Date.from(Instant.now(clock)))) {
-            if (!jwtBlacklistScheduler.isJwtBlacklisted(jwt))
+            if (jwtBlacklistScheduler.isJwtBlacklisted(jwt))
                 throw new BlacklistedJwtException("JWT is blacklisted. Try to log in again.");
             return true;
         }
@@ -73,7 +73,7 @@ public class JwtService {
         return new UsernamePasswordAuthenticationToken(username, null, authorities);
     }
 
-    private String extractUsername(String jwt) {
+    public String extractUsername(String jwt) {
         return extractClaim(jwt, Claims::getSubject);
     }
 

@@ -137,8 +137,21 @@ public class UserService implements IUserService {
 
     @Override
     @Transactional
-    public UserDTO updateByUsername(@NotBlank(message = "Username is mandatory.") String username,
-                                    UpdateUserDTO updateData) {
+    public boolean deleteByToken(@NotBlank(message = "Token is mandatory.") String token) {
+        String jwt = token.split(" ")[1];
+        String username = jwtService.extractUsername(jwt);
+
+        boolean result = deleteByUsername(username);
+
+        jwtBlacklistScheduler.blacklistJwt(jwt);
+
+        return result;
+    }
+
+    @Override
+    @Transactional
+    public User updateByUsername(@NotBlank(message = "Username is mandatory.") String username,
+                                                  UpdateUserDTO updateData) {
         User user = userRepository.findByUsername(username).orElseThrow(() -> {
             return new IllegalArgumentException("The user with username " + username + " does not exist.");
         });
@@ -154,15 +167,35 @@ public class UserService implements IUserService {
         if (email != null) {
             user.setEmail(getEmailIfValid(email));
         }
-        String newUsername = updateData.getUsername();
-        if (newUsername != null) {
-            user.setUsername(getUsernameIfValid(newUsername));
-        }
         String phone = updateData.getPhone();
         if (phone != null) {
             user.setPhone(getPhoneIfValid(phone));
         }
-        return new UserDTO(user);
+        String newUsername = updateData.getUsername();
+        if (newUsername != null) {
+            user.setUsername(getUsernameIfValid(newUsername));
+        }
+
+        return user;
+    }
+
+    @Override
+    @Transactional
+    public UpdateUserResponseDTO updateByToken(@NotBlank(message = "Token is mandatory.") String token,
+                                                  UpdateUserDTO updateData) {
+        String jwt = token.split(" ")[1];
+        String username = jwtService.extractUsername(jwt);
+
+        User updatedUser = updateByUsername(username, updateData);
+
+        String newUsername = updateData.getUsername();
+        String newJwt = null;
+        if (newUsername != null) {
+            jwtBlacklistScheduler.blacklistJwt(jwt);
+            newJwt = jwtService.generateJWT(updatedUser);
+        }
+
+        return new UpdateUserResponseDTO(updatedUser, newJwt);
     }
 
 
@@ -178,7 +211,7 @@ public class UserService implements IUserService {
 
     @Override
     @Transactional
-    public List<RoleDTO> addRoleByUsername(@NotBlank(message = "Username is mandatory.") String username,
+    public RoleJWTResponseDTO addRoleByUsername(@NotBlank(message = "Username is mandatory.") String username,
                                            @Valid RoleNameDTO roleNameDTO) {
         User user = userRepository.findByUsername(username).orElseThrow(() -> {
             return new IllegalArgumentException("The user with username " + username + " does not exist.");
@@ -194,12 +227,14 @@ public class UserService implements IUserService {
 
         roles.add(role);
 
-        return user.getRoles().stream().map(RoleDTO::new).toList();
+        String newJwt = jwtService.generateJWT(user);
+
+        return new RoleJWTResponseDTO(user.getRoles().stream().map(RoleDTO::new).toList(), newJwt);
     }
 
     @Override
     @Transactional
-    public List<RoleDTO> removeRoleByUsername(@NotBlank(message = "Username is mandatory.") String username,
+    public RoleJWTResponseDTO removeRoleByUsername(@NotBlank(message = "Username is mandatory.") String username,
                                               @Valid RoleNameDTO roleNameDTO) {
         User user = userRepository.findByUsername(username).orElseThrow(() -> {
             return new IllegalArgumentException("The user with username " + username + " does not exist.");
@@ -215,7 +250,9 @@ public class UserService implements IUserService {
 
         roles.remove(role);
 
-        return user.getRoles().stream().map(RoleDTO::new).toList();
+        String newJwt = jwtService.generateJWT(user);
+
+        return new RoleJWTResponseDTO(user.getRoles().stream().map(RoleDTO::new).toList(), newJwt);
     }
 
     @Override

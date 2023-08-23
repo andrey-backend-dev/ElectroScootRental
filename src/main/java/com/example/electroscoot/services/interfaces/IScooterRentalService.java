@@ -9,6 +9,7 @@ import com.example.electroscoot.utils.enums.RentalStateEnum;
 import com.example.electroscoot.utils.enums.ScooterStateEnum;
 import com.example.electroscoot.utils.enums.SortMethod;
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 
@@ -19,12 +20,16 @@ public interface IScooterRentalService {
 
     ScooterRentalDTO findById(@Positive(message = "Id must be more than zero.") int id);
 
-    ScooterRentalDTO create(@Valid CreateScooterRentalDTO createData);
+    ScooterRentalDTO create(@NotBlank(message = "Username is mandatory.") String username,
+                            @Positive(message = "Id must be more than zero.") int scooterId);
 
     RentalStateEnum takePaymentById(@Positive(message = "Id must be more than zero.") int id);
 
     ScooterRentalDTO closeRentalById(@Positive(message = "Id must be more than zero.") int id,
-                                     @Valid RentalPlaceNameDTO rentalPlaceNameDTO);
+                                     @NotBlank(message = "Rental place name is mandatory.") String rentalPlaceName);
+
+    ScooterRentalDTO closeRentalByPrincipal(@NotBlank(message = "Username is mandatory.") String username,
+                                            @NotBlank(message = "Rental place name is mandatory.") String rentalPlaceName);
 
     List<ScooterRentalDTO> getList(Boolean passed);
 }

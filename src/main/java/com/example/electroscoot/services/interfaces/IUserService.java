@@ -1,10 +1,10 @@
 package com.example.electroscoot.services.interfaces;
 
 import com.example.electroscoot.dto.*;
+import com.example.electroscoot.entities.User;
 import com.example.electroscoot.utils.enums.UserStatus;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 
 import java.util.List;
@@ -15,13 +15,15 @@ public interface IUserService {
     boolean logout(@NotBlank(message = "Bearer Token is mandatory.") String bearerToken);
     UserDTO findById(@Positive(message = "Id must be more than zero.") int id);
     UserDTO findByUsername(@NotBlank(message = "Username is mandatory.") String username);
-    UserDTO updateByUsername(@NotBlank(message = "Username is mandatory.") String username, UpdateUserDTO updateData);
+    User updateByUsername(@NotBlank(message = "Username is mandatory.") String username, UpdateUserDTO updateData);
+    UpdateUserResponseDTO updateByToken(@NotBlank(message = "Token is mandatory.") String token, UpdateUserDTO updateData);
     List<UserDTO> getList();
     boolean deleteByUsername(@NotBlank(message = "Username is mandatory.") String username);
+    boolean deleteByToken(@NotBlank(message = "Token is mandatory.") String token);
     List<RoleDTO> getRolesByUsername(@NotBlank(message = "Username is mandatory.") String username);
-    List<RoleDTO> addRoleByUsername(@NotBlank(message = "Username is mandatory.") String username,
+    RoleJWTResponseDTO addRoleByUsername(@NotBlank(message = "Username is mandatory.") String username,
                               @Valid RoleNameDTO roleNameDTO);
-    List<RoleDTO> removeRoleByUsername(@NotBlank(message = "Username is mandatory.") String username,
+    RoleJWTResponseDTO removeRoleByUsername(@NotBlank(message = "Username is mandatory.") String username,
                                        @Valid RoleNameDTO roleNameDTO);
     UserDTO addMoneyByUsername(@NotBlank(message = "Username is mandatory.") String username,
                                @Valid MoneyDTO moneyDTO);

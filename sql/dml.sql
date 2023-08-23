@@ -7,8 +7,8 @@ INSERT INTO role
 
 INSERT INTO user
 (username, password, phone, firstname, secondname, email, money) VALUES
-('testUser' , '$2a$12$irFNLaWVUZaHVyL5l35F1uUj3jBt7I03HKJkKnvbEZ8ZFbW5k0PL2', '2134', 'Vasiliy', 'Ivanov', 'test@mail.ru', 10000),
-('bladeattheneck' , '$2a$12$irFNLaWVUZaHVyL5l35F1uUj3jBt7I03HKJkKnvbEZ8ZFbW5k0PL2', '5125', 'Andrey', null, null, 15000),
+('testUser' , '$2y$10$onxQRpmPh9dDB/jy697tuuQPSVh88uOkgAamxgsFKd14YEuWiRI46', '2134', 'Vasiliy', 'Ivanov', 'test@mail.ru', 10000),
+('bladeattheneck' , '$2y$10$onxQRpmPh9dDB/jy697tuuQPSVh88uOkgAamxgsFKd14YEuWiRI46', '5125', 'Andrey', null, null, 15000),
 ('usedreamless' , '$2a$12$irFNLaWVUZaHVyL5l35F1uUj3jBt7I03HKJkKnvbEZ8ZFbW5k0PL2', '4219', null, null, 'example@mail.ru', 0);
 
 INSERT INTO user2role

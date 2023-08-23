@@ -17,6 +17,7 @@ import com.example.electroscoot.services.interfaces.IScooterRentalService;
 import com.example.electroscoot.utils.enums.RentalStateEnum;
 import com.example.electroscoot.utils.enums.ScooterStateEnum;
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Positive;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +27,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
 
+import java.security.Principal;
 import java.time.Clock;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -75,16 +77,17 @@ public class ScooterRentalService implements IScooterRentalService {
 
     @Transactional
     @Override
-    public ScooterRentalDTO create(@Valid CreateScooterRentalDTO createData) {
-        Scooter scooter = scooterRepository.findById(createData.getScooterId()).orElseThrow(() -> {
-            return new IllegalArgumentException("The scooter with id " + createData.getScooterId() + " does not exist.");
+    public ScooterRentalDTO create(@NotBlank(message = "Username is mandatory.") String username,
+                                   @Positive(message = "Id must be more than zero.") int scooterId) {
+        Scooter scooter = scooterRepository.findById(scooterId).orElseThrow(() -> {
+            return new IllegalArgumentException("The scooter with id " + scooterId + " does not exist.");
         });
 
         if (scooter.getState() == ScooterStateEnum.BROKEN || scooter.getState() == ScooterStateEnum.RENTED )
             throw new IllegalArgumentException("This scooter is not available for rent");
 
-        User user = userRepository.findByUsername(createData.getUsername()).orElseThrow(() -> {
-            return new IllegalArgumentException("The user with username " + createData.getUsername() + " does not exist.");
+        User user = userRepository.findByUsername(username).orElseThrow(() -> {
+            return new IllegalArgumentException("The user with username " + username + " does not exist.");
         });
         ScooterModel scooterModel = scooter.getModel();
 
@@ -120,7 +123,7 @@ public class ScooterRentalService implements IScooterRentalService {
         } else {
             logger.info("Payment for scooter rental with id " + id + " is not accepted. " +
                     "User with username " + user.getUsername() + " does not have enough money. Rental will be closed.");
-            closeRentalById(id, new RentalPlaceNameDTO("null"));
+            closeRentalById(id, "null");
             return RentalStateEnum.BAD;
         }
     }
@@ -128,7 +131,7 @@ public class ScooterRentalService implements IScooterRentalService {
     @Transactional
     @Override
     public ScooterRentalDTO closeRentalById(@Positive(message = "Id must be more than zero.") int id,
-                                            @Valid RentalPlaceNameDTO rentalPlaceNameDTO) {
+                                            @NotBlank(message = "Rental place name is mandatory.") String rentalPlaceName) {
         ScooterRental scooterRental = scooterRentalRepository.findById(id).orElseThrow(() -> {
             return new IllegalArgumentException("The scooter rental with id " + id + " does not exist.");
         });
@@ -140,9 +143,9 @@ public class ScooterRentalService implements IScooterRentalService {
         User user = scooterRental.getUser();
 
         RentalPlace rentalPlace = null;
-        if (rentalPlaceNameDTO.getName() != null && !rentalPlaceNameDTO.getName().equals("null")) {
-            rentalPlace = rentalPlaceRepository.findByName(rentalPlaceNameDTO.getName()).orElseThrow(() -> {
-                return new IllegalArgumentException("The rental place with name " + rentalPlaceNameDTO.getName() + " does not exist.");
+        if (rentalPlaceName != null && !rentalPlaceName.equals("null")) {
+            rentalPlace = rentalPlaceRepository.findByName(rentalPlaceName).orElseThrow(() -> {
+                return new IllegalArgumentException("The rental place with name " + rentalPlaceName + " does not exist.");
             });
         }
 
@@ -155,6 +158,19 @@ public class ScooterRentalService implements IScooterRentalService {
         scooterRental.setScooterPassedAt(LocalDateTime.now(clock));
 
         return new ScooterRentalDTO(scooterRental);
+    }
+
+    @Transactional
+    @Override
+    public ScooterRentalDTO closeRentalByPrincipal(@NotBlank(message = "Username is mandatory.") String username,
+                                                   @NotBlank(message = "Rental place name is mandatory.") String rentalPlaceName) {
+        User user = userRepository.findByUsername(username).orElseThrow(() -> {
+            return new IllegalArgumentException("The user with username " + username + " does not exist.");
+        });
+        ScooterRental scooterRental = scooterRentalRepository.findByUserAndScooterPassedAtIsNull(user).orElseThrow(() -> {
+            return new IllegalArgumentException("You do not have any opened rentals.");
+        });
+        return closeRentalById(scooterRental.getId(), rentalPlaceName);
     }
 
     private ScooterRental setUpEntities(Scooter scooter, User user, ScooterModel scooterModel) {

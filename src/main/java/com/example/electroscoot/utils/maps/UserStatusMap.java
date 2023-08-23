@@ -12,6 +12,6 @@ public class UserStatusMap {
     ));
 
     public static UserStatus getStatusByName(String name) {
-        return map.get(name.toLowerCase());
+        return map.get(name.toUpperCase());
     }
 }

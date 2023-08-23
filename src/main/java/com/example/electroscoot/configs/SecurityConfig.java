@@ -21,10 +21,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import org.springframework.security.web.savedrequest.NullRequestCache;
-import org.springframework.security.web.savedrequest.RequestCache;
-import org.springframework.security.web.session.DisableEncodeUrlFilter;
-import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 @Configuration
 @EnableWebSecurity
@@ -38,21 +34,10 @@ public class SecurityConfig {
                 .csrf(AbstractHttpConfigurer::disable)
                 .cors(AbstractHttpConfigurer::disable)
                 .formLogin(AbstractHttpConfigurer::disable)
-                .authorizeHttpRequests(requests -> requests.
-                        requestMatchers("/users/register", "/users/login").permitAll().
-                        requestMatchers(HttpMethod.GET,
-                                "/users/", "/users/{username}/roles", "/users/{username}/rent-history",
-                                "/scooter-models/", "/scooter-models/scooters", "/rentals/").hasRole("ADMIN").
-                        requestMatchers(HttpMethod.POST,
-                                "/scooter-models/create", "/rental-places/create", "/scooters/create").hasRole("ADMIN").
-                        requestMatchers(HttpMethod.PUT,
-                                "/scooter-models/{name}", "/rental-places/{name}", "/scooters/{id}").hasRole("ADMIN").
-                        requestMatchers(HttpMethod.DELETE,
-                                "/scooter-models/{name}", "/rental-places/{name}", "/scooters/{id}").hasRole("ADMIN").
-                        requestMatchers(HttpMethod.PATCH,
-                                "/users/{username}/roles/add", "/users/{username}/roles/remove",
-                                "/users/{username}/change-status").hasRole("ADMIN").
-                        anyRequest().authenticated())
+                .authorizeHttpRequests(requests -> requests
+                                .requestMatchers("/users/register", "/users/login").permitAll()
+                                .requestMatchers("/admin/**").hasRole("ADMIN")
+                                .anyRequest().authenticated())
                 .sessionManagement((sessionManagement) ->
                         sessionManagement.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 )
