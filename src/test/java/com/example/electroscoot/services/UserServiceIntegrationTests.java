@@ -119,7 +119,7 @@ public class UserServiceIntegrationTests {
 
         UserDTO expectedUserDTO = new UserDTO(user);
 
-        UserDTO resultUserDTO = userService.updateByUsername("testUsername", updateData);
+        User resultUserDTO = userService.updateByUsername("testUsername", updateData);
 
         Assert.assertEquals(expectedUserDTO, resultUserDTO);
     }

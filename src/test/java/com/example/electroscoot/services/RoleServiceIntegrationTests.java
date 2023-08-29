@@ -46,7 +46,7 @@ public class RoleServiceIntegrationTests {
         role.setName(testName);
         RoleDTO expectedRoleDTO = new RoleDTO(role);
 
-        RoleDTO resultRoleDTO = roleService.create(testName);
+        RoleDTO resultRoleDTO = roleService.create(new RoleDTO(role));
 
         Assert.assertEquals(expectedRoleDTO, resultRoleDTO);
     }

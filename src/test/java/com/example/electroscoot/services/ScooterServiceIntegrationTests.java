@@ -118,7 +118,7 @@ public class ScooterServiceIntegrationTests {
 
         ScooterDTO expectedScooterDTO = new ScooterDTO(scooter);
 
-        UpdateScooterDTO updateData = new UpdateScooterDTO(rentalPlaceName, modelName, ScooterStateEnum.BROKEN);
+        UpdateScooterDTO updateData = new UpdateScooterDTO(rentalPlaceName, modelName, "broken");
 
         ScooterDTO resultScooterDTO = scooterService.updateById(testId, updateData);
 
