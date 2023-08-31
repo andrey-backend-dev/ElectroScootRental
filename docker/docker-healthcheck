@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # check if dml.sql executed; if $select > 0, then it's executed
-select="$(echo 'USE electroscootdb; SELECT * FROM user' | mysql -h localhost -u root -ppoker88 | grep -c 'admin')"
+select="$(echo 'USE electroscootdb; SELECT * FROM user' | mysql -h localhost -u root -ptestpassword | grep -c 'admin')"
 
 # if $select=0, then error exit code (1), otherwise success exit code (0)
 if [ "$select" = "0" ]; then
