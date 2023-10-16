@@ -13,15 +13,14 @@ public interface IUserService {
     User create(@Valid RegistrationDTO registrationData);
     UserDTO findById(@Positive(message = "Id must be more than zero.") int id);
     UserDTO findByUsername(@NotBlank(message = "Username is mandatory.") String username);
-    User updateByUsername(@NotBlank(message = "Username is mandatory.") String username, UpdateUserDTO updateData);
-    UpdateUserResponseDTO updateByToken(@NotBlank(message = "Token is mandatory.") String token, UpdateUserDTO updateData);
+    UserDTO updateByUsername(@NotBlank(message = "Username is mandatory.") String username, UpdateUserDTO updateData);
+    UpdateUserResponseDTO updateByPrincipal(@NotBlank(message = "Username is mandatory.") String username, UpdateUserDTO updateData);
     List<UserDTO> getList();
     boolean deleteByUsername(@NotBlank(message = "Username is mandatory.") String username);
-    boolean deleteByToken(@NotBlank(message = "Token is mandatory.") String token);
     List<RoleDTO> getRolesByUsername(@NotBlank(message = "Username is mandatory.") String username);
-    RoleJWTResponseDTO addRoleByUsername(@NotBlank(message = "Username is mandatory.") String username,
+    List<RoleDTO> addRoleByUsername(@NotBlank(message = "Username is mandatory.") String username,
                               @Valid RoleNameDTO roleNameDTO);
-    RoleJWTResponseDTO removeRoleByUsername(@NotBlank(message = "Username is mandatory.") String username,
+    List<RoleDTO> removeRoleByUsername(@NotBlank(message = "Username is mandatory.") String username,
                                        @Valid RoleNameDTO roleNameDTO);
     UserDTO addMoneyByUsername(@NotBlank(message = "Username is mandatory.") String username,
                                @Valid MoneyDTO moneyDTO);

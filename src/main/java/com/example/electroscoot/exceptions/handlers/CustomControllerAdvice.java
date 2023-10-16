@@ -1,6 +1,5 @@
 package com.example.electroscoot.exceptions.handlers;
 
-import com.example.electroscoot.exceptions.BlacklistedJwtException;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.MalformedJwtException;
 import io.jsonwebtoken.security.SignatureException;
@@ -26,12 +25,6 @@ import java.io.StringWriter;
 public class CustomControllerAdvice {
     @Autowired
     private Logger logger;
-
-
-    @ExceptionHandler(BlacklistedJwtException.class)
-    public ResponseEntity<Object> blacklistedJwtException(BlacklistedJwtException ex) {
-        return new ResponseEntity<>(ex.getMessage(), HttpStatus.UNAUTHORIZED);
-    }
 
     @ExceptionHandler(ExpiredJwtException.class)
     public ResponseEntity<Object> expiredJwtException(ExpiredJwtException ex) {

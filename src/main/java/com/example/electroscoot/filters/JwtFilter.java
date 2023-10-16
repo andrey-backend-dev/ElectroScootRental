@@ -1,21 +1,14 @@
 package com.example.electroscoot.filters;
 
-import com.example.electroscoot.exceptions.BlacklistedJwtException;
-import com.example.electroscoot.services.JwtService;
 import com.example.electroscoot.services.interfaces.IJwtService;
-import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.JwtException;
-import io.jsonwebtoken.MalformedJwtException;
-import io.jsonwebtoken.security.SignatureException;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import org.slf4j.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.access.AccessDeniedException;
-import org.springframework.security.authorization.AuthorizationManager;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.filter.OncePerRequestFilter;
@@ -23,11 +16,9 @@ import org.springframework.web.filter.OncePerRequestFilter;
 import java.io.IOException;
 import java.util.List;
 
+@RequiredArgsConstructor
 public class JwtFilter extends OncePerRequestFilter {
-    @Autowired
-    private Logger logger;
-    @Autowired
-    private IJwtService jwtService;
+    private final IJwtService jwtService;
     @Value("${jwt.url.ignore}")
     private List<String> urlsToIgnore;
 
@@ -40,7 +31,7 @@ public class JwtFilter extends OncePerRequestFilter {
             return;
         }
 
-        boolean jwtValidationResult = true;
+        boolean jwtValidationResult;
         try {
             jwtValidationResult = jwtService.validateJWT(jwt);
         } catch (JwtException ex) {

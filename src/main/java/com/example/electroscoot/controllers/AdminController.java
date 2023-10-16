@@ -77,13 +77,13 @@ public class AdminController {
     }
 
     @PatchMapping(value = "/users/{username}/roles/add", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public RoleJWTResponseDTO addRoleByUsername(@PathVariable("username") String username, @RequestBody RoleNameDTO roleNameDTO) {
+    public List<RoleDTO> addRoleByUsername(@PathVariable("username") String username, @RequestBody RoleNameDTO roleNameDTO) {
         logger.info("The <addRoleByUsername> method is called from Admin Controller.");
         return userService.addRoleByUsername(username, roleNameDTO);
     }
 
     @PatchMapping(value = "/users/{username}/roles/remove", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public RoleJWTResponseDTO removeRoleByUsername(@PathVariable("username") String username, @RequestBody RoleNameDTO roleNameDTO) {
+    public List<RoleDTO> removeRoleByUsername(@PathVariable("username") String username, @RequestBody RoleNameDTO roleNameDTO) {
         logger.info("The <removeRoleByUsername> method is called from Admin Controller.");
         return userService.removeRoleByUsername(username, roleNameDTO);
     }

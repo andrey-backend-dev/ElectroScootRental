@@ -9,5 +9,4 @@ import jakarta.validation.constraints.NotBlank;
 public interface IAuthenticationService {
     AuthenticationDTO register(@Valid RegistrationDTO registrationData);
     AuthenticationDTO login(@Valid LoginDTO loginData);
-    boolean logout(@NotBlank(message = "Bearer token is mandatory.") String bearer);
 }

@@ -1,6 +1,5 @@
 package com.example.electroscoot.configs;
 
-import com.example.electroscoot.infra.schedule.JwtBlacklistScheduler;
 import com.example.electroscoot.infra.schedule.TriggerRentalSchedulerClock;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -15,10 +14,5 @@ public class SchedulerConfig {
     @Scope("prototype")
     public TriggerRentalSchedulerClock triggerRentalSchedulerClock(int scooterRentalId) {
         return new TriggerRentalSchedulerClock(scooterRentalId);
-    }
-
-    @Bean
-    public JwtBlacklistScheduler jwtBlacklistScheduler() {
-        return new JwtBlacklistScheduler();
     }
 }

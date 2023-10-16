@@ -5,12 +5,10 @@ import com.example.electroscoot.dto.AuthenticationDTO;
 import com.example.electroscoot.dto.LoginDTO;
 import com.example.electroscoot.dto.RegistrationDTO;
 import com.example.electroscoot.entities.User;
-import com.example.electroscoot.infra.schedule.JwtBlacklistScheduler;
 import com.example.electroscoot.services.interfaces.IAuthenticationService;
 import com.example.electroscoot.services.interfaces.IUserService;
 import com.example.electroscoot.utils.mappers.UserMapper;
 import jakarta.validation.Valid;
-import jakarta.validation.constraints.NotBlank;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -24,7 +22,6 @@ public class AuthenticationService implements IAuthenticationService {
     private final JwtService jwtService;
     private final UserMapper mapper;
     private final AuthenticationManager authenticationManager;
-    private final JwtBlacklistScheduler jwtBlacklistScheduler;
 
     @Override
     public AuthenticationDTO register(@Valid RegistrationDTO registrationData) {
@@ -44,12 +41,5 @@ public class AuthenticationService implements IAuthenticationService {
         String jwt = jwtService.generateJWT(user);
 
         return new AuthenticationDTO(mapper.userToUserDto(user), jwt);
-    }
-
-    @Override
-    public boolean logout(@NotBlank(message = "Bearer token is mandatory.") String bearer) {
-        String jwt = bearer.substring(7);
-
-        return jwtBlacklistScheduler.blacklistJwt(jwt);
     }
 }

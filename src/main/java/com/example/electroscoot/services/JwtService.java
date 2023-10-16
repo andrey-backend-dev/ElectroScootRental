@@ -2,15 +2,13 @@ package com.example.electroscoot.services;
 
 import com.example.electroscoot.entities.Role;
 import com.example.electroscoot.entities.User;
-import com.example.electroscoot.exceptions.BlacklistedJwtException;
-import com.example.electroscoot.infra.schedule.JwtBlacklistScheduler;
 import com.example.electroscoot.services.interfaces.IJwtService;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -29,7 +27,6 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 @Service
 public class JwtService implements IJwtService {
-    private final JwtBlacklistScheduler jwtBlacklistScheduler;
     private final Clock clock;
     @Value("${jwt.secret}")
     private String secret;
@@ -38,37 +35,30 @@ public class JwtService implements IJwtService {
 
     @Override
     public String getTokenFromRequest(HttpServletRequest request) {
-        String auth = request.getHeader("Authorization");
-
-        if (auth == null || !auth.startsWith("Bearer ")) {
+        if (request.getCookies() == null)
             return null;
-        }
-
-        return auth.substring(7);
+        return Arrays.stream(request.getCookies())
+            .filter(cookie -> cookie.getName().equals("jwt"))
+            .map(Cookie::getValue)
+            .findAny().orElse(null);
     }
 
     @Override
     public String generateJWT(User user) {
-        String jwt = Jwts
+
+        return Jwts
                 .builder()
                 .setClaims(new HashMap<>(Map.of("authorities", mapRolesToAuthorities(user.getRoles()))))
                 .setSubject(user.getUsername())
                 .setIssuedAt(Date.from(Instant.now(clock)))
-                .setExpiration(Date.from(Instant.now(clock).plusSeconds(expInHours * 3600)))
+                .setExpiration(Date.from(Instant.now(clock).plusSeconds(expInHours * 3600L)))
                 .signWith(getSigningKey(), SignatureAlgorithm.HS256)
                 .compact();
-
-        return jwt;
     }
 
     @Override
     public boolean validateJWT(String jwt) {
-        if (extractExpiration(jwt).after(Date.from(Instant.now(clock)))) {
-            if (jwtBlacklistScheduler.isJwtBlacklisted(jwt))
-                throw new BlacklistedJwtException("JWT is blacklisted. Try to log in again.");
-            return true;
-        }
-        return false;
+        return extractExpiration(jwt).after(Date.from(Instant.now(clock)));
     }
 
     @Override

@@ -4,6 +4,7 @@ import com.example.electroscoot.exceptions.handlers.DelegatingToControllerAdvice
 import com.example.electroscoot.filters.JwtExceptionHandlerFilter;
 import com.example.electroscoot.filters.JwtFilter;
 import com.example.electroscoot.services.CustomUserDetailsService;
+import com.example.electroscoot.services.interfaces.IJwtService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -28,6 +29,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @EnableWebSecurity
 public class SecurityConfig {
     private final CustomUserDetailsService userService;
+    private final IJwtService jwtService;
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
@@ -71,7 +73,7 @@ public class SecurityConfig {
 
     @Bean
     public JwtFilter jwtFilter() {
-        return new JwtFilter();
+        return new JwtFilter(jwtService);
     }
 
     @Bean

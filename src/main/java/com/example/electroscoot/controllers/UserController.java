@@ -6,7 +6,11 @@ import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseCookie;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
@@ -18,6 +22,8 @@ import java.util.List;
 public class UserController {
     private final IUserService userService;
     private final Logger logger;
+    @Value("${jwt.exp.hours}")
+    private Integer jwtExpHours;
 
     @GetMapping(value = "/id/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public UserDTO findById(@PathVariable("id") int id) {
@@ -38,15 +44,20 @@ public class UserController {
     }
 
     @DeleteMapping(value = "/my-account")
-    public boolean deleteByToken(HttpServletRequest request) {
+    public ResponseEntity<Boolean> deleteByPrincipal(Principal principal) {
         logger.info("The <deleteByPrincipal> method is called from User Controller.");
-        return userService.deleteByToken(request.getHeader("Authorization"));
+        return ResponseEntity.ok()
+                .header(HttpHeaders.SET_COOKIE, formCookie("").toString())
+                .body(userService.deleteByUsername(principal.getName()));
     }
 
     @PutMapping(value = "/my-account", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public UpdateUserResponseDTO updateByToken(HttpServletRequest request, @RequestBody UpdateUserDTO updateData) {
-        logger.info("The <updateByToken> method is called from User Controller.");
-        return userService.updateByToken(request.getHeader("Authorization"), updateData);
+    public ResponseEntity<UserDTO>  updateByPrincipal(Principal principal, @RequestBody UpdateUserDTO updateData) {
+        logger.info("The <updateByPrincipal> method is called from User Controller.");
+        UpdateUserResponseDTO dto = userService.updateByPrincipal(principal.getName(), updateData);
+        return ResponseEntity.ok()
+                .header(HttpHeaders.SET_COOKIE, formCookie(dto.getJwt()).toString())
+                .body(dto.getUserDTO());
     }
 
     @GetMapping(value = "/my-account/roles", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -71,5 +82,14 @@ public class UserController {
     public UserDTO buySubscriptionByPrincipal(Principal principal) {
         logger.info("The <buySubscriptionByPrincipal> method is called from User Controller.");
         return userService.buySubscriptionByUsername(principal.getName());
+    }
+
+    private ResponseCookie formCookie(String jwt) {
+        return ResponseCookie.from("jwt", jwt)
+                .maxAge(jwt.isEmpty() ? 0 : 3600L * jwtExpHours)
+                .path("/")
+                .secure(true)
+                .httpOnly(true)
+                .build();
     }
 }

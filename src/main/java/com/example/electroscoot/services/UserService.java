@@ -5,7 +5,6 @@ import com.example.electroscoot.dao.UserRepository;
 import com.example.electroscoot.dto.*;
 import com.example.electroscoot.entities.Role;
 import com.example.electroscoot.entities.User;
-import com.example.electroscoot.infra.schedule.JwtBlacklistScheduler;
 import com.example.electroscoot.services.interfaces.IJwtService;
 import com.example.electroscoot.services.interfaces.IUserService;
 import com.example.electroscoot.utils.enums.UserStatus;
@@ -17,7 +16,6 @@ import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Positive;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -37,7 +35,6 @@ public class UserService implements IUserService {
     private final IJwtService jwtService;
     private final PasswordEncoder passwordEncoder;
     private final Clock clock;
-    private final JwtBlacklistScheduler jwtBlacklistScheduler;
     private final UserMapper userMapper;
     private final RoleMapper roleMapper;
     private final ScooterRentalMapper scooterRentalMapper;
@@ -100,20 +97,7 @@ public class UserService implements IUserService {
 
     @Override
     @Transactional
-    public boolean deleteByToken(@NotBlank(message = "Token is mandatory.") String token) {
-        String jwt = token.split(" ")[1];
-        String username = jwtService.extractUsername(jwt);
-
-        boolean result = deleteByUsername(username);
-
-        jwtBlacklistScheduler.blacklistJwt(jwt);
-
-        return result;
-    }
-
-    @Override
-    @Transactional
-    public User updateByUsername(@NotBlank(message = "Username is mandatory.") String username,
+    public UserDTO updateByUsername(@NotBlank(message = "Username is mandatory.") String username,
                                                   UpdateUserDTO updateData) {
         User user = userRepository.findByUsername(username).orElseThrow(() -> {
             return new IllegalArgumentException("The user with username " + username + " does not exist.");
@@ -139,28 +123,19 @@ public class UserService implements IUserService {
             user.setUsername(getUsernameIfValid(newUsername));
         }
 
-        return user;
+        return userMapper.userToUserDto(user);
     }
 
     @Override
     @Transactional
-    public UpdateUserResponseDTO updateByToken(@NotBlank(message = "Token is mandatory.") String token,
-                                                  UpdateUserDTO updateData) {
-        String jwt = token.split(" ")[1];
-        String username = jwtService.extractUsername(jwt);
-
-        User updatedUser = updateByUsername(username, updateData);
-
-        String newUsername = updateData.getUsername();
-        String newJwt = null;
-        if (newUsername != null) {
-            jwtBlacklistScheduler.blacklistJwt(jwt);
-            newJwt = jwtService.generateJWT(updatedUser);
-        }
-
-        return new UpdateUserResponseDTO(updatedUser, newJwt);
+    public UpdateUserResponseDTO updateByPrincipal(String username, UpdateUserDTO updateData) {
+        UserDTO userDTO = updateByUsername(username, updateData);
+        User user = userRepository.findByUsername(userDTO.getUsername()).orElseThrow(() -> {
+            return new IllegalArgumentException("The user with username " + userDTO.getUsername() + " does not exist.");
+        });
+        String jwt = jwtService.generateJWT(user);
+        return new UpdateUserResponseDTO(userDTO, jwt);
     }
-
 
     @Override
     @Transactional(readOnly = true)
@@ -174,7 +149,7 @@ public class UserService implements IUserService {
 
     @Override
     @Transactional
-    public RoleJWTResponseDTO addRoleByUsername(@NotBlank(message = "Username is mandatory.") String username,
+    public List<RoleDTO> addRoleByUsername(@NotBlank(message = "Username is mandatory.") String username,
                                            @Valid RoleNameDTO roleNameDTO) {
         User user = userRepository.findByUsername(username).orElseThrow(() -> {
             return new IllegalArgumentException("The user with username " + username + " does not exist.");
@@ -192,12 +167,12 @@ public class UserService implements IUserService {
 
         String newJwt = jwtService.generateJWT(user);
 
-        return new RoleJWTResponseDTO(roleMapper.roleToRoleDto(user.getRoles()), newJwt);
+        return roleMapper.roleToRoleDto(user.getRoles());
     }
 
     @Override
     @Transactional
-    public RoleJWTResponseDTO removeRoleByUsername(@NotBlank(message = "Username is mandatory.") String username,
+    public List<RoleDTO> removeRoleByUsername(@NotBlank(message = "Username is mandatory.") String username,
                                               @Valid RoleNameDTO roleNameDTO) {
         User user = userRepository.findByUsername(username).orElseThrow(() -> {
             return new IllegalArgumentException("The user with username " + username + " does not exist.");
@@ -215,7 +190,7 @@ public class UserService implements IUserService {
 
         String newJwt = jwtService.generateJWT(user);
 
-        return new RoleJWTResponseDTO(roleMapper.roleToRoleDto(user.getRoles()), newJwt);
+        return roleMapper.roleToRoleDto(user.getRoles());
     }
 
     @Override
