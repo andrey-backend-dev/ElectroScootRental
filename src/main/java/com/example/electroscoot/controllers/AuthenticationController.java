@@ -5,6 +5,7 @@ import com.example.electroscoot.dto.LoginDTO;
 import com.example.electroscoot.dto.RegistrationDTO;
 import com.example.electroscoot.services.interfaces.IAuthenticationService;
 import jakarta.servlet.http.HttpServletRequest;
+import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -14,13 +15,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+@RequiredArgsConstructor
 @RestController
 @RequestMapping("/authentication")
 public class AuthenticationController {
-    @Autowired
-    private IAuthenticationService authenticationService;
-    @Autowired
-    private Logger logger;
+    private final IAuthenticationService authenticationService;
+    private final Logger logger;
 
     @PostMapping(value = "/register", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public AuthenticationDTO register(@RequestBody RegistrationDTO registrationData) {

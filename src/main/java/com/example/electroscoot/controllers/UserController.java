@@ -3,6 +3,7 @@ package com.example.electroscoot.controllers;
 import com.example.electroscoot.dto.*;
 import com.example.electroscoot.services.interfaces.IUserService;
 import jakarta.servlet.http.HttpServletRequest;
+import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -11,13 +12,12 @@ import org.springframework.web.bind.annotation.*;
 import java.security.Principal;
 import java.util.List;
 
+@RequiredArgsConstructor
 @RestController
 @RequestMapping("/users")
 public class UserController {
-    @Autowired
-    private IUserService userService;
-    @Autowired
-    private Logger logger;
+    private final IUserService userService;
+    private final Logger logger;
 
     @GetMapping(value = "/id/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public UserDTO findById(@PathVariable("id") int id) {

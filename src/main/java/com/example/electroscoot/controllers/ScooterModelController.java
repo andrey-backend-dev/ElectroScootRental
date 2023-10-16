@@ -5,6 +5,7 @@ import com.example.electroscoot.dto.ScooterDTO;
 import com.example.electroscoot.dto.ScooterModelDTO;
 import com.example.electroscoot.dto.UpdateScooterModelDTO;
 import com.example.electroscoot.services.interfaces.IScooterModelService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -19,13 +20,12 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 import org.slf4j.Logger;
 
+@RequiredArgsConstructor
 @RestController
 @RequestMapping("/scooter-models")
 public class ScooterModelController {
-    @Autowired
-    private IScooterModelService scooterModelService;
-    @Autowired
-    private Logger logger;
+    private final IScooterModelService scooterModelService;
+    private final Logger logger;
 
     @GetMapping(value = "/id/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ScooterModelDTO findById(@PathVariable("id") int id) {

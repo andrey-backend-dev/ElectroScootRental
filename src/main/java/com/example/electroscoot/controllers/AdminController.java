@@ -10,6 +10,7 @@ import com.example.electroscoot.utils.mappers.OrderEnumMapper;
 import com.example.electroscoot.utils.mappers.ScooterStateEnumMapper;
 import com.example.electroscoot.utils.mappers.SortEnumMapper;
 import com.example.electroscoot.utils.mappers.UserStatusEnumMapper;
+import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -17,23 +18,17 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@RequiredArgsConstructor
 @RestController
 @RequestMapping("/admin")
 public class AdminController {
-    @Autowired
-    private Logger logger;
-    @Autowired
-    private IUserService userService;
-    @Autowired
-    private IRoleService roleService;
-    @Autowired
-    private IScooterModelService scooterModelService;
-    @Autowired
-    private IRentalPlaceService rentalPlaceService;
-    @Autowired
-    private IScooterService scooterService;
-    @Autowired
-    private IScooterRentalService scooterRentalService;
+    private final Logger logger;
+    private final IUserService userService;
+    private final IRoleService roleService;
+    private final IScooterModelService scooterModelService;
+    private final IRentalPlaceService rentalPlaceService;
+    private final IScooterService scooterService;
+    private final IScooterRentalService scooterRentalService;
 
 //    roles
 

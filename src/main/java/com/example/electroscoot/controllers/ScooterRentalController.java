@@ -5,6 +5,7 @@ import com.example.electroscoot.dto.RentalPlaceNameDTO;
 import com.example.electroscoot.dto.ScooterRentalDTO;
 import com.example.electroscoot.services.interfaces.IScooterRentalService;
 import com.example.electroscoot.utils.enums.RentalStateEnum;
+import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -13,13 +14,12 @@ import org.springframework.web.bind.annotation.*;
 import java.security.Principal;
 import java.util.List;
 
+@RequiredArgsConstructor
 @RestController
 @RequestMapping("/rentals")
 public class ScooterRentalController {
-    @Autowired
-    private IScooterRentalService scooterRentalService;
-    @Autowired
-    private Logger logger;
+    private final IScooterRentalService scooterRentalService;
+    private final Logger logger;
 
     @PostMapping(value = "/rent", produces = MediaType.APPLICATION_JSON_VALUE)
     public ScooterRentalDTO create(Principal principal, @RequestParam("scooter") int scooterId) {
