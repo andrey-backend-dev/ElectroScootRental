@@ -16,9 +16,11 @@ import com.example.electroscoot.infra.schedule.TriggerRentalSchedulerClock;
 import com.example.electroscoot.services.interfaces.IScooterRentalService;
 import com.example.electroscoot.utils.enums.RentalStateEnum;
 import com.example.electroscoot.utils.enums.ScooterStateEnum;
+import com.example.electroscoot.utils.mappers.ScooterRentalMapper;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Positive;
+import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Lookup;
@@ -32,22 +34,17 @@ import java.time.Clock;
 import java.time.LocalDateTime;
 import java.util.List;
 
+@RequiredArgsConstructor
 @Service
-@Validated
 public class ScooterRentalService implements IScooterRentalService {
 
-    @Autowired
-    private ScooterRentalRepository scooterRentalRepository;
-    @Autowired
-    private UserRepository userRepository;
-    @Autowired
-    private ScooterRepository scooterRepository;
-    @Autowired
-    private RentalPlaceRepository rentalPlaceRepository;
-    @Autowired
-    private Clock clock;
-    @Autowired
-    private Logger logger;
+    private final ScooterRentalRepository scooterRentalRepository;
+    private final UserRepository userRepository;
+    private final ScooterRepository scooterRepository;
+    private final RentalPlaceRepository rentalPlaceRepository;
+    private final Clock clock;
+    private final Logger logger;
+    private final ScooterRentalMapper mapper;
     @Value("${business.pricePerTimeInSeconds}")
     private int pricePerTimeInSeconds;
 
@@ -59,7 +56,7 @@ public class ScooterRentalService implements IScooterRentalService {
     @Override
     @Transactional(readOnly = true)
     public ScooterRentalDTO findById(@Positive(message = "Id must be more than zero.") int id) {
-        return new ScooterRentalDTO(scooterRentalRepository.findById(id).orElseThrow(() -> {
+        return mapper.scooterRentalToScooterRentalDto(scooterRentalRepository.findById(id).orElseThrow(() -> {
             return new IllegalArgumentException("The scooter rental with id " + id + " does not exist.");
         }));
     }
@@ -68,11 +65,11 @@ public class ScooterRentalService implements IScooterRentalService {
     @Transactional(readOnly = true)
     public List<ScooterRentalDTO> getList(Boolean passed) {
         if (passed == null)
-            return ((List<ScooterRental>) scooterRentalRepository.findAll()).stream().map(ScooterRentalDTO::new).toList();
+            return mapper.scooterRentalToScooterRentalDto(scooterRentalRepository.findAll());
         else if (passed)
-            return scooterRentalRepository.findByScooterPassedAtIsNotNull().stream().map(ScooterRentalDTO::new).toList();
+            return mapper.scooterRentalToScooterRentalDto(scooterRentalRepository.findByScooterPassedAtIsNotNull());
         else
-            return scooterRentalRepository.findByScooterPassedAtIsNull().stream().map(ScooterRentalDTO::new).toList();
+            return mapper.scooterRentalToScooterRentalDto(scooterRentalRepository.findByScooterPassedAtIsNull());
     }
 
     @Transactional
@@ -94,13 +91,13 @@ public class ScooterRentalService implements IScooterRentalService {
         if (user.getScooter() != null)
             throw new IllegalArgumentException("Your previous rent has not been already closed");
 
-        ScooterRental scooterRental = setUpEntities(scooter, user, scooterModel);
+        ScooterRental scooterRental = mapper.toScooterRental(scooter, user, scooterModel, clock);
 
         scooterRental = scooterRentalRepository.save(scooterRental);
 
         makeFirstPayment(user, scooterModel, scooterRental);
 
-        return new ScooterRentalDTO(scooterRental);
+        return mapper.scooterRentalToScooterRentalDto(scooterRental);
     }
 
     @Transactional
@@ -157,7 +154,7 @@ public class ScooterRentalService implements IScooterRentalService {
         scooterRental.setFinalRentalPlace(rentalPlace);
         scooterRental.setScooterPassedAt(LocalDateTime.now(clock));
 
-        return new ScooterRentalDTO(scooterRental);
+        return mapper.scooterRentalToScooterRentalDto(scooterRental);
     }
 
     @Transactional
@@ -171,22 +168,6 @@ public class ScooterRentalService implements IScooterRentalService {
             return new IllegalArgumentException("You do not have any opened rentals.");
         });
         return closeRentalById(scooterRental.getId(), rentalPlaceName);
-    }
-
-    private ScooterRental setUpEntities(Scooter scooter, User user, ScooterModel scooterModel) {
-        user.setScooter(scooter);
-
-        ScooterRental scooterRental = new ScooterRental();
-        scooterRental.setUser(user);
-        scooterRental.setScooter(scooter);
-        scooterRental.setScooterTakenAt(LocalDateTime.now(clock));
-        scooterRental.setInitRentalPlace(scooter.getRentalPlace());
-        scooterRental.setInitPricePerTime(scooterModel.getPricePerTime());
-        scooterRental.setInitDiscount(scooterModel.getDiscount());
-
-        scooter.setState(ScooterStateEnum.RENTED);
-        scooter.setRentalPlace(null);
-        return scooterRental;
     }
 
     private void makeFirstPayment(User user, ScooterModel scooterModel, ScooterRental scooterRental) {

@@ -1,12 +1,11 @@
-package com.example.electroscoot.utils.maps;
+package com.example.electroscoot.utils.mappers;
 
 import com.example.electroscoot.utils.enums.ScooterStateEnum;
-import com.example.electroscoot.utils.enums.SortMethod;
 
 import java.util.HashMap;
 import java.util.Map;
 
-public class ScooterStateMap {
+public class ScooterStateEnumMapper {
     private static final Map<String, ScooterStateEnum> sortMap = new HashMap<>(Map.of(
             ScooterStateEnum.OK.getName(), ScooterStateEnum.OK,
             ScooterStateEnum.BROKEN.getName(), ScooterStateEnum.BROKEN,

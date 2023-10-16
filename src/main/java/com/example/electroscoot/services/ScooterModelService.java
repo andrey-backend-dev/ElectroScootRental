@@ -9,10 +9,13 @@ import com.example.electroscoot.dto.UpdateScooterModelDTO;
 import com.example.electroscoot.entities.Scooter;
 import com.example.electroscoot.entities.ScooterModel;
 import com.example.electroscoot.services.interfaces.IScooterModelService;
+import com.example.electroscoot.utils.mappers.ScooterMapper;
+import com.example.electroscoot.utils.mappers.ScooterModelMapper;
 import jakarta.validation.ConstraintViolationException;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Positive;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,18 +23,17 @@ import org.springframework.validation.annotation.Validated;
 
 import java.util.List;
 
+@RequiredArgsConstructor
 @Service
-@Validated
 public class ScooterModelService implements IScooterModelService {
-    @Autowired
-    private ScooterModelRepository scooterModelRepository;
-    @Autowired
-    private ScooterRepository scooterRepository;
+    private final ScooterModelRepository scooterModelRepository;
+    private final ScooterModelMapper scooterModelMapper;
+    private final ScooterMapper scooterMapper;
 
     @Override
     @Transactional(readOnly = true)
     public ScooterModelDTO findById(@Positive(message = "Id must be more than zero.") int id) {
-        return new ScooterModelDTO(scooterModelRepository.findById(id).orElseThrow(() -> {
+        return scooterModelMapper.scooterModelToScooterModelDto(scooterModelRepository.findById(id).orElseThrow(() -> {
             return new IllegalArgumentException("The scooter model with id " + id + " does not exist.");
         }));
     }
@@ -39,7 +41,7 @@ public class ScooterModelService implements IScooterModelService {
     @Override
     @Transactional(readOnly = true)
     public ScooterModelDTO findByName(@NotBlank(message = "Name is mandatory.") String name) {
-        return new ScooterModelDTO(scooterModelRepository.findByName(name).orElseThrow(() -> {
+        return scooterModelMapper.scooterModelToScooterModelDto(scooterModelRepository.findByName(name).orElseThrow(() -> {
             return new IllegalArgumentException("The scooter model with name " + name + " does not exist.");
         }));
     }
@@ -47,19 +49,16 @@ public class ScooterModelService implements IScooterModelService {
     @Override
     @Transactional(readOnly = true)
     public List<ScooterModelDTO> getList() {
-        return ((List<ScooterModel>) scooterModelRepository.findAll()).stream().map(ScooterModelDTO::new).toList();
+        return scooterModelMapper.scooterModelToScooterModelDto(scooterModelRepository.findAll());
     }
 
     @Override
     @Transactional
     public ScooterModelDTO create(@Valid CreateScooterModelDTO createData) {
 
-        ScooterModel scooterModel = new ScooterModel();
-        scooterModel.setName(createData.getName());
-        scooterModel.setPricePerTime(createData.getPricePerTime());
-        scooterModel.setStartPrice(createData.getStartPrice());
+        ScooterModel scooterModel = scooterModelMapper.scooterModelDtoToScooterModel(createData);
 
-        return new ScooterModelDTO(scooterModelRepository.save(scooterModel));
+        return scooterModelMapper.scooterModelToScooterModelDto(scooterModelRepository.save(scooterModel));
     }
 
     @Override
@@ -90,7 +89,7 @@ public class ScooterModelService implements IScooterModelService {
             scooterModel.setDiscount(getDiscountIfValid(discount));
         }
 
-        return new ScooterModelDTO(scooterModel);
+        return scooterModelMapper.scooterModelToScooterModelDto(scooterModel);
     }
 
     @Override
@@ -111,7 +110,7 @@ public class ScooterModelService implements IScooterModelService {
         ScooterModel scooterModel = scooterModelRepository.findByName(name).orElseThrow(() -> {
             return new IllegalArgumentException("The scooter model with name " + name + " does not exist.");
         });
-        return scooterModel.getScooters().stream().map(ScooterDTO::new).toList();
+        return scooterMapper.scooterToScooterDto(scooterModel.getScooters());
     }
 
     private String getNameIfValid(String newName) {

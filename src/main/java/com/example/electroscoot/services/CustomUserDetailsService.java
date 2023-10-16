@@ -3,6 +3,7 @@ package com.example.electroscoot.services;
 import com.example.electroscoot.dao.UserRepository;
 import com.example.electroscoot.entities.Role;
 import com.example.electroscoot.entities.User;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.core.GrantedAuthority;
@@ -17,10 +18,10 @@ import java.util.Collection;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+@RequiredArgsConstructor
 @Component
 public class CustomUserDetailsService implements UserDetailsService {
-    @Autowired
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
 
     @Override
     @Transactional

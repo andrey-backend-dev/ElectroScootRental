@@ -10,20 +10,6 @@ public class ScooterRentalDTO {
     private int id;
     private String username;
     private int scooterId;
-    private String initRentalPlaceName;
-    private String finalRentalPlaceName;
     private LocalDateTime scooterTakenAt;
     private LocalDateTime scooterPassedAt;
-
-    public ScooterRentalDTO(ScooterRental scooterRental) {
-        this.id = scooterRental.getId();
-        this.username = scooterRental.getUser().getUsername();
-        this.scooterId = scooterRental.getScooter().getId();
-        if (scooterRental.getInitRentalPlace() != null)
-            this.initRentalPlaceName = scooterRental.getInitRentalPlace().getName();
-        if (scooterRental.getFinalRentalPlace() != null)
-            this.finalRentalPlaceName = scooterRental.getFinalRentalPlace().getName();
-        this.scooterTakenAt = scooterRental.getScooterTakenAt();
-        this.scooterPassedAt = scooterRental.getScooterPassedAt();
-    }
 }

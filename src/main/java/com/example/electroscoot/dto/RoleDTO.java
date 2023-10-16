@@ -12,9 +12,4 @@ public class RoleDTO {
     private int id;
     @NotBlank(message = "Role name is mandatory.")
     private String name;
-
-    public RoleDTO(Role role) {
-        this.id = role.getId();
-        this.name = role.getName();
-    }
 }

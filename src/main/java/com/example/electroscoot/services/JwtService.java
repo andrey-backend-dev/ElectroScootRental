@@ -4,10 +4,12 @@ import com.example.electroscoot.entities.Role;
 import com.example.electroscoot.entities.User;
 import com.example.electroscoot.exceptions.BlacklistedJwtException;
 import com.example.electroscoot.infra.schedule.JwtBlacklistScheduler;
+import com.example.electroscoot.services.interfaces.IJwtService;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
 import jakarta.servlet.http.HttpServletRequest;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -24,17 +26,17 @@ import java.util.*;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
+@RequiredArgsConstructor
 @Service
-public class JwtService {
+public class JwtService implements IJwtService {
+    private final JwtBlacklistScheduler jwtBlacklistScheduler;
+    private final Clock clock;
     @Value("${jwt.secret}")
     private String secret;
     @Value("${jwt.exp.hours}")
     private int expInHours;
-    @Autowired
-    private JwtBlacklistScheduler jwtBlacklistScheduler;
-    @Autowired
-    private Clock clock;
 
+    @Override
     public String getTokenFromRequest(HttpServletRequest request) {
         String auth = request.getHeader("Authorization");
 
@@ -45,6 +47,7 @@ public class JwtService {
         return auth.substring(7);
     }
 
+    @Override
     public String generateJWT(User user) {
         String jwt = Jwts
                 .builder()
@@ -58,6 +61,7 @@ public class JwtService {
         return jwt;
     }
 
+    @Override
     public boolean validateJWT(String jwt) {
         if (extractExpiration(jwt).after(Date.from(Instant.now(clock)))) {
             if (jwtBlacklistScheduler.isJwtBlacklisted(jwt))
@@ -67,6 +71,7 @@ public class JwtService {
         return false;
     }
 
+    @Override
     public Authentication getAuthentication(String jwt) {
         String username = extractUsername(jwt);
         Collection<? extends GrantedAuthority> authorities = extractAuthorities(jwt);

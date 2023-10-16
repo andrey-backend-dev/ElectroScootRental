@@ -6,21 +6,22 @@ import com.example.electroscoot.dto.*;
 import com.example.electroscoot.entities.Role;
 import com.example.electroscoot.entities.User;
 import com.example.electroscoot.infra.schedule.JwtBlacklistScheduler;
+import com.example.electroscoot.services.interfaces.IJwtService;
 import com.example.electroscoot.services.interfaces.IUserService;
 import com.example.electroscoot.utils.enums.UserStatus;
+import com.example.electroscoot.utils.mappers.RoleMapper;
+import com.example.electroscoot.utils.mappers.ScooterRentalMapper;
+import com.example.electroscoot.utils.mappers.UserMapper;
 import jakarta.validation.ConstraintViolationException;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Positive;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.security.access.AccessDeniedException;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.validation.annotation.Validated;
 
 import java.time.Clock;
 import java.time.LocalDateTime;
@@ -28,23 +29,18 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+@RequiredArgsConstructor
 @Service
-@Validated
 public class UserService implements IUserService {
-    @Autowired
-    private UserRepository userRepository;
-    @Autowired
-    private RoleRepository roleRepository;
-    @Autowired
-    private AuthenticationManager authManager;
-    @Autowired
-    private JwtService jwtService;
-    @Autowired
-    private PasswordEncoder passwordEncoder;
-    @Autowired
-    private Clock clock;
-    @Autowired
-    private JwtBlacklistScheduler jwtBlacklistScheduler;
+    private final UserRepository userRepository;
+    private final RoleRepository roleRepository;
+    private final IJwtService jwtService;
+    private final PasswordEncoder passwordEncoder;
+    private final Clock clock;
+    private final JwtBlacklistScheduler jwtBlacklistScheduler;
+    private final UserMapper userMapper;
+    private final RoleMapper roleMapper;
+    private final ScooterRentalMapper scooterRentalMapper;
     @Value("${business.defaultRole}")
     private String defaultRole;
     @Value("${business.subscriptionCost}")
@@ -52,59 +48,26 @@ public class UserService implements IUserService {
 
     @Override
     @Transactional
-    public AuthenticationDTO register(@Valid RegistrationDTO registrationData) {
+    public User create(@Valid RegistrationDTO registrationData) {
 
         Role role = roleRepository.findByName(defaultRole).orElseThrow(() -> {
             return new IllegalArgumentException("The role with name " + defaultRole + " does not exist.");
         });
 
-        User user = User.builder()
-                .password(passwordEncoder.encode(registrationData.getPassword()))
-                .phone(formatPhone(registrationData.getPhone()))
-                .username(registrationData.getUsername())
-                .status(UserStatus.OK)
-                .roles(new HashSet<>(Set.of(role)))
-                .registeredSince(LocalDateTime.now(clock))
-                .build();
+        User user = userMapper.registrationToUser(registrationData.getUsername(),
+                passwordEncoder.encode(registrationData.getPassword()),
+                formatPhone(registrationData.getPhone()),
+                UserStatus.OK,
+                new HashSet<>(Set.of(role)),
+                LocalDateTime.now(clock));
 
-        String jwt = jwtService.generateJWT(user);
-
-        return new AuthenticationDTO(new UserDTO(userRepository.save(user)), jwt);
-    }
-
-    @Override
-    @Transactional(readOnly = true)
-    public AuthenticationDTO login(@Valid LoginDTO loginData) {
-        String username = loginData.getUsername();
-        String password = loginData.getPassword();
-
-        User user = userRepository.findByUsername(username).orElseThrow(() -> {
-            return new IllegalArgumentException("The user with username " + username + " does not exist.");
-        });
-
-        authManager.authenticate(new UsernamePasswordAuthenticationToken(username, password));
-
-        String jwt = jwtService.generateJWT(user);
-
-        return new AuthenticationDTO(new UserDTO(user), jwt);
-    }
-
-    @Override
-    public boolean logout(@NotBlank(message = "Bearer Token is mandatory.") String bearerToken) {
-        String jwt = bearerToken.substring(7);
-
-        boolean success = jwtBlacklistScheduler.blacklistJwt(jwt);
-
-        if (!success)
-            throw new AccessDeniedException("You can not visit this page, while you are logged out.");
-
-        return true;
+        return userRepository.save(user);
     }
 
     @Override
     @Transactional(readOnly = true)
     public UserDTO findById(@Positive(message = "Id must be more than zero.") int id) {
-        return new UserDTO(userRepository.findById(id).orElseThrow(() -> {
+        return userMapper.userToUserDto(userRepository.findById(id).orElseThrow(() -> {
             return new IllegalArgumentException("The user with id " + id + " does not exist.");
         }));
     }
@@ -112,7 +75,7 @@ public class UserService implements IUserService {
     @Override
     @Transactional(readOnly = true)
     public UserDTO findByUsername(@NotBlank(message = "Username is mandatory.") String username) {
-        return new UserDTO(userRepository.findByUsername(username).orElseThrow(() -> {
+        return userMapper.userToUserDto(userRepository.findByUsername(username).orElseThrow(() -> {
             return new IllegalArgumentException("The user with username " + username + " does not exist.");
         }));
     }
@@ -120,7 +83,7 @@ public class UserService implements IUserService {
     @Override
     @Transactional(readOnly = true)
     public List<UserDTO> getList() {
-        return ((List<User>) userRepository.findAll()).stream().map(UserDTO::new).toList();
+        return userMapper.userToUserDto(userRepository.findAll());
     }
 
     @Override
@@ -206,7 +169,7 @@ public class UserService implements IUserService {
             return new IllegalArgumentException("The user with username " + username + " does not exist.");
         });
 
-        return user.getRoles().stream().map(RoleDTO::new).toList();
+        return roleMapper.roleToRoleDto(user.getRoles());
     }
 
     @Override
@@ -229,7 +192,7 @@ public class UserService implements IUserService {
 
         String newJwt = jwtService.generateJWT(user);
 
-        return new RoleJWTResponseDTO(user.getRoles().stream().map(RoleDTO::new).toList(), newJwt);
+        return new RoleJWTResponseDTO(roleMapper.roleToRoleDto(user.getRoles()), newJwt);
     }
 
     @Override
@@ -252,7 +215,7 @@ public class UserService implements IUserService {
 
         String newJwt = jwtService.generateJWT(user);
 
-        return new RoleJWTResponseDTO(user.getRoles().stream().map(RoleDTO::new).toList(), newJwt);
+        return new RoleJWTResponseDTO(roleMapper.roleToRoleDto(user.getRoles()), newJwt);
     }
 
     @Override
@@ -263,7 +226,7 @@ public class UserService implements IUserService {
             return new IllegalArgumentException("The user with username " + username + " does not exist.");
         });
         user.setMoney(user.getMoney() + moneyDTO.getMoney());
-        return new UserDTO(user);
+        return userMapper.userToUserDto(user);
     }
 
     @Override
@@ -272,7 +235,7 @@ public class UserService implements IUserService {
         User user = userRepository.findByUsername(username).orElseThrow(() -> {
             return new IllegalArgumentException("The user with username " + username + " does not exist.");
         });
-        return user.getScooterRentals().stream().map(ScooterRentalDTO::new).toList();
+        return scooterRentalMapper.scooterRentalToScooterRentalDto(user.getScooterRentals());
     }
 
     @Override
@@ -295,7 +258,7 @@ public class UserService implements IUserService {
             throw new IllegalArgumentException(user.getUsername() + " does not have enough money to buy subscription.");
         }
 
-        return new UserDTO(user);
+        return userMapper.userToUserDto(user);
     }
 
     @Override
@@ -315,7 +278,7 @@ public class UserService implements IUserService {
 
         user.setStatus(status);
 
-        return new UserDTO(user);
+        return userMapper.userToUserDto(user);
     }
 
     private String getUsernameIfValid(String newUsername) {

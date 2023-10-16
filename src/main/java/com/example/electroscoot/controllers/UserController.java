@@ -19,24 +19,6 @@ public class UserController {
     @Autowired
     private Logger logger;
 
-    @PostMapping(value = "/register", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public AuthenticationDTO register(@RequestBody RegistrationDTO registrationData) {
-        logger.info("The <register> method is called from User Controller.");
-        return userService.register(registrationData);
-    }
-
-    @PostMapping(value = "/login", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public AuthenticationDTO login(@RequestBody LoginDTO loginDTO) {
-        logger.info("The <login> method is called from User Controller.");
-        return userService.login(loginDTO);
-    }
-
-    @PostMapping(value = "/logout", produces = MediaType.APPLICATION_JSON_VALUE)
-    public boolean logout(HttpServletRequest request) {
-        logger.info("The <logout> method is called from User Controller.");
-        return userService.logout(request.getHeader("Authorization"));
-    }
-
     @GetMapping(value = "/id/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public UserDTO findById(@PathVariable("id") int id) {
         logger.info("The <findById> method is called from User Controller.");

@@ -27,6 +27,7 @@ public class CustomControllerAdvice {
     @Autowired
     private Logger logger;
 
+
     @ExceptionHandler(BlacklistedJwtException.class)
     public ResponseEntity<Object> blacklistedJwtException(BlacklistedJwtException ex) {
         return new ResponseEntity<>(ex.getMessage(), HttpStatus.UNAUTHORIZED);

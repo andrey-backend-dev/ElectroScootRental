@@ -1,12 +1,11 @@
-package com.example.electroscoot.utils.maps;
+package com.example.electroscoot.utils.mappers;
 
 import com.example.electroscoot.utils.enums.SortMethod;
-import org.springframework.data.domain.Sort;
 
 import java.util.HashMap;
 import java.util.Map;
 
-public class SortMap {
+public class SortEnumMapper {
     private static final Map<String, SortMethod> sortMap = new HashMap<>(Map.of(
             SortMethod.ADDRESS.getName(), SortMethod.ADDRESS,
             SortMethod.STATE.getName(), SortMethod.STATE

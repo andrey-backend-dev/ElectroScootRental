@@ -6,6 +6,7 @@ import com.example.electroscoot.dao.UserRepository;
 import com.example.electroscoot.dto.*;
 import com.example.electroscoot.entities.Role;
 import com.example.electroscoot.entities.User;
+import com.example.electroscoot.services.interfaces.IAuthenticationService;
 import com.example.electroscoot.services.interfaces.IUserService;
 import org.junit.Assert;
 import org.junit.Before;
@@ -37,6 +38,9 @@ public class UserServiceIntegrationTests {
 
     @MockBean
     private UserRepository userRepository;
+
+    @MockBean
+    private IAuthenticationService authenticationService;
 
     @MockBean
     private RoleRepository roleRepository;
@@ -97,7 +101,7 @@ public class UserServiceIntegrationTests {
 
         UserDTO expectedUserDTO = new UserDTO(user);
 
-        AuthenticationDTO resultUserDTO = userService.register(registrationDTO);
+        AuthenticationDTO resultUserDTO = authenticationService.register(registrationDTO);
 
         Assert.assertEquals(expectedUserDTO, resultUserDTO);
     }

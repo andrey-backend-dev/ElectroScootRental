@@ -2,6 +2,7 @@ package com.example.electroscoot.filters;
 
 import com.example.electroscoot.exceptions.BlacklistedJwtException;
 import com.example.electroscoot.services.JwtService;
+import com.example.electroscoot.services.interfaces.IJwtService;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.MalformedJwtException;
@@ -14,6 +15,7 @@ import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.access.AccessDeniedException;
+import org.springframework.security.authorization.AuthorizationManager;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.filter.OncePerRequestFilter;
@@ -25,7 +27,7 @@ public class JwtFilter extends OncePerRequestFilter {
     @Autowired
     private Logger logger;
     @Autowired
-    private JwtService jwtService;
+    private IJwtService jwtService;
     @Value("${jwt.url.ignore}")
     private List<String> urlsToIgnore;
 

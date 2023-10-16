@@ -18,20 +18,5 @@ public class UserDTO {
     private LocalDateTime registeredSince;
     private LocalDateTime subscriptionTill;
     private UserStatus status;
-    private float balance;
-    private Integer scooterId;
-
-    public UserDTO(User user) {
-        this.username = user.getUsername();
-        this.phone = user.getPhone();
-        this.firstname = user.getFirstname();
-        this.secondname = user.getSecondname();
-        this.email = user.getEmail();
-        this.registeredSince = user.getRegisteredSince();
-        this.subscriptionTill = user.getSubscriptionTill();
-        this.status = user.getStatus();
-        this.balance = user.getMoney();
-        if (user.getScooter() != null)
-            this.scooterId = user.getScooter().getId();
-    }
+    private float money;
 }

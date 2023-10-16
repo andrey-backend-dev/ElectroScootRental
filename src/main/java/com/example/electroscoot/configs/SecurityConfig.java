@@ -35,7 +35,7 @@ public class SecurityConfig {
                 .cors(AbstractHttpConfigurer::disable)
                 .formLogin(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(requests -> requests
-                                .requestMatchers("/users/register", "/users/login").permitAll()
+                                .requestMatchers("/authentication/register", "/authentication/login").permitAll()
                                 .requestMatchers("/admin/**").hasRole("ADMIN")
                                 .anyRequest().authenticated())
                 .sessionManagement((sessionManagement) ->

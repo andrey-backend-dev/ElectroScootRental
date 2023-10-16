@@ -6,10 +6,10 @@ import com.example.electroscoot.utils.enums.OrderEnum;
 import com.example.electroscoot.utils.enums.ScooterStateEnum;
 import com.example.electroscoot.utils.enums.SortMethod;
 import com.example.electroscoot.utils.enums.UserStatus;
-import com.example.electroscoot.utils.maps.OrderMap;
-import com.example.electroscoot.utils.maps.ScooterStateMap;
-import com.example.electroscoot.utils.maps.SortMap;
-import com.example.electroscoot.utils.maps.UserStatusMap;
+import com.example.electroscoot.utils.mappers.OrderEnumMapper;
+import com.example.electroscoot.utils.mappers.ScooterStateEnumMapper;
+import com.example.electroscoot.utils.mappers.SortEnumMapper;
+import com.example.electroscoot.utils.mappers.UserStatusEnumMapper;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -63,6 +63,12 @@ public class AdminController {
 
 //    users
 
+    @PostMapping(value = "/users/create", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public boolean createUser(@RequestBody RegistrationDTO registrationDTO) {
+        logger.info("The <createUser> method is called from Admin Controller.");
+        return userService.create(registrationDTO) != null;
+    }
+
     @GetMapping(value = "/users", produces = MediaType.APPLICATION_JSON_VALUE)
     public List<UserDTO> getUserList() {
         logger.info("The <getUserList> method is called from Admin Controller.");
@@ -103,7 +109,7 @@ public class AdminController {
     public UserDTO changeUserStatusByUsername(@PathVariable("username") String username,
                                               @RequestParam("status") String status) {
         logger.info("The <changeUserStatusByUsername> method is called from Admin Controller.");
-        UserStatus userStatus = UserStatusMap.getStatusByName(status);
+        UserStatus userStatus = UserStatusEnumMapper.getStatusByName(status);
         return userService.changeUserStatusByUsername(username, userStatus);
     }
 
@@ -166,15 +172,15 @@ public class AdminController {
                                     @RequestParam(value = "state-filter", required = false) String state) {
         logger.info("The <getScooterList> method is called from Admin Controller. " +
                 "Sort: " + sortMethod + ", ordering: " + ordering + ", state-filter: " + state);
-        SortMethod sort = sortMethod == null || SortMap.getSortByName(sortMethod) == SortMethod.NULL
+        SortMethod sort = sortMethod == null || SortEnumMapper.getSortByName(sortMethod) == SortMethod.NULL
                 ? SortMethod.NULL
-                : SortMap.getSortByName(sortMethod);
-        OrderEnum order = ordering == null || OrderMap.getOrderingByName(ordering) == OrderEnum.NULL
+                : SortEnumMapper.getSortByName(sortMethod);
+        OrderEnum order = ordering == null || OrderEnumMapper.getOrderingByName(ordering) == OrderEnum.NULL
                 ? OrderEnum.NULL
-                : OrderMap.getOrderingByName(ordering);
-        ScooterStateEnum scooterState = state == null || ScooterStateMap.getScooterStateByName(state) == ScooterStateEnum.NULL
+                : OrderEnumMapper.getOrderingByName(ordering);
+        ScooterStateEnum scooterState = state == null || ScooterStateEnumMapper.getScooterStateByName(state) == ScooterStateEnum.NULL
                 ? ScooterStateEnum.NULL
-                : ScooterStateMap.getScooterStateByName(state);
+                : ScooterStateEnumMapper.getScooterStateByName(state);
         return scooterService.getList(sort, order, scooterState);
     }
 
