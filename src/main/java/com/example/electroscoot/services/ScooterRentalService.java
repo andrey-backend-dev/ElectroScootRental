@@ -63,7 +63,7 @@ public class ScooterRentalService implements IScooterRentalService {
 
     @Override
     @Transactional(readOnly = true)
-    public List<ScooterRentalDTO> getList(Boolean passed) {
+    public List<ScooterRentalDTO> findAll(Boolean passed) {
         if (passed == null)
             return mapper.scooterRentalToScooterRentalDto(scooterRentalRepository.findAll());
         else if (passed)

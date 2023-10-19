@@ -45,9 +45,9 @@ public class AdminController {
     }
 
     @GetMapping(value = "/roles/", produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<RoleDTO> getRoleList() {
+    public List<RoleDTO> findAllRoles() {
         logger.info("The <getRoleList> method is called from Admin Controller.");
-        return roleService.getList();
+        return roleService.findAll();
     }
 
     @GetMapping(value = "/roles/exists")
@@ -65,15 +65,15 @@ public class AdminController {
     }
 
     @GetMapping(value = "/users", produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<UserDTO> getUserList() {
+    public List<UserDTO> findAllUsers() {
         logger.info("The <getUserList> method is called from Admin Controller.");
-        return userService.getList();
+        return userService.findAll();
     }
 
     @GetMapping(value = "/users/{username}/roles", produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<RoleDTO> getRolesByUsername(@PathVariable("username") String username) {
+    public List<RoleDTO> findRolesByUsername(@PathVariable("username") String username) {
         logger.info("The <getRolesByUsername> method is called from Admin Controller.");
-        return userService.getRolesByUsername(username);
+        return userService.findRolesByUsername(username);
     }
 
     @PatchMapping(value = "/users/{username}/roles/add", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
@@ -97,22 +97,22 @@ public class AdminController {
     @GetMapping(value = "/users/{username}/rent-history", produces = MediaType.APPLICATION_JSON_VALUE)
     public List<ScooterRentalDTO> getRentHistoryByUsername(@PathVariable("username") String username) {
         logger.info("The <getRentHistoryByUsername> method is called from Admin Controller.");
-        return userService.getRentHistoryByUsername(username);
+        return userService.findRentHistoryByUsername(username);
     }
 
     @PatchMapping(value = "/users/{username}/change-status", produces = MediaType.APPLICATION_JSON_VALUE)
-    public UserDTO changeUserStatusByUsername(@PathVariable("username") String username,
+    public UserDTO updateUserStatusByUsername(@PathVariable("username") String username,
                                               @RequestParam("status") String status) {
         logger.info("The <changeUserStatusByUsername> method is called from Admin Controller.");
         UserStatus userStatus = UserStatusEnumMapper.getStatusByName(status);
-        return userService.changeUserStatusByUsername(username, userStatus);
+        return userService.updateUserStatusByUsername(username, userStatus);
     }
 
 //    scooter models
 @GetMapping(value = "/", produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<ScooterModelDTO> getScooterModelList() {
+    public List<ScooterModelDTO> findAllScooterModels() {
         logger.info("The <getScooterModelList> method is called from Admin Controller.");
-        return scooterModelService.getList();
+        return scooterModelService.findAll();
     }
 
     @PostMapping(value = "/scooter-models/create", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
@@ -136,7 +136,7 @@ public class AdminController {
     @GetMapping(value = "/scooter-models/{name}/scooters", produces = MediaType.APPLICATION_JSON_VALUE)
     public List<ScooterDTO> getScootersByScooterModelName(@PathVariable("name") String name) {
         logger.info("The <getScootersByScooterModelName> method is called from Admin Controller.");
-        return scooterModelService.getScootersByName(name);
+        return scooterModelService.findScootersByName(name);
     }
 
 //    rental-places
@@ -162,7 +162,7 @@ public class AdminController {
     //    scooters
 
     @GetMapping(value = "/scooters/", produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<ScooterDTO> getScooterList(@RequestParam(value = "sort", required = false) String sortMethod,
+    public List<ScooterDTO> findAllScooters(@RequestParam(value = "sort", required = false) String sortMethod,
                                     @RequestParam(value = "ordering", required = false) String ordering,
                                     @RequestParam(value = "state-filter", required = false) String state) {
         logger.info("The <getScooterList> method is called from Admin Controller. " +
@@ -176,7 +176,7 @@ public class AdminController {
         ScooterStateEnum scooterState = state == null || ScooterStateEnumMapper.getScooterStateByName(state) == ScooterStateEnum.NULL
                 ? ScooterStateEnum.NULL
                 : ScooterStateEnumMapper.getScooterStateByName(state);
-        return scooterService.getList(sort, order, scooterState);
+        return scooterService.findAll(sort, order, scooterState);
     }
 
     @PostMapping(value = "/scooters/create", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
@@ -200,9 +200,9 @@ public class AdminController {
 //    scooter rentals
 
     @GetMapping(value = "/rentals/", produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<ScooterRentalDTO> getScooterRentalList(@RequestParam(value = "passed-filter", required = false) Boolean passed) {
+    public List<ScooterRentalDTO> findAllScooterRentals(@RequestParam(value = "passed-filter", required = false) Boolean passed) {
         logger.info("The <getScooterRentalList> method is called from Admin Controller. Passed filter: " + passed);
-        return scooterRentalService.getList(passed);
+        return scooterRentalService.findAll(passed);
     }
 
     @GetMapping(value = "/rentals/{id}", produces = MediaType.APPLICATION_JSON_VALUE)

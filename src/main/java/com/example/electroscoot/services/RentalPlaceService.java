@@ -51,7 +51,7 @@ public class RentalPlaceService implements IRentalPlaceService {
 
     @Override
     @Transactional(readOnly = true)
-    public List<RentalPlaceDTO> getList(@NotNull(message = "Sort method is mandatory.") SortMethod sortMethod,
+    public List<RentalPlaceDTO> findAll(@NotNull(message = "Sort method is mandatory.") SortMethod sortMethod,
                                         @NotNull(message = "Ordering is mandatory.") OrderEnum ordering, String city) {
         if (sortMethod != SortMethod.NULL && ordering == OrderEnum.NULL) {
             ordering = OrderEnum.ASC;
@@ -138,7 +138,7 @@ public class RentalPlaceService implements IRentalPlaceService {
 
     @Override
     @Transactional(readOnly = true)
-    public List<ScooterDTO> getScootersByName(@NotBlank(message = "Name is mandatory.") String name) {
+    public List<ScooterDTO> findScootersByName(@NotBlank(message = "Name is mandatory.") String name) {
         RentalPlace rentalPlace = rentalPlaceRepository.findByName(name).orElseThrow(() -> {
             return new IllegalArgumentException("The rental place with name " + name + " does not exist.");
         });

@@ -15,16 +15,16 @@ public interface IUserService {
     UserDTO findByUsername(@NotBlank(message = "Username is mandatory.") String username);
     UserDTO updateByUsername(@NotBlank(message = "Username is mandatory.") String username, UpdateUserDTO updateData);
     UpdateUserResponseDTO updateByPrincipal(@NotBlank(message = "Username is mandatory.") String username, UpdateUserDTO updateData);
-    List<UserDTO> getList();
+    List<UserDTO> findAll();
     boolean deleteByUsername(@NotBlank(message = "Username is mandatory.") String username);
-    List<RoleDTO> getRolesByUsername(@NotBlank(message = "Username is mandatory.") String username);
+    List<RoleDTO> findRolesByUsername(@NotBlank(message = "Username is mandatory.") String username);
     List<RoleDTO> addRoleByUsername(@NotBlank(message = "Username is mandatory.") String username,
                               @Valid RoleNameDTO roleNameDTO);
     List<RoleDTO> removeRoleByUsername(@NotBlank(message = "Username is mandatory.") String username,
                                        @Valid RoleNameDTO roleNameDTO);
     UserDTO addMoneyByUsername(@NotBlank(message = "Username is mandatory.") String username,
                                @Valid MoneyDTO moneyDTO);
-    List<ScooterRentalDTO> getRentHistoryByUsername(@NotBlank(message = "Username is mandatory.") String username);
+    List<ScooterRentalDTO> findRentHistoryByUsername(@NotBlank(message = "Username is mandatory.") String username);
     UserDTO buySubscriptionByUsername(@NotBlank(message = "Username is mandatory.") String username);
-    UserDTO changeUserStatusByUsername(@NotBlank(message = "Username is mandatory.") String username, UserStatus status);
+    UserDTO updateUserStatusByUsername(@NotBlank(message = "Username is mandatory.") String username, UserStatus status);
 }

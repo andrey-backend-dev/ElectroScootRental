@@ -79,7 +79,7 @@ public class UserService implements IUserService {
 
     @Override
     @Transactional(readOnly = true)
-    public List<UserDTO> getList() {
+    public List<UserDTO> findAll() {
         return userMapper.userToUserDto(userRepository.findAll());
     }
 
@@ -139,7 +139,7 @@ public class UserService implements IUserService {
 
     @Override
     @Transactional(readOnly = true)
-    public List<RoleDTO> getRolesByUsername(@NotBlank(message = "Username is mandatory.") String username) {
+    public List<RoleDTO> findRolesByUsername(@NotBlank(message = "Username is mandatory.") String username) {
         User user = userRepository.findByUsername(username).orElseThrow(() -> {
             return new IllegalArgumentException("The user with username " + username + " does not exist.");
         });
@@ -206,7 +206,7 @@ public class UserService implements IUserService {
 
     @Override
     @Transactional(readOnly = true)
-    public List<ScooterRentalDTO> getRentHistoryByUsername(@NotBlank(message = "Username is mandatory.") String username) {
+    public List<ScooterRentalDTO> findRentHistoryByUsername(@NotBlank(message = "Username is mandatory.") String username) {
         User user = userRepository.findByUsername(username).orElseThrow(() -> {
             return new IllegalArgumentException("The user with username " + username + " does not exist.");
         });
@@ -238,7 +238,7 @@ public class UserService implements IUserService {
 
     @Override
     @Transactional
-    public UserDTO changeUserStatusByUsername(@NotBlank(message = "Username is mandatory.") String username, UserStatus status) {
+    public UserDTO updateUserStatusByUsername(@NotBlank(message = "Username is mandatory.") String username, UserStatus status) {
         User user = userRepository.findByUsername(username).orElseThrow(() -> {
             return new IllegalArgumentException("The user with username " + username + " does not exist.");
         });

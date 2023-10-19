@@ -45,7 +45,7 @@ public class ScooterService implements IScooterService {
 
     @Override
     @Transactional(readOnly = true)
-    public List<ScooterDTO> getList(@NotNull(message = "Sort method is mandatory.") SortMethod sortMethod,
+    public List<ScooterDTO> findAll(@NotNull(message = "Sort method is mandatory.") SortMethod sortMethod,
                                     @NotNull(message = "Ordering is mandatory.") OrderEnum ordering,
                                     @NotNull(message = "Scooter-filter is mandatory.") ScooterStateEnum state) {
         if (sortMethod != SortMethod.NULL && ordering == OrderEnum.NULL) {

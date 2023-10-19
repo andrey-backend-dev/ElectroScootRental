@@ -39,7 +39,7 @@ public class RentalPlaceController {
     }
 
     @GetMapping(value = "/", produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<RentalPlaceDTO> getList(@RequestParam(value = "sort", required = false) String sortMethod,
+    public List<RentalPlaceDTO> findAll(@RequestParam(value = "sort", required = false) String sortMethod,
                                         @RequestParam(value = "ordering", required = false) String ordering,
                                         @RequestParam(value = "city", required = false) String city) {
         logger.info("The <getList> method is called from Rental Place Controller. " +
@@ -50,12 +50,12 @@ public class RentalPlaceController {
         OrderEnum order = ordering == null || OrderEnumMapper.getOrderingByName(ordering) == OrderEnum.NULL
                 ? OrderEnum.NULL
                 : OrderEnumMapper.getOrderingByName(ordering);
-        return rentalPlaceService.getList(sort, order, city);
+        return rentalPlaceService.findAll(sort, order, city);
     }
 
     @GetMapping(value = "/{name}/scooters", produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<ScooterDTO> getScootersByName(@PathVariable("name") String name) {
+    public List<ScooterDTO> findScootersByName(@PathVariable("name") String name) {
         logger.info("The <getScootersByName> method is called from Rental Place Controller.");
-        return rentalPlaceService.getScootersByName(name);
+        return rentalPlaceService.findScootersByName(name);
     }
 }

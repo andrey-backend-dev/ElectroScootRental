@@ -48,7 +48,7 @@ public class ScooterModelService implements IScooterModelService {
 
     @Override
     @Transactional(readOnly = true)
-    public List<ScooterModelDTO> getList() {
+    public List<ScooterModelDTO> findAll() {
         return scooterModelMapper.scooterModelToScooterModelDto(scooterModelRepository.findAll());
     }
 
@@ -106,7 +106,7 @@ public class ScooterModelService implements IScooterModelService {
 
     @Override
     @Transactional(readOnly = true)
-    public List<ScooterDTO> getScootersByName(@NotBlank(message = "Name is mandatory.") String name) {
+    public List<ScooterDTO> findScootersByName(@NotBlank(message = "Name is mandatory.") String name) {
         ScooterModel scooterModel = scooterModelRepository.findByName(name).orElseThrow(() -> {
             return new IllegalArgumentException("The scooter model with name " + name + " does not exist.");
         });

@@ -13,9 +13,9 @@ import java.util.List;
 public interface IScooterModelService {
     ScooterModelDTO findById(@Positive(message = "Id must be more than zero.") int id);
     ScooterModelDTO findByName(@NotBlank(message = "Name is mandatory.") String name);
-    List<ScooterModelDTO> getList();
+    List<ScooterModelDTO> findAll();
     ScooterModelDTO create(@Valid CreateScooterModelDTO createData);
     ScooterModelDTO updateByName(@NotBlank(message = "Name is mandatory.") String name, UpdateScooterModelDTO updateData);
     boolean deleteByName(@NotBlank(message = "Name is mandatory.") String name);
-    List<ScooterDTO> getScootersByName(@NotBlank(message = "Name is mandatory.") String name);
+    List<ScooterDTO> findScootersByName(@NotBlank(message = "Name is mandatory.") String name);
 }

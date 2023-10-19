@@ -43,7 +43,7 @@ public class RoleService implements IRoleService {
 
     @Override
     @Transactional(readOnly = true)
-    public List<RoleDTO> getList() {
+    public List<RoleDTO> findAll() {
         return mapper.roleToRoleDto(roleRepository.findAll());
     }
 

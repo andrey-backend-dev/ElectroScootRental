@@ -31,5 +31,5 @@ public interface IScooterRentalService {
     ScooterRentalDTO closeRentalByPrincipal(@NotBlank(message = "Username is mandatory.") String username,
                                             @NotBlank(message = "Rental place name is mandatory.") String rentalPlaceName);
 
-    List<ScooterRentalDTO> getList(Boolean passed);
+    List<ScooterRentalDTO> findAll(Boolean passed);
 }

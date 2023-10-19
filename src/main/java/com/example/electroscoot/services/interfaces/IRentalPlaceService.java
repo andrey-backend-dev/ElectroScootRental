@@ -16,9 +16,9 @@ import java.util.List;
 public interface IRentalPlaceService {
     RentalPlaceDTO findById(@Positive(message = "Id must be more than zero.") int id);
     RentalPlaceDTO findByName(@NotBlank(message = "Name is mandatory.") String name);
-    List<RentalPlaceDTO> getList(@NotNull(message = "Sort method is mandatory.") SortMethod sortMethod, @NotNull(message = "Ordering is mandatory.") OrderEnum ordering, String city);
+    List<RentalPlaceDTO> findAll(@NotNull(message = "Sort method is mandatory.") SortMethod sortMethod, @NotNull(message = "Ordering is mandatory.") OrderEnum ordering, String city);
     RentalPlaceDTO create(@Valid CreateRentalPlaceDTO createData);
     RentalPlaceDTO updateByName (@NotBlank(message = "Name is mandatory.") String name, UpdateRentalPlaceDTO updateData);
     boolean deleteByName(@NotBlank(message = "Name is mandatory.") String name);
-    List<ScooterDTO> getScootersByName(@NotBlank(message = "Name is mandatory.") String name);
+    List<ScooterDTO> findScootersByName(@NotBlank(message = "Name is mandatory.") String name);
 }

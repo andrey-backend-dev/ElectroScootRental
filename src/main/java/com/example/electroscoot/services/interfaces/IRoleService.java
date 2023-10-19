@@ -9,6 +9,6 @@ import java.util.List;
 public interface IRoleService {
     RoleDTO create(@Valid RoleDTO roleDTO);
     boolean deleteByName(String name);
-    List<RoleDTO> getList();
+    List<RoleDTO> findAll();
     boolean doesExistByName(@NotBlank(message = "Name is mandatory.") String name);
 }

@@ -63,7 +63,7 @@ public class UserController {
     @GetMapping(value = "/my-account/roles", produces = MediaType.APPLICATION_JSON_VALUE)
     public List<RoleDTO> getRolesByPrincipal(Principal principal) {
         logger.info("The <getRolesByPrincipal> method is called from User Controller.");
-        return userService.getRolesByUsername(principal.getName());
+        return userService.findRolesByUsername(principal.getName());
     }
 
     @PatchMapping(value = "/my-account/add-money", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
@@ -75,7 +75,7 @@ public class UserController {
     @GetMapping(value = "/my-account/rent-history", produces = MediaType.APPLICATION_JSON_VALUE)
     public List<ScooterRentalDTO> getRentHistoryByPrincipal(Principal principal) {
         logger.info("The <getRentHistoryByPrincipal> method is called from User Controller.");
-        return userService.getRentHistoryByUsername(principal.getName());
+        return userService.findRentHistoryByUsername(principal.getName());
     }
 
     @PatchMapping(value = "/my-account/buy-subscription", produces = MediaType.APPLICATION_JSON_VALUE)
