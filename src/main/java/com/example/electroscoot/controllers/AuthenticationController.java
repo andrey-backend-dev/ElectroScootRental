@@ -28,13 +28,11 @@ import java.time.Duration;
 @RequestMapping("/authentication")
 public class AuthenticationController {
     private final IAuthenticationService authenticationService;
-    private final Logger logger;
     @Value("${jwt.exp.hours}")
     private Integer jwtExpHours;
 
     @PostMapping(value = "/register", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<UserDTO> register(@RequestBody RegistrationDTO registrationData) {
-        logger.info("The <register> method is called from Authentication Controller.");
         AuthenticationDTO authenticationDTO = authenticationService.register(registrationData);
         ResponseCookie jwtCookie = formJwtCookie(authenticationDTO.getJwt());
         return ResponseEntity.ok()
@@ -44,7 +42,6 @@ public class AuthenticationController {
 
     @PostMapping(value = "/login", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<UserDTO> login(@RequestBody LoginDTO loginData) {
-        logger.info("The <login> method is called from Authentication Controller.");
         AuthenticationDTO authenticationDTO = authenticationService.login(loginData);
         ResponseCookie jwtCookie = formJwtCookie(authenticationDTO.getJwt());
         return ResponseEntity.ok()
@@ -54,7 +51,6 @@ public class AuthenticationController {
 
     @GetMapping(value = "/logout")
     public ResponseEntity<Object> logout() {
-        logger.info("The <logout> method is called from Authentication Controller.");
         ResponseCookie jwtCookie = formJwtCookie("");
         return ResponseEntity.ok()
                 .header(HttpHeaders.SET_COOKIE, jwtCookie.toString())

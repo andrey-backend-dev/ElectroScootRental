@@ -28,7 +28,6 @@ import java.util.List;
 @RequiredArgsConstructor
 @Service
 public class RentalPlaceService implements IRentalPlaceService {
-    private final ScooterRepository scooterRepository;
     private final RentalPlaceRepository rentalPlaceRepository;
     private final RentalPlaceMapper rentalPlaceMapper;
     private final ScooterMapper scooterMapper;

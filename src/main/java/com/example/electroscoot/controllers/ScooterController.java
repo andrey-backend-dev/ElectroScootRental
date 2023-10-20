@@ -14,11 +14,9 @@ import org.slf4j.Logger;
 @RequestMapping("/scooters")
 public class ScooterController {
     private final IScooterService scooterService;
-    private final Logger logger;
 
     @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ScooterDTO findById(@PathVariable("id") int id) {
-        logger.info("The <findById> method is called from Scooter Controller.");
         return scooterService.findById(id);
     }
 }

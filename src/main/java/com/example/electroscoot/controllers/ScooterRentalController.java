@@ -19,17 +19,14 @@ import java.util.List;
 @RequestMapping("/rentals")
 public class ScooterRentalController {
     private final IScooterRentalService scooterRentalService;
-    private final Logger logger;
 
     @PostMapping(value = "/rent", produces = MediaType.APPLICATION_JSON_VALUE)
     public ScooterRentalDTO create(Principal principal, @RequestParam("scooter") int scooterId) {
-        logger.info("The <create> method is called from Scooter Rental Controller.");
         return scooterRentalService.create(principal.getName(), scooterId);
     }
 
     @PatchMapping(value = "/rent/close", produces = MediaType.APPLICATION_JSON_VALUE)
     public ScooterRentalDTO closeRentalById(Principal principal, @RequestParam("rental-place") String rentalPlace) {
-        logger.info("The <closeRentalById> method is called from Scooter Rental Controller.");
         return scooterRentalService.closeRentalByPrincipal(principal.getName(), rentalPlace);
     }
 }

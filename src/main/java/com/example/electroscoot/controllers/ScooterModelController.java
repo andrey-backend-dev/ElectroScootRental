@@ -25,17 +25,14 @@ import org.slf4j.Logger;
 @RequestMapping("/scooter-models")
 public class ScooterModelController {
     private final IScooterModelService scooterModelService;
-    private final Logger logger;
 
     @GetMapping(value = "/id/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ScooterModelDTO findById(@PathVariable("id") int id) {
-        logger.info("The <findById> method is called from Scooter Model Controller.");
         return scooterModelService.findById(id);
     }
 
     @GetMapping(value = "/{name}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ScooterModelDTO findByName(@PathVariable("name") String name) {
-        logger.info("The <findByName> method is called from Scooter Model Controller.");
         return scooterModelService.findByName(name);
     }
 }

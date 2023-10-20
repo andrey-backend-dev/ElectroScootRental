@@ -24,17 +24,14 @@ import org.slf4j.Logger;
 @RequestMapping("/rental-places")
 public class RentalPlaceController {
     private final IRentalPlaceService rentalPlaceService;
-    private final Logger logger;
 
     @GetMapping(value = "/id/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public RentalPlaceDTO findById(@PathVariable("id") int id) {
-        logger.info("The <findById> method is called from Rental Place Controller.");
         return rentalPlaceService.findById(id);
     }
 
     @GetMapping(value = "/{name}", produces = MediaType.APPLICATION_JSON_VALUE)
     public RentalPlaceDTO findByName(@PathVariable("name") String name) {
-        logger.info("The <findByName> method is called from Rental Place Controller.");
         return rentalPlaceService.findByName(name);
     }
 
@@ -42,8 +39,6 @@ public class RentalPlaceController {
     public List<RentalPlaceDTO> findAll(@RequestParam(value = "sort", required = false) String sortMethod,
                                         @RequestParam(value = "ordering", required = false) String ordering,
                                         @RequestParam(value = "city", required = false) String city) {
-        logger.info("The <getList> method is called from Rental Place Controller. " +
-                "Sort: " + sortMethod + ", ordering: " + ordering + ", byCity: " + city);
         SortMethod sort = sortMethod == null || SortEnumMapper.getSortByName(sortMethod) == SortMethod.NULL
                 ? SortMethod.NULL
                 : SortEnumMapper.getSortByName(sortMethod);
@@ -55,7 +50,6 @@ public class RentalPlaceController {
 
     @GetMapping(value = "/{name}/scooters", produces = MediaType.APPLICATION_JSON_VALUE)
     public List<ScooterDTO> findScootersByName(@PathVariable("name") String name) {
-        logger.info("The <getScootersByName> method is called from Rental Place Controller.");
         return rentalPlaceService.findScootersByName(name);
     }
 }
