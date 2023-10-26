@@ -67,17 +67,11 @@ public class CustomControllerAdvice {
 
     @ExceptionHandler(DataIntegrityViolationException.class)
     public ResponseEntity<Object> handleUniqueConstraintException(DataIntegrityViolationException exception) {
-        String customMsg = "The field <" +
-                exception.getMessage().split("'")[3].split("\\.")[1].split("_")[0] +
-                "> is unique. The value you've wrote (" +
-                exception.getMessage().split("'")[1] +
-                ") is already reserved. Try another one.";
-
-        logger.error("SQLIntegrityConstraintViolationException occurred (unique constraint).\nException msg: " + customMsg);
+        logger.error("SQLIntegrityConstraintViolationException occurred (unique constraint).\nException msg: " + exception.getMessage());
 
         HttpStatus status = HttpStatus.BAD_REQUEST;
 
-        return new ResponseEntity<>(customMsg, status);
+        return new ResponseEntity<>(exception.getMessage(), status);
     }
 
     @ExceptionHandler({ConstraintViolationException.class, MethodArgumentNotValidException.class})

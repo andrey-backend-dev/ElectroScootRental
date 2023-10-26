@@ -106,7 +106,13 @@ public class JwtService implements IJwtService {
         return Keys.hmacShaKeyFor(decodedBytes);
     }
 
-    private Collection<? extends GrantedAuthority> mapRolesToAuthorities(Set<Role> roles) {
-        return roles.stream().map((role -> new SimpleGrantedAuthority(role.getName()))).collect(Collectors.toList());
+    private Set<GrantedAuthority> mapRolesToAuthorities(Set<Role> roles) {
+        Set<GrantedAuthority> result = new HashSet<>();
+
+        for (Role role : roles) {
+            result.addAll(role.getAuthorities().stream().map(authority -> new SimpleGrantedAuthority(authority.getName())).collect(Collectors.toSet()));
+        }
+
+        return result;
     }
 }

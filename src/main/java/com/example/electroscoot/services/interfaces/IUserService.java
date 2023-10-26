@@ -8,6 +8,7 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Positive;
 
 import java.util.List;
+import java.util.Set;
 
 public interface IUserService {
     User create(@Valid RegistrationDTO registrationData);
@@ -17,10 +18,10 @@ public interface IUserService {
     UpdateUserResponseDTO updateByPrincipal(@NotBlank(message = "Username is mandatory.") String username, UpdateUserDTO updateData);
     List<UserDTO> findAll();
     boolean deleteByUsername(@NotBlank(message = "Username is mandatory.") String username);
-    List<RoleDTO> findRolesByUsername(@NotBlank(message = "Username is mandatory.") String username);
-    List<RoleDTO> addRoleByUsername(@NotBlank(message = "Username is mandatory.") String username,
+    Set<RoleDTO> findRolesByUsername(@NotBlank(message = "Username is mandatory.") String username);
+    Set<RoleDTO> addRoleByUsername(@NotBlank(message = "Username is mandatory.") String username,
                               @Valid RoleNameDTO roleNameDTO);
-    List<RoleDTO> removeRoleByUsername(@NotBlank(message = "Username is mandatory.") String username,
+    Set<RoleDTO> removeRoleByUsername(@NotBlank(message = "Username is mandatory.") String username,
                                        @Valid RoleNameDTO roleNameDTO);
     UserDTO addMoneyByUsername(@NotBlank(message = "Username is mandatory.") String username,
                                @Valid MoneyDTO moneyDTO);

@@ -1,6 +1,3 @@
--- -----------------------------------------------------
--- Schema electroscootdb
--- -----------------------------------------------------
 DROP SCHEMA IF EXISTS `electroscootdb` ;
 
 -- -----------------------------------------------------
@@ -10,9 +7,9 @@ CREATE SCHEMA IF NOT EXISTS `electroscootdb` DEFAULT CHARACTER SET utf8 ;
 USE `electroscootdb` ;
 
 -- -----------------------------------------------------
--- Table `electroscootdb`.`rentalplace`
+-- Table `electroscootdb`.`RentalPlace`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `electroscootdb`.`rentalplace` (
+CREATE TABLE IF NOT EXISTS `electroscootdb`.`RentalPlace` (
   `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(45) NOT NULL,
   `rating` TINYINT UNSIGNED NOT NULL DEFAULT 0,
@@ -26,9 +23,9 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `electroscootdb`.`scootermodel`
+-- Table `electroscootdb`.`ScooterModel`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `electroscootdb`.`scootermodel` (
+CREATE TABLE IF NOT EXISTS `electroscootdb`.`ScooterModel` (
   `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(45) NOT NULL,
   `price_per_time` FLOAT NOT NULL,
@@ -40,33 +37,33 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `electroscootdb`.`scooter`
+-- Table `electroscootdb`.`Scooter`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `electroscootdb`.`scooter` (
+CREATE TABLE IF NOT EXISTS `electroscootdb`.`Scooter` (
   `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
   `rental_place_name` VARCHAR(45) NULL,
   `model` VARCHAR(45) NOT NULL,
   `state` ENUM("RENTED", "OK", "BROKEN") NOT NULL DEFAULT 'OK',
   PRIMARY KEY (`id`),
-  INDEX `rentalplaceId_idx` (`rental_place_name` ASC) VISIBLE,
+  INDEX `RentalPlaceId_idx` (`rental_place_name` ASC) VISIBLE,
   INDEX `ModelName_idx` (`model` ASC) VISIBLE,
-  CONSTRAINT `rentalplaceId`
+  CONSTRAINT `scooter_RentalPlace`
     FOREIGN KEY (`rental_place_name`)
-    REFERENCES `electroscootdb`.`rentalplace` (`name`)
+    REFERENCES `electroscootdb`.`RentalPlace` (`name`)
     ON DELETE SET NULL
     ON UPDATE CASCADE,
-  CONSTRAINT `ModelName`
+  CONSTRAINT `scooter_Model`
     FOREIGN KEY (`model`)
-    REFERENCES `electroscootdb`.`scootermodel` (`name`)
+    REFERENCES `electroscootdb`.`ScooterModel` (`name`)
     ON DELETE CASCADE
     ON UPDATE CASCADE)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `electroscootdb`.`user`
+-- Table `electroscootdb`.`User`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `electroscootdb`.`user` (
+CREATE TABLE IF NOT EXISTS `electroscootdb`.`User` (
   `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
   `username` VARCHAR(20) NOT NULL,
   `password` VARCHAR(100) NOT NULL,
@@ -84,84 +81,117 @@ CREATE TABLE IF NOT EXISTS `electroscootdb`.`user` (
   UNIQUE INDEX `email_UNIQUE` (`email` ASC) VISIBLE,
   UNIQUE INDEX `id_UNIQUE` (`id` ASC) VISIBLE,
   UNIQUE INDEX `phone_UNIQUE` (`phone` ASC) VISIBLE,
-  INDEX `fk_user_scooter1_idx` (`scooter_id` ASC) VISIBLE,
-  CONSTRAINT `fk_user_scooter1`
+  INDEX `fk_User_Scooter1_idx` (`scooter_id` ASC) VISIBLE,
+  CONSTRAINT `user_Scooter`
     FOREIGN KEY (`scooter_id`)
-    REFERENCES `electroscootdb`.`scooter` (`id`)
+    REFERENCES `electroscootdb`.`Scooter` (`id`)
     ON DELETE SET NULL
     ON UPDATE CASCADE)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `electroscootdb`.`role`
+-- Table `electroscootdb`.`Role`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `electroscootdb`.`role` (
-  `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
+CREATE TABLE IF NOT EXISTS `electroscootdb`.`Role` (
   `name` VARCHAR(45) NOT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE INDEX `name_UNIQUE` (`name` ASC) VISIBLE)
+  PRIMARY KEY (`name`))
 ENGINE = InnoDB;
 
 
-CREATE TABLE IF NOT EXISTS `electroscootdb`.`user2role` (
+-- -----------------------------------------------------
+-- Table `electroscootdb`.`User2Role`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `electroscootdb`.`User2Role` (
   `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
-  `role_id` INT UNSIGNED NOT NULL,
+  `role_name` VARCHAR(45) NOT NULL,
   `user_id` INT UNSIGNED NOT NULL,
   PRIMARY KEY (`id`),
-  INDEX `roleID_idx` (`role_id` ASC) VISIBLE,
   UNIQUE INDEX `id_UNIQUE` (`id` ASC) VISIBLE,
-  INDEX `userID_idx` (`user_id` ASC) VISIBLE,
-  CONSTRAINT `roleName`
-    FOREIGN KEY (`role_id`)
-    REFERENCES `electroscootdb`.`role` (`id`)
+  INDEX `UserID_idx` (`user_id` ASC) VISIBLE,
+  INDEX `role_idx` (`role_name` ASC) VISIBLE,
+  CONSTRAINT `user2role_User`
+    FOREIGN KEY (`user_id`)
+    REFERENCES `electroscootdb`.`User` (`id`)
     ON DELETE CASCADE
     ON UPDATE CASCADE,
-  CONSTRAINT `userusername`
-    FOREIGN KEY (`user_id`)
-    REFERENCES `electroscootdb`.`user` (`id`)
+  CONSTRAINT `user2role_Role`
+    FOREIGN KEY (`role_name`)
+    REFERENCES `electroscootdb`.`Role` (`name`)
     ON DELETE CASCADE
     ON UPDATE CASCADE)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `electroscootdb`.`scooterrental`
+-- Table `electroscootdb`.`ScooterRental`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `electroscootdb`.`scooterrental` (
+CREATE TABLE IF NOT EXISTS `electroscootdb`.`ScooterRental` (
   `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
   `scooter_id` INT UNSIGNED NOT NULL,
   `scooter_taken_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `scooter_passed_at` TIMESTAMP NULL,
-  `username` VARCHAR(20) NOT NULL,
+  `user_id` INT UNSIGNED NOT NULL,
   `init_rental_place_name` VARCHAR(45) NULL,
   `final_rental_place_name` VARCHAR(45) NULL,
   `init_price_per_time` FLOAT UNSIGNED NOT NULL,
   `init_discount` TINYINT NOT NULL,
   PRIMARY KEY (`id`),
-  INDEX `scooterId_idx` (`scooter_id` ASC) VISIBLE,
-  INDEX `username_idx` (`username` ASC) VISIBLE,
-  INDEX `rentalplaceAt_idx` (`init_rental_place_name` ASC) VISIBLE,
-  INDEX `rentalplaceFinal_idx` (`final_rental_place_name` ASC) VISIBLE,
+  INDEX `ScooterId_idx` (`scooter_id` ASC) VISIBLE,
+  INDEX `Username_idx` (`user_id` ASC) VISIBLE,
+  INDEX `RentalPlaceAt_idx` (`init_rental_place_name` ASC) VISIBLE,
+  INDEX `RentalPlaceFinal_idx` (`final_rental_place_name` ASC) VISIBLE,
   UNIQUE INDEX `id_UNIQUE` (`id` ASC) VISIBLE,
-  CONSTRAINT `scooterRented`
+  CONSTRAINT `scooterrental_Scooter`
     FOREIGN KEY (`scooter_id`)
-    REFERENCES `electroscootdb`.`scooter` (`id`)
-    ON DELETE CASCADE
+    REFERENCES `electroscootdb`.`Scooter` (`id`)
+    ON DELETE NO ACTION
     ON UPDATE CASCADE,
-  CONSTRAINT `userRented`
-    FOREIGN KEY (`username`)
-    REFERENCES `electroscootdb`.`user` (`username`)
-    ON DELETE CASCADE
+  CONSTRAINT `scooterrental_User`
+    FOREIGN KEY (`user_id`)
+    REFERENCES `electroscootdb`.`User` (`id`)
+    ON DELETE NO ACTION
     ON UPDATE CASCADE,
-  CONSTRAINT `rentalplaceInit`
+  CONSTRAINT `scooterrental_RentalPlaceInit`
     FOREIGN KEY (`init_rental_place_name`)
-    REFERENCES `electroscootdb`.`rentalplace` (`name`)
+    REFERENCES `electroscootdb`.`RentalPlace` (`name`)
     ON DELETE SET NULL
     ON UPDATE CASCADE,
-  CONSTRAINT `rentalplaceFinal`
+  CONSTRAINT `scooterrental_RentalPlaceFinal`
     FOREIGN KEY (`final_rental_place_name`)
-    REFERENCES `electroscootdb`.`rentalplace` (`name`)
+    REFERENCES `electroscootdb`.`RentalPlace` (`name`)
     ON DELETE SET NULL
+    ON UPDATE CASCADE)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `electroscootdb`.`Authority`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `electroscootdb`.`Authority` (
+  `name` VARCHAR(45) NOT NULL,
+  PRIMARY KEY (`name`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `electroscootdb`.`Role2Authority`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `electroscootdb`.`Role2Authority` (
+  `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
+  `authority_name` VARCHAR(45) NOT NULL,
+  `role_name` VARCHAR(45) NOT NULL,
+  PRIMARY KEY (`id`),
+  INDEX `authority_idx` (`authority_name` ASC) VISIBLE,
+  INDEX `role_idx` (`role_name` ASC) VISIBLE,
+  CONSTRAINT `role2authority_Authority`
+    FOREIGN KEY (`authority_name`)
+    REFERENCES `electroscootdb`.`Authority` (`name`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
+  CONSTRAINT `role2authority_Role`
+    FOREIGN KEY (`role_name`)
+    REFERENCES `electroscootdb`.`Role` (`name`)
+    ON DELETE CASCADE
     ON UPDATE CASCADE)
 ENGINE = InnoDB;
