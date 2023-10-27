@@ -6,8 +6,6 @@ import com.example.electroscoot.filters.JwtFilter;
 import com.example.electroscoot.services.CustomUserDetailsService;
 import com.example.electroscoot.services.interfaces.IJwtService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -39,7 +37,23 @@ public class SecurityConfig {
                 .formLogin(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(requests -> requests
                                 .requestMatchers("/authentication/register", "/authentication/login").permitAll()
-                                .requestMatchers("/admin/**").hasRole("ADMIN")
+                                .requestMatchers(HttpMethod.POST, "/users/create").hasAuthority("user_control")
+                                .requestMatchers(HttpMethod.GET, "/users/", "/users/{username}/roles", "/users/{username}/rent-history").hasAuthority("user_control")
+                                .requestMatchers(HttpMethod.PATCH, "/users/{username}/roles/add", "/users/{username}/roles/remove",
+                                        "/users/{username}/add-money", "/users/{username}/change-status").hasAuthority("user_control")
+                                .requestMatchers(HttpMethod.POST, "/roles/create").hasAuthority("role_create")
+                                .requestMatchers(HttpMethod.GET, "/roles/", "/roles/{name}").hasAuthority("role_read")
+                                .requestMatchers(HttpMethod.DELETE, "/roles/{name}").hasAuthority("role_delete")
+                                .requestMatchers(HttpMethod.PATCH, "/roles/{name}/add-authorities", "/roles/{name}/remove-authorities").hasAuthority("role_update") // add methods!
+                                .requestMatchers(HttpMethod.POST, "/scooters/create", "/scooter-models/create").hasAuthority("scooter_create")
+                                .requestMatchers(HttpMethod.GET, "/scooters/", "/scooter-models/", "/scooter-models/{name}/scooters").hasAuthority("scooter_read")
+                                .requestMatchers(HttpMethod.DELETE, "/scooters/{id}", "/scooter-models/{name}").hasAuthority("scooter_delete")
+                                .requestMatchers(HttpMethod.PUT, "/scooters/{id}", "/scooter-models/{name}").hasAuthority("scooter_update")
+                                .requestMatchers(HttpMethod.POST, "/rental-places/create").hasAuthority("rental_place_create")
+                                .requestMatchers(HttpMethod.DELETE, "/rental-places/{name}").hasAuthority("rental_place_delete")
+                                .requestMatchers(HttpMethod.PUT, "/rental-places/{name}").hasAuthority("rental_place_update")
+                                .requestMatchers(HttpMethod.GET, "/rentals/", "/rentals/{id}", "/users/{username}/rent-history").hasAuthority("scooter_rental_read")
+                                .requestMatchers(HttpMethod.PATCH, "/rentals/{id}/close").hasAuthority("scooter_rental_close")
                                 .anyRequest().authenticated())
                 .sessionManagement((sessionManagement) ->
                         sessionManagement.sessionCreationPolicy(SessionCreationPolicy.STATELESS)

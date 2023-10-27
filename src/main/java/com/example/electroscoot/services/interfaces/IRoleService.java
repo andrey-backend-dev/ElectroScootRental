@@ -4,11 +4,15 @@ import com.example.electroscoot.dto.RoleDTO;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 
-import java.util.List;
+import java.util.Set;
 
 public interface IRoleService {
     RoleDTO create(@Valid RoleDTO roleDTO);
-    boolean deleteByName(String name);
-    List<RoleDTO> findAll();
-    boolean doesExistByName(@NotBlank(message = "Name is mandatory.") String name);
+    boolean deleteByName(@NotBlank(message = "Name is mandatory.") String name);
+    RoleDTO addAuthoritiesByName(@NotBlank(message = "Name is mandatory.") String name,
+                                         @NotBlank(message = "Authorities is mandatory.") Set<String> authorities);
+    RoleDTO removeAuthoritiesByName(@NotBlank(message = "Name is mandatory.") String name,
+                                            @NotBlank(message = "Authorities is mandatory.") Set<String> authorities);
+    RoleDTO findRoleByName(@NotBlank(message = "Name is mandatory.") String name);
+    Set<RoleDTO> findAll();
 }

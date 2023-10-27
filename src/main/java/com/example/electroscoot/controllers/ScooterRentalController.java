@@ -1,13 +1,8 @@
 package com.example.electroscoot.controllers;
 
-import com.example.electroscoot.dto.CreateScooterRentalDTO;
-import com.example.electroscoot.dto.RentalPlaceNameDTO;
 import com.example.electroscoot.dto.ScooterRentalDTO;
 import com.example.electroscoot.services.interfaces.IScooterRentalService;
-import com.example.electroscoot.utils.enums.RentalStateEnum;
 import lombok.RequiredArgsConstructor;
-import org.slf4j.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
@@ -28,5 +23,22 @@ public class ScooterRentalController {
     @PatchMapping(value = "/rent/close", produces = MediaType.APPLICATION_JSON_VALUE)
     public ScooterRentalDTO closeRentalById(Principal principal, @RequestParam("rental-place") String rentalPlace) {
         return scooterRentalService.closeRentalByPrincipal(principal.getName(), rentalPlace);
+    }
+
+    // methods below require authorities
+
+    @GetMapping(value = "/", produces = MediaType.APPLICATION_JSON_VALUE)
+    public List<ScooterRentalDTO> findAllScooterRentals(@RequestParam(value = "passed-filter", required = false) Boolean passed) {
+        return scooterRentalService.findAll(passed);
+    }
+
+    @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ScooterRentalDTO findScooterRentalById(@PathVariable("id") int id) {
+        return scooterRentalService.findById(id);
+    }
+
+    @PatchMapping(value = "/{id}/close", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ScooterRentalDTO closeRentalById(@PathVariable("id") int id, @RequestParam("rental-place") String rentalPlace) {
+        return scooterRentalService.closeRentalById(id, rentalPlace);
     }
 }

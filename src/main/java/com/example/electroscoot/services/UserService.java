@@ -139,7 +139,7 @@ public class UserService implements IUserService {
 
     @Override
     @Transactional(readOnly = true)
-    public List<RoleDTO> findRolesByUsername(@NotBlank(message = "Username is mandatory.") String username) {
+    public Set<RoleDTO> findRolesByUsername(@NotBlank(message = "Username is mandatory.") String username) {
         User user = userRepository.findByUsername(username).orElseThrow(() -> {
             return new IllegalArgumentException("The user with username " + username + " does not exist.");
         });
@@ -149,7 +149,7 @@ public class UserService implements IUserService {
 
     @Override
     @Transactional
-    public List<RoleDTO> addRoleByUsername(@NotBlank(message = "Username is mandatory.") String username,
+    public Set<RoleDTO> addRoleByUsername(@NotBlank(message = "Username is mandatory.") String username,
                                            @Valid RoleNameDTO roleNameDTO) {
         User user = userRepository.findByUsername(username).orElseThrow(() -> {
             return new IllegalArgumentException("The user with username " + username + " does not exist.");
@@ -165,14 +165,12 @@ public class UserService implements IUserService {
 
         roles.add(role);
 
-        String newJwt = jwtService.generateJWT(user);
-
-        return roleMapper.roleToRoleDto(user.getRoles());
+        return roleMapper.roleToRoleDto(roles);
     }
 
     @Override
     @Transactional
-    public List<RoleDTO> removeRoleByUsername(@NotBlank(message = "Username is mandatory.") String username,
+    public Set<RoleDTO> removeRoleByUsername(@NotBlank(message = "Username is mandatory.") String username,
                                               @Valid RoleNameDTO roleNameDTO) {
         User user = userRepository.findByUsername(username).orElseThrow(() -> {
             return new IllegalArgumentException("The user with username " + username + " does not exist.");
@@ -188,9 +186,7 @@ public class UserService implements IUserService {
 
         roles.remove(role);
 
-        String newJwt = jwtService.generateJWT(user);
-
-        return roleMapper.roleToRoleDto(user.getRoles());
+        return roleMapper.roleToRoleDto(roles);
     }
 
     @Override
