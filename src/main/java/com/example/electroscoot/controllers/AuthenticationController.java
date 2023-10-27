@@ -28,8 +28,8 @@ import java.time.Duration;
 @RequestMapping("/authentication")
 public class AuthenticationController {
     private final IAuthenticationService authenticationService;
-    @Value("${jwt.exp.hours}")
-    private Integer jwtExpHours;
+    @Value("${jwt.exp.minutes}")
+    private Integer jwtExpMinutes;
 
     @PostMapping(value = "/register", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<UserDTO> register(@RequestBody RegistrationDTO registrationData) {
@@ -59,7 +59,7 @@ public class AuthenticationController {
 
     private ResponseCookie formJwtCookie(String jwt) {
         return ResponseCookie.from("jwt", jwt)
-                .maxAge(jwt.isEmpty() ? 0 : jwtExpHours * 3600L)
+                .maxAge(jwt.isEmpty() ? 0 : jwtExpMinutes * 60L)
                 .path("/")
                 .secure(true)
                 .httpOnly(true)

@@ -30,8 +30,8 @@ public class JwtService implements IJwtService {
     private final Clock clock;
     @Value("${jwt.secret}")
     private String secret;
-    @Value("${jwt.exp.hours}")
-    private int expInHours;
+    @Value("${jwt.exp.minutes}")
+    private int jwtExpMinutes;
 
     @Override
     public String getTokenFromRequest(HttpServletRequest request) {
@@ -51,7 +51,7 @@ public class JwtService implements IJwtService {
                 .setClaims(new HashMap<>(Map.of("authorities", mapRolesToAuthorities(user.getRoles()))))
                 .setSubject(user.getUsername())
                 .setIssuedAt(Date.from(Instant.now(clock)))
-                .setExpiration(Date.from(Instant.now(clock).plusSeconds(expInHours * 3600L)))
+                .setExpiration(Date.from(Instant.now(clock).plusSeconds(jwtExpMinutes * 60L)))
                 .signWith(getSigningKey(), SignatureAlgorithm.HS256)
                 .compact();
     }

@@ -36,7 +36,7 @@ public class SecurityConfig {
                 .cors(AbstractHttpConfigurer::disable)
                 .formLogin(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(requests -> requests
-                                .requestMatchers("/authentication/register", "/authentication/login").permitAll()
+                                .requestMatchers("/authentication/register", "/authentication/login").anonymous()
                                 .requestMatchers(HttpMethod.POST, "/users/create").hasAuthority("user_control")
                                 .requestMatchers(HttpMethod.GET, "/users/", "/users/{username}/roles", "/users/{username}/rent-history").hasAuthority("user_control")
                                 .requestMatchers(HttpMethod.PATCH, "/users/{username}/roles/add", "/users/{username}/roles/remove",

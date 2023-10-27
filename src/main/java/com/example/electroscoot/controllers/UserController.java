@@ -21,8 +21,8 @@ import java.util.Set;
 @RequestMapping("/users")
 public class UserController {
     private final IUserService userService;
-    @Value("${jwt.exp.hours}")
-    private Integer jwtExpHours;
+    @Value("${jwt.exp.minutes}")
+    private Integer jwtExpMinutes;
 
     @GetMapping(value = "/id/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public UserDTO findById(@PathVariable("id") int id) {
@@ -120,7 +120,7 @@ public class UserController {
 
     private ResponseCookie formCookie(String jwt) {
         return ResponseCookie.from("jwt", jwt)
-                .maxAge(jwt.isEmpty() ? 0 : 3600L * jwtExpHours)
+                .maxAge(jwt.isEmpty() ? 0 : jwtExpMinutes * 60L)
                 .path("/")
                 .secure(true)
                 .httpOnly(true)
