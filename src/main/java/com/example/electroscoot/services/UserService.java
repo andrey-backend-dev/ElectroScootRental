@@ -165,9 +165,7 @@ public class UserService implements IUserService {
 
         roles.add(role);
 
-        String newJwt = jwtService.generateJWT(user);
-
-        return roleMapper.roleToRoleDto(user.getRoles());
+        return roleMapper.roleToRoleDto(roles);
     }
 
     @Override
@@ -188,9 +186,7 @@ public class UserService implements IUserService {
 
         roles.remove(role);
 
-        String newJwt = jwtService.generateJWT(user);
-
-        return roleMapper.roleToRoleDto(user.getRoles());
+        return roleMapper.roleToRoleDto(roles);
     }
 
     @Override
